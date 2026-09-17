@@ -755,6 +755,91 @@
   }
 
   /* ===== Right panel: QA ===== */
+  .qa-subheading {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 800;
+    color: var(--muted-dim);
+    margin-bottom: 8px;
+  }
+  .qa-divider {
+    height: 1px;
+    background: var(--line);
+    margin: 16px 0;
+  }
+  .qa-engine-intro {
+    margin: 0 0 10px;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .qa-engine-report {
+    margin-top: 14px;
+  }
+  .qa-engine-score {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--line-strong);
+    background: var(--panel-soft);
+    margin-bottom: 12px;
+    font-size: 13px;
+    font-weight: 800;
+  }
+  .qa-engine-score .num { font-size: 18px; }
+  .qa-engine-category {
+    margin-bottom: 12px;
+  }
+  .qa-engine-category:last-child { margin-bottom: 0; }
+  .qa-engine-category-name {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .qa-engine-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 0;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+  }
+  .qa-engine-category .qa-engine-row:first-of-type { border-top: none; }
+  .qa-engine-symbol {
+    flex-shrink: 0;
+    width: 18px;
+    text-align: center;
+    font-weight: 800;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .qa-engine-symbol.verified { color: var(--good); }
+  .qa-engine-symbol.review { color: var(--warn); }
+  .qa-engine-symbol.conflict { color: var(--bad); }
+  .qa-engine-symbol.na { color: var(--muted-dim); }
+  .qa-engine-row-body { flex: 1; min-width: 0; }
+  .qa-engine-row-label { color: var(--text); line-height: 1.5; }
+  .qa-engine-row-note { color: var(--muted); font-size: 11px; line-height: 1.4; margin-top: 1px; }
+  .qa-engine-review-btn {
+    flex-shrink: 0;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid rgba(79,140,247,0.4);
+    border-radius: 999px;
+    padding: 3px 9px;
+    cursor: pointer;
+    margin-top: 1px;
+  }
+  .qa-engine-review-btn:hover { background: rgba(79,140,247,0.28); }
+
   .qa-summary {
     margin: 0 0 12px;
     padding: 12px;
@@ -983,6 +1068,16 @@
           <div class="wb-panel-title">COI QA Panel</div>
         </div>
         <div class="wb-panel-body">
+          <div class="qa-engine-section">
+            <div class="qa-subheading">Pre-Submission QA Check</div>
+            <p class="qa-engine-intro">Reviews the form as it stands right now &mdash; before you grade it. It only flags things to double-check; it never changes your answers or the final training score.</p>
+            <button class="action primary" id="runQaBtn" type="button">Run COI QA</button>
+            <div id="qaEngineReport" class="qa-engine-report" hidden></div>
+          </div>
+
+          <div class="qa-divider"></div>
+
+          <div class="qa-subheading">Grading Result</div>
           <div id="resultBox" class="qa-summary">
             <div class="result-head">
               <span>Not graded yet</span>
@@ -990,6 +1085,10 @@
             </div>
             <div class="helper">Click <strong>Grade Scenario</strong> after filling the form. The next scenario stays locked until you pass the current one with 100% accuracy.</div>
           </div>
+
+          <div class="qa-divider"></div>
+
+          <div class="qa-subheading">Field Status by Category</div>
           <div id="qaCategories"></div>
         </div>
       </aside>
@@ -2035,21 +2134,224 @@ function loadScenario(index, skipPersist) {
   const helpPanel = document.getElementById("fieldHelp");
   if (helpPanel) helpPanel.hidden = true;
   lastHelpField = null;
+  const qaReport = document.getElementById("qaEngineReport");
+  if (qaReport) qaReport.hidden = true;
 }
 
-// ==== LEFT PANEL TABS (Request / Policy / Endorsements / Notes) ====
+// ==== COI QUALITY ASSURANCE ENGINE (pre-submission, separate from grading) ====
+// This is deliberately independent of gradeScenario()/compareValue(): it never
+// reads a check's expected value, only structural facts (which fields belong
+// to which scenario's checks/blankChecks lists, and whether the learner has
+// put content in them) plus the same VERIFICATION_ITEMS/isProblematicEntry
+// logic the Verify tab already uses. That keeps it from ever being able to
+// leak the answer key, and keeps the real grader the only source of the
+// training score. Running it, or not, has zero effect on gradeScenario().
+function isFieldFilled(el) {
+  if (!el) return false;
+  return el.type === "checkbox" ? el.checked : String(el.value || "").trim() !== "";
+}
+
+function qaFieldsByPattern(scenario, pattern, list) {
+  return (list === "blank" ? scenario.blankChecks : scenario.checks)
+    .map(c => c.field)
+    .filter(f => pattern.test(f));
+}
+
+function qaLineActive(scenario, pattern) {
+  return scenario.checks.some(c => pattern.test(c.field) && (c.compare !== "checkbox" || c.value === true));
+}
+
+const QA_LINE_PATTERNS = {
+  "General Liability": /^F\[0\]\.P1\[0\]\.GeneralLiability_CoverageIndicator_A\[0\]$/,
+  "Automobile Liability": /^F\[0\]\.P1\[0\]\.Vehicle_.*Indicator_[AB]\[0\]$/,
+  "Workers Compensation": /WorkersCompensationEmployersLiability_WorkersCompensationStatutoryLimitIndicator/,
+  "Umbrella/Excess": /Policy_PolicyType_UmbrellaIndicator/
+};
+const QA_LINE_FIELD_PATTERNS = {
+  "General Liability": /^F\[0\]\.P1\[0\]\.GeneralLiability_|^F\[0\]\.P1\[0\]\.Policy_GeneralLiability_|CertificateOfInsurance_GeneralLiability_/,
+  "Automobile Liability": /^F\[0\]\.P1\[0\]\.Vehicle_|^F\[0\]\.P1\[0\]\.Policy_AutomobileLiability_|CertificateOfInsurance_AutomobileLiability_/,
+  "Workers Compensation": /WorkersCompensationEmployersLiability_|Policy_WorkersCompensation/,
+  "Umbrella/Excess": /ExcessUmbrella_|Policy_ExcessLiability_|Policy_PolicyType_(Umbrella|Excess)Indicator|CertificateOfInsurance_ExcessLiability_/
+};
+
+function qaRow(label, status, note, reviewField, reviewTab) {
+  return { label, status, note: note || "", reviewField: reviewField || null, reviewTab: reviewTab || null };
+}
+
+function buildIdentityRows(scenario) {
+  const groups = [
+    ["Producer", /^F\[0\]\.P1\[0\]\.Producer_(?!AuthorizedRepresentative)/],
+    ["Named Insured", /NamedInsured_/],
+    ["Certificate Holder", /CertificateHolder_/]
+  ];
+  return groups.map(([label, pattern]) => {
+    const fields = qaFieldsByPattern(scenario, pattern, "check");
+    if (!fields.length) return qaRow(label, "na", "Not part of this scenario.");
+    const empty = fields.filter(f => !isFieldFilled(fieldMap[f]));
+    if (!empty.length) return qaRow(label, "verified");
+    return qaRow(label, "review", `${empty.length} of ${fields.length} field(s) still blank.`, empty[0], "request");
+  });
+}
+
+function buildPolicyInfoRows(scenario) {
+  const attrs = [
+    ["Insurer", /Insurer_FullName_/],
+    ["NAIC", /Insurer_NAICCode_/],
+    ["Policy Number", /PolicyNumberIdentifier/],
+    ["Effective Date", /EffectiveDate/],
+    ["Expiration Date", /ExpirationDate/]
+  ];
+  return attrs.map(([label, pattern]) => {
+    const fields = qaFieldsByPattern(scenario, pattern, "check");
+    if (!fields.length) return qaRow(label, "na", "Not part of this scenario.");
+    const empty = fields.filter(f => !isFieldFilled(fieldMap[f]));
+    if (!empty.length) return qaRow(label, "verified");
+    return qaRow(label, "review", `${empty.length} of ${fields.length} field(s) still blank.`, empty[0], "policy");
+  });
+}
+
+function buildCoverageRows(scenario) {
+  return Object.keys(QA_LINE_PATTERNS).map(line => {
+    const linePattern = QA_LINE_FIELD_PATTERNS[line];
+    const blankFieldsForLine = qaFieldsByPattern(scenario, linePattern, "blank");
+    const touchedButShouldBeBlank = blankFieldsForLine.find(f => isFieldFilled(fieldMap[f]));
+    const active = qaLineActive(scenario, QA_LINE_PATTERNS[line]);
+
+    if (touchedButShouldBeBlank) {
+      return qaRow(line, "conflict", "Has entries, but no policy is on file for this line.", touchedButShouldBeBlank, "policy");
+    }
+    if (!active) return qaRow(line, "na", "Not requested and not on file.");
+
+    const checkFieldsForLine = qaFieldsByPattern(scenario, linePattern, "check");
+    const empty = checkFieldsForLine.filter(f => !isFieldFilled(fieldMap[f]));
+    if (!empty.length) return qaRow(line, "verified");
+    return qaRow(line, "review", `${empty.length} of ${checkFieldsForLine.length} field(s) still blank.`, empty[0], "policy");
+  });
+}
+
+function verificationItemQaStatus(item) {
+  const el = fieldMap[item.acordField];
+  if (!el) return qaRow(item.topic, "na", "");
+  if (item.supported === "needs_review") {
+    return qaRow(item.topic, "review", "Needs manual review — see the Verify tab.", item.acordField, "verify");
+  }
+  if (item.supported === "supported") {
+    return isFieldFilled(el)
+      ? qaRow(item.topic, "verified")
+      : qaRow(item.topic, "review", "Requested and supported, but not yet entered.", item.acordField, "verify");
+  }
+  // not_supported or not_requested
+  return isProblematicEntry(el, item)
+    ? qaRow(item.topic, "conflict", `${VERIFY_BADGE_TEXT[item.supported]} — review the evidence before keeping this entry.`, item.acordField, "verify")
+    : qaRow(item.topic, "verified", "Correctly left unsupported coverage out.");
+}
+
+function buildEndorsementRows(scenario, items) {
+  const rows = items.filter(it => /Additional Insured|Waiver of Subrogation/.test(it.topic)).map(verificationItemQaStatus);
+  return rows.length ? rows : [qaRow("Endorsements", "na", "No endorsement requests in this scenario.")];
+}
+
+function buildRemarksRows(scenario) {
+  const field = "F[0].P1[0].CertificateOfLiabilityInsurance_ACORDForm_RemarkText_A[0]";
+  if (!fieldMap[field]) return [qaRow("Remarks", "na", "")];
+  return [
+    isFieldFilled(fieldMap[field])
+      ? qaRow("Remarks / Description of Operations", "verified", "Filled in — double-check it matches the wording requested in the Request tab exactly.", field, "request")
+      : qaRow("Remarks / Description of Operations", "review", "Blank. The certificate holder's required wording goes here.", field, "request")
+  ];
+}
+
+function buildRequestConsistencyRows(scenario, items) {
+  // The summary looks at every verification item (including the Additional
+  // Insured / Waiver of Subrogation ones displayed under Endorsements), since
+  // it's judging the whole request-vs-evidence picture, not just the items
+  // listed below it in this category.
+  const allStatuses = items.map(verificationItemQaStatus);
+  const anyConflict = allStatuses.some(r => r.status === "conflict");
+  const anyReview = allStatuses.some(r => r.status === "review");
+  const summary = qaRow(
+    "Overall: COI matches policy evidence",
+    anyConflict ? "conflict" : anyReview ? "review" : "verified",
+    anyConflict ? "At least one entry isn't supported by the policy file." : anyReview ? "At least one item still needs attention." : "Nothing on the form contradicts the policy evidence.",
+    null,
+    "verify"
+  );
+  const rows = items.filter(it => !/Additional Insured|Waiver of Subrogation/.test(it.topic)).map(verificationItemQaStatus);
+  return [summary, ...rows];
+}
+
+const QA_SYMBOL = { verified: "✓", review: "!", conflict: "✕", na: "○" };
+const QA_STATUS_LABEL = { verified: "Verified", review: "Review", conflict: "Conflict", na: "Not Applicable" };
+
+function renderQaEngineRow(row) {
+  const reviewBtn = (row.status === "review" || row.status === "conflict") && (row.reviewField || row.reviewTab)
+    ? `<button class="qa-engine-review-btn" data-field="${row.reviewField || ""}" data-tab="${row.reviewTab || ""}">Review Issue</button>`
+    : "";
+  return `
+    <div class="qa-engine-row">
+      <span class="qa-engine-symbol ${row.status}" title="${QA_STATUS_LABEL[row.status]}">${QA_SYMBOL[row.status]}</span>
+      <div class="qa-engine-row-body">
+        <div class="qa-engine-row-label">${row.label}</div>
+        ${row.note ? `<div class="qa-engine-row-note">${row.note}</div>` : ""}
+      </div>
+      ${reviewBtn}
+    </div>
+  `;
+}
+
+function runCoiQA() {
+  const scenario = SCENARIOS[currentScenario];
+  const items = VERIFICATION_ITEMS[currentScenario] || [];
+
+  const categories = [
+    ["Identity", buildIdentityRows(scenario)],
+    ["Policy Information", buildPolicyInfoRows(scenario)],
+    ["Coverage", buildCoverageRows(scenario)],
+    ["Endorsements", buildEndorsementRows(scenario, items)],
+    ["Remarks", buildRemarksRows(scenario)],
+    ["Request Consistency", buildRequestConsistencyRows(scenario, items)]
+  ];
+
+  const applicableRows = categories.flatMap(([, rows]) => rows).filter(r => r.status !== "na");
+  const verifiedCount = applicableRows.filter(r => r.status === "verified").length;
+
+  const report = document.getElementById("qaEngineReport");
+  report.innerHTML = `
+    <div class="qa-engine-score">
+      <span>Score</span>
+      <span class="num">${verifiedCount} / ${applicableRows.length} checks verified</span>
+    </div>
+    ${categories.map(([name, rows]) => `
+      <div class="qa-engine-category">
+        <div class="qa-engine-category-name">${name}</div>
+        ${rows.map(renderQaEngineRow).join("")}
+      </div>
+    `).join("")}
+  `;
+  report.hidden = false;
+
+  report.querySelectorAll(".qa-engine-review-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const tab = btn.dataset.tab;
+      if (tab === "verify") activateTab("verify");
+      else if (tab === "policy") activateTab("policy");
+      else if (tab === "request") activateTab("request");
+      if (btn.dataset.field) focusField(btn.dataset.field);
+    });
+  });
+}
+
+
 // UI-only: switches which already-rendered tab panel is visible. Does not
 // touch scenario data or which blocks are in each tab (that's renderPacket).
+function activateTab(tabName) {
+  document.querySelectorAll(".tabbar .tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tabName));
+  document.querySelectorAll(".tab-panels .tab-panel").forEach(panel => panel.classList.toggle("active", panel.dataset.panel === tabName));
+}
+
 function initTabs() {
-  const buttons = document.querySelectorAll(".tabbar .tab-btn");
-  buttons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      buttons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      document.querySelectorAll(".tab-panels .tab-panel").forEach(panel => {
-        panel.classList.toggle("active", panel.dataset.panel === btn.dataset.tab);
-      });
-    });
+  document.querySelectorAll(".tabbar .tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => activateTab(btn.dataset.tab));
   });
 }
 
@@ -2100,6 +2402,7 @@ function initMobileTabs() {
 }
 
 // ==== EVENT WIRING / INIT ====
+document.getElementById("runQaBtn").addEventListener("click", runCoiQA);
 document.getElementById("gradeBtn").addEventListener("click", gradeScenario);
 document.getElementById("clearBtn").addEventListener("click", clearCurrentForm);
 document.getElementById("resetBtn").addEventListener("click", resetAllProgress);
