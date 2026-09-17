@@ -162,6 +162,100 @@
     border-radius: 6px;
     text-align: center;
   }
+  .form-preview.zoomable {
+    cursor: zoom-in;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .form-preview.zoomable:hover,
+  .form-preview.zoomable:focus-visible {
+    transform: translateY(-2px);
+    border-color: rgba(96,165,250,0.6);
+    outline: none;
+  }
+  .form-preview .zoom-badge {
+    position: absolute;
+    top: 6px; right: 6px;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: rgba(15,23,42,0.75);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    opacity: 0.75;
+    transition: opacity 0.15s ease, background 0.15s ease;
+  }
+  .form-preview.zoomable:hover .zoom-badge,
+  .form-preview.zoomable:focus-visible .zoom-badge {
+    opacity: 1;
+    background: rgba(96,165,250,0.85);
+  }
+
+  .lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(2,6,23,0.82);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease;
+  }
+  .lightbox-overlay.open { opacity: 1; pointer-events: auto; }
+  .lightbox-card {
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 22px;
+    width: 100%;
+    max-width: 660px;
+    box-shadow: 0 30px 90px rgba(0,0,0,0.55);
+    transform: scale(0.96);
+    transition: transform 0.18s ease;
+  }
+  .lightbox-overlay.open .lightbox-card { transform: scale(1); }
+  .lightbox-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    padding-right: 30px;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: -16px; right: -16px;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--accent);
+    color: #0b1220;
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+  }
+  .lightbox-close:hover { background: #7cb4fb; }
+  .lightbox-preview {
+    width: 100%;
+    max-height: 78vh;
+  }
+  .lightbox-hint {
+    margin-top: 12px;
+    font-size: 12.5px;
+    color: var(--muted);
+    text-align: center;
+  }
 
   .topic-text p { margin: 0 0 10px; font-size: 14px; line-height: 1.6; color: var(--text); }
   .topic-text p b { color: var(--accent); }
@@ -462,5 +556,68 @@
       <div class="footer-note">Every field on this form ties back to an actual endorsement, limit, or contract term on file &mdash; never to what a requestor says should be true. When you're ready, head back to the simulator and put this into practice against a real client email and agency file.</div>
     </main>
   </div>
+
+  <div class="lightbox-overlay" id="lightboxOverlay">
+    <div class="lightbox-card" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
+      <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close zoomed preview">&times;</button>
+      <div class="lightbox-title" id="lightboxTitle"></div>
+      <div class="form-preview lightbox-preview" id="lightboxPreview"></div>
+      <div class="lightbox-hint">Click outside the card, press Esc, or use the X to close.</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var overlay = document.getElementById('lightboxOverlay');
+      var previewBox = document.getElementById('lightboxPreview');
+      var titleBox = document.getElementById('lightboxTitle');
+      var closeBtn = document.getElementById('lightboxClose');
+
+      function openLightbox(sourcePreview, title) {
+        previewBox.innerHTML = sourcePreview.innerHTML;
+        titleBox.textContent = title || 'ACORD 25 form preview';
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+      }
+
+      function closeLightbox() {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      document.querySelectorAll('.topic .form-preview').forEach(function (fp) {
+        fp.classList.add('zoomable');
+        fp.setAttribute('role', 'button');
+        fp.setAttribute('tabindex', '0');
+        fp.setAttribute('aria-label', 'Click to zoom in on this part of the ACORD 25 form');
+
+        var badge = document.createElement('div');
+        badge.className = 'zoom-badge';
+        badge.textContent = '+';
+        fp.appendChild(badge);
+
+        var topic = fp.closest('.topic');
+        var heading = topic ? topic.querySelector('h2') : null;
+        var title = heading ? heading.textContent.trim() : '';
+
+        fp.addEventListener('click', function () { openLightbox(fp, title); });
+        fp.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openLightbox(fp, title);
+          }
+        });
+      });
+
+      closeBtn.addEventListener('click', closeLightbox);
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeLightbox();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) closeLightbox();
+      });
+    })();
+  </script>
 </body>
 </html>
