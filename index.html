@@ -127,6 +127,40 @@
   .qa-chip.fail { background: var(--bad-soft); border-color: rgba(239,68,68,0.4); color: #fecaca; }
   .qa-chip.fail::before { background: var(--bad); }
 
+  .mode-switcher {
+    display: flex;
+    gap: 2px;
+    padding: 3px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    flex-shrink: 0;
+  }
+  .mode-btn {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--muted);
+    background: transparent;
+    border: none;
+    border-radius: 999px;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+  .mode-btn:hover { color: var(--text); }
+  .mode-btn.active {
+    color: #fff;
+    background: var(--accent);
+  }
+  .mode-note {
+    font-size: 11px;
+    color: var(--warn);
+    font-weight: 700;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
   .topbar-actions {
     display: flex;
     align-items: center;
@@ -840,6 +874,75 @@
   }
   .qa-engine-review-btn:hover { background: rgba(79,140,247,0.28); }
 
+  /* ===== Assessment mode result report ===== */
+  .assessment-result {
+    margin-bottom: 16px;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid var(--line-strong);
+    background: linear-gradient(160deg, rgba(79,140,247,0.1), rgba(255,255,255,0.02));
+  }
+  .assessment-result.pass { border-color: rgba(34,197,94,0.45); }
+  .assessment-result.fail { border-color: rgba(239,68,68,0.4); }
+  .ar-title {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .ar-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .ar-stat {
+    padding: 8px 9px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line);
+  }
+  .ar-stat .lbl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted-dim); font-weight: 800; }
+  .ar-stat .val { font-size: 16px; font-weight: 800; color: var(--text); margin-top: 2px; }
+  .ar-section { margin-top: 12px; }
+  .ar-section-title {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 800;
+    color: var(--muted-dim);
+    margin-bottom: 6px;
+  }
+  .ar-mistake {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px 9px;
+    margin-bottom: 6px;
+    font-size: 11.5px;
+  }
+  .ar-mistake-label { font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .ar-mistake-row { display: flex; gap: 6px; margin-top: 3px; }
+  .ar-mistake-row .k { flex-shrink: 0; width: 70px; color: var(--muted-dim); font-size: 9.5px; text-transform: uppercase; font-weight: 800; letter-spacing: 0.03em; padding-top: 1px; }
+  .ar-mistake-row .v { color: var(--text); line-height: 1.4; }
+  .ar-mistake-row .v.correct { color: #b7f5c8; font-weight: 700; }
+  .ar-mistake-explain { margin-top: 5px; padding-top: 5px; border-top: 1px dashed var(--line); color: var(--muted); font-size: 11px; line-height: 1.4; }
+  .ar-mistake-review {
+    margin-top: 6px;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid rgba(79,140,247,0.4);
+    border-radius: 999px;
+    padding: 3px 9px;
+    cursor: pointer;
+  }
+  .ar-no-mistakes { color: var(--good); font-size: 12px; font-weight: 700; }
+  .ar-actions { display: flex; gap: 8px; margin-top: 14px; }
+  .ar-actions .action { flex: 1; }
+
   .qa-summary {
     margin: 0 0 12px;
     padding: 12px;
@@ -957,6 +1060,12 @@
         <span class="brand-mark">LAVA</span>
         <span class="brand-name">COI Processing Lab</span>
       </div>
+      <div class="mode-switcher" id="modeSwitcher" role="tablist" aria-label="Training mode">
+        <button class="mode-btn active" data-mode="guided" type="button" title="Full assistance: field explanations, evidence guidance, and warnings on every field.">Guided</button>
+        <button class="mode-btn" data-mode="practice" type="button" title="Minimal hints: help is available on request only. Run COI QA before you grade.">Practice</button>
+        <button class="mode-btn" data-mode="assessment" type="button" title="No hints, no explanations, no warnings until you submit. Timed and scored.">Assessment</button>
+      </div>
+      <div class="mode-note" id="modeNote" hidden>&#9201; <span id="modeTimer">0:00</span></div>
       <div class="topbar-stats">
         <div class="topbar-stat">
           <span class="stat-label">Scenario</span>
@@ -1068,28 +1177,32 @@
           <div class="wb-panel-title">COI QA Panel</div>
         </div>
         <div class="wb-panel-body">
-          <div class="qa-engine-section">
+          <div id="assessmentResult" class="assessment-result" hidden></div>
+
+          <div id="preSubmissionQaSection" class="qa-engine-section">
             <div class="qa-subheading">Pre-Submission QA Check</div>
             <p class="qa-engine-intro">Reviews the form as it stands right now &mdash; before you grade it. It only flags things to double-check; it never changes your answers or the final training score.</p>
             <button class="action primary" id="runQaBtn" type="button">Run COI QA</button>
             <div id="qaEngineReport" class="qa-engine-report" hidden></div>
           </div>
 
-          <div class="qa-divider"></div>
+          <div id="standardResultSection">
+            <div class="qa-divider"></div>
 
-          <div class="qa-subheading">Grading Result</div>
-          <div id="resultBox" class="qa-summary">
-            <div class="result-head">
-              <span>Not graded yet</span>
-              <span class="result-score">0%</span>
+            <div class="qa-subheading">Grading Result</div>
+            <div id="resultBox" class="qa-summary">
+              <div class="result-head">
+                <span>Not graded yet</span>
+                <span class="result-score">0%</span>
+              </div>
+              <div class="helper">Click <strong>Grade Scenario</strong> after filling the form. The next scenario stays locked until you pass the current one with 100% accuracy.</div>
             </div>
-            <div class="helper">Click <strong>Grade Scenario</strong> after filling the form. The next scenario stays locked until you pass the current one with 100% accuracy.</div>
+
+            <div class="qa-divider"></div>
+
+            <div class="qa-subheading">Field Status by Category</div>
+            <div id="qaCategories"></div>
           </div>
-
-          <div class="qa-divider"></div>
-
-          <div class="qa-subheading">Field Status by Category</div>
-          <div id="qaCategories"></div>
         </div>
       </aside>
     </div>
@@ -1289,7 +1402,8 @@ function defaultState() {
     passed: Array(SCENARIOS.length).fill(false),
     forms: Array(SCENARIOS.length).fill(null).map(() => ({})),
     attempts: Array(SCENARIOS.length).fill(0),
-    lastResult: null
+    lastResult: null,
+    mode: "guided"
   };
 }
 
@@ -1313,6 +1427,78 @@ function loadState() {
 function saveState() {
   state.current = currentScenario;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+// ==== TRAINING MODES ====
+// Purely a UI-assistance gate: it turns existing features (auto Field Help,
+// the Verify tab, live "verify before entering" warnings, pre-submission QA)
+// on or off. It never touches FIELDS/SCENARIOS/VERIFICATION_ITEMS or the
+// grading algorithm itself - gradeScenario() computes the exact same way in
+// every mode. state.mode persists like any other saved-state field; an
+// existing save without it defaults to "guided" via defaultState()'s spread.
+const MODES = {
+  guided: { autoFieldHelp: true, manualFieldHelp: true, showVerifyTab: true, liveWarnings: true, showInstructions: true, showPreSubmissionQa: true },
+  practice: { autoFieldHelp: false, manualFieldHelp: true, showVerifyTab: false, liveWarnings: false, showInstructions: true, showPreSubmissionQa: true },
+  assessment: { autoFieldHelp: false, manualFieldHelp: false, showVerifyTab: false, liveWarnings: false, showInstructions: false, showPreSubmissionQa: false, timed: true }
+};
+function modeConfig() {
+  return MODES[state.mode] || MODES.guided;
+}
+
+let assessmentStartTime = null;
+let assessmentTimerHandle = null;
+let assessmentSubmitted = false;
+
+function formatElapsed(ms) {
+  const totalSeconds = Math.max(0, Math.round(ms / 1000));
+  const m = Math.floor(totalSeconds / 60);
+  const s = totalSeconds % 60;
+  return `${m}:${String(s).padStart(2, "0")}`;
+}
+
+function startAssessmentTimer() {
+  stopAssessmentTimer();
+  assessmentStartTime = Date.now();
+  const timerEl = document.getElementById("modeTimer");
+  if (timerEl) timerEl.textContent = formatElapsed(0);
+  assessmentTimerHandle = setInterval(() => {
+    if (timerEl) timerEl.textContent = formatElapsed(Date.now() - assessmentStartTime);
+  }, 1000);
+}
+
+function stopAssessmentTimer() {
+  if (assessmentTimerHandle) clearInterval(assessmentTimerHandle);
+  assessmentTimerHandle = null;
+}
+
+// Applies the current mode's visibility rules to the already-rendered UI.
+// Called on mode switch and on every scenario load. If the previously active
+// left-panel tab is one this mode hides, it falls back to the Request tab.
+function applyModeVisibility() {
+  const cfg = modeConfig();
+  const revealHints = cfg.manualFieldHelp || assessmentSubmitted;
+
+  document.querySelectorAll(".mode-btn").forEach(b => b.classList.toggle("active", b.dataset.mode === state.mode));
+
+  const verifyTabBtn = document.querySelector('.tab-btn[data-tab="verify"]');
+  const showVerify = cfg.showVerifyTab || assessmentSubmitted;
+  if (verifyTabBtn) {
+    verifyTabBtn.hidden = !showVerify;
+    if (!showVerify && verifyTabBtn.classList.contains("active")) activateTab("request");
+  }
+
+  document.getElementById("fieldHelpBtn").hidden = !revealHints;
+  if (!revealHints) document.getElementById("fieldHelp").hidden = true;
+
+  document.querySelector(".instructions-card").hidden = !(cfg.showInstructions || assessmentSubmitted);
+
+  const showPreSubmission = cfg.showPreSubmissionQa || assessmentSubmitted;
+  document.getElementById("preSubmissionQaSection").hidden = !showPreSubmission;
+
+  document.getElementById("modeNote").hidden = !cfg.timed;
+  document.getElementById("standardResultSection").hidden = !!cfg.timed && !assessmentSubmitted;
+
+  if (!cfg.liveWarnings) document.getElementById("verifyWarning").hidden = true;
 }
 
 // ==== RENDER ENGINE ====
@@ -1363,17 +1549,17 @@ function buildForm() {
       clearFieldStatus(field.name);
       persistCurrentForm();
       renderQAPanel();
-      checkVerifyWarning(field.name);
+      if (modeConfig().liveWarnings) checkVerifyWarning(field.name);
     });
     el.addEventListener("change", () => {
       clearFieldStatus(field.name);
       persistCurrentForm();
       renderQAPanel();
-      checkVerifyWarning(field.name);
+      if (modeConfig().liveWarnings) checkVerifyWarning(field.name);
     });
     el.addEventListener("focus", () => {
       setLinkedQAItem(field.name, true);
-      renderFieldHelp(field.name);
+      if (modeConfig().autoFieldHelp || assessmentSubmitted) renderFieldHelp(field.name);
     });
     el.addEventListener("blur", () => setLinkedQAItem(field.name, false));
 
@@ -1537,6 +1723,8 @@ function gradeScenario() {
   if (passed && currentScenario < SCENARIOS.length - 1) {
     document.getElementById("nextBtn").disabled = false;
   }
+
+  if (modeConfig().timed) handleAssessmentSubmission();
 }
 
 // ==== RENDERING / SCENARIO NAVIGATION ====
@@ -2136,6 +2324,12 @@ function loadScenario(index, skipPersist) {
   lastHelpField = null;
   const qaReport = document.getElementById("qaEngineReport");
   if (qaReport) qaReport.hidden = true;
+
+  assessmentSubmitted = false;
+  document.getElementById("assessmentResult").hidden = true;
+  applyModeVisibility();
+  if (modeConfig().timed) startAssessmentTimer();
+  else stopAssessmentTimer();
 }
 
 // ==== COI QUALITY ASSURANCE ENGINE (pre-submission, separate from grading) ====
@@ -2299,9 +2493,12 @@ function renderQaEngineRow(row) {
   `;
 }
 
-function runCoiQA() {
-  const scenario = SCENARIOS[currentScenario];
-  const items = VERIFICATION_ITEMS[currentScenario] || [];
+// Pure computation, no DOM writes - reused by both the manual "Run COI QA"
+// button and the automatic post-submission Assessment report, so the two
+// never compute results differently.
+function computeQaReport(scenarioIndex) {
+  const scenario = SCENARIOS[scenarioIndex];
+  const items = VERIFICATION_ITEMS[scenarioIndex] || [];
 
   const categories = [
     ["Identity", buildIdentityRows(scenario)],
@@ -2315,22 +2512,26 @@ function runCoiQA() {
   const applicableRows = categories.flatMap(([, rows]) => rows).filter(r => r.status !== "na");
   const verifiedCount = applicableRows.filter(r => r.status === "verified").length;
 
-  const report = document.getElementById("qaEngineReport");
-  report.innerHTML = `
+  return { categories, verifiedCount, totalApplicable: applicableRows.length };
+}
+
+function qaReportHtml(reportData) {
+  return `
     <div class="qa-engine-score">
       <span>Score</span>
-      <span class="num">${verifiedCount} / ${applicableRows.length} checks verified</span>
+      <span class="num">${reportData.verifiedCount} / ${reportData.totalApplicable} checks verified</span>
     </div>
-    ${categories.map(([name, rows]) => `
+    ${reportData.categories.map(([name, rows]) => `
       <div class="qa-engine-category">
         <div class="qa-engine-category-name">${name}</div>
         ${rows.map(renderQaEngineRow).join("")}
       </div>
     `).join("")}
   `;
-  report.hidden = false;
+}
 
-  report.querySelectorAll(".qa-engine-review-btn").forEach(btn => {
+function wireQaReviewButtons(container) {
+  container.querySelectorAll(".qa-engine-review-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const tab = btn.dataset.tab;
       if (tab === "verify") activateTab("verify");
@@ -2339,6 +2540,102 @@ function runCoiQA() {
       if (btn.dataset.field) focusField(btn.dataset.field);
     });
   });
+}
+
+function runCoiQA() {
+  const report = document.getElementById("qaEngineReport");
+  report.innerHTML = qaReportHtml(computeQaReport(currentScenario));
+  report.hidden = false;
+  wireQaReviewButtons(report);
+}
+
+// ==== ASSESSMENT MODE: SUBMISSION, RETRY, REVIEW ====
+// Reads the same correct/error classes gradeScenario() already applies and
+// the same checks/blankChecks lists it already grades against - it doesn't
+// re-grade anything itself, it only reports what the real grader found.
+function buildAssessmentMistakes(scenario) {
+  const allChecks = [
+    ...scenario.checks.map(c => ({ ...c, kind: "check" })),
+    ...scenario.blankChecks.map(c => ({ ...c, kind: "blank" }))
+  ];
+  return allChecks
+    .filter(c => fieldMap[c.field] && fieldMap[c.field].classList.contains("error"))
+    .map(c => {
+      let correctDisplay;
+      if (c.kind === "blank") {
+        correctDisplay = c.compare === "unchecked" ? "Should be unchecked" : "Should be left blank";
+      } else if (c.compare === "checkbox") {
+        correctDisplay = c.value ? "Should be checked" : "Should be unchecked";
+      } else {
+        correctDisplay = String(c.value);
+      }
+      return { field: c.field, label: fieldLabel(c.field), correct: correctDisplay, help: getFieldHelp(c.field) };
+    });
+}
+
+function handleAssessmentSubmission() {
+  stopAssessmentTimer();
+  assessmentSubmitted = true;
+  const elapsedMs = assessmentStartTime ? Date.now() - assessmentStartTime : 0;
+  const scenario = SCENARIOS[currentScenario];
+  const result = state.lastResult;
+  const mistakes = buildAssessmentMistakes(scenario);
+  const qaData = computeQaReport(currentScenario);
+  const totalGraded = scenario.checks.length + scenario.blankChecks.length;
+
+  applyModeVisibility();
+
+  const box = document.getElementById("assessmentResult");
+  box.className = "assessment-result " + (result.passed ? "pass" : "fail");
+  box.innerHTML = `
+    <div class="ar-title">Assessment Result</div>
+    <div class="ar-stat-grid">
+      <div class="ar-stat"><div class="lbl">Score</div><div class="val">${result.score}%</div></div>
+      <div class="ar-stat"><div class="lbl">Accuracy</div><div class="val">${totalGraded - mistakes.length} / ${totalGraded}</div></div>
+      <div class="ar-stat"><div class="lbl">Time</div><div class="val">${formatElapsed(elapsedMs)}</div></div>
+    </div>
+    <div class="ar-section">
+      <div class="ar-section-title">QA Results</div>
+      <div>${qaData.verifiedCount} / ${qaData.totalApplicable} checks verified by the QA engine</div>
+    </div>
+    <div class="ar-section">
+      <div class="ar-section-title">Mistakes (${mistakes.length})</div>
+      <div id="arMistakesList">
+        ${mistakes.length ? mistakes.map(m => `
+          <div class="ar-mistake">
+            <div class="ar-mistake-label">${m.label}</div>
+            <div class="ar-mistake-row"><span class="k">Correct Answer</span><span class="v correct">${m.correct}</span></div>
+            ${m.help ? `<div class="ar-mistake-explain"><strong>${m.help.title}:</strong> ${m.help.what}</div>` : ""}
+            <button class="ar-mistake-review" data-field="${m.field}" type="button">Show on Form</button>
+          </div>
+        `).join("") : `<div class="ar-no-mistakes">No mistakes — every graded field matched.</div>`}
+      </div>
+    </div>
+    <div class="ar-actions">
+      <button class="action" id="retryScenarioBtn" type="button">Retry Scenario</button>
+      <button class="action" id="reviewMistakesBtn" type="button" ${mistakes.length ? "" : "disabled"}>Review Mistakes</button>
+    </div>
+  `;
+  box.hidden = false;
+  box.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  box.querySelectorAll(".ar-mistake-review").forEach(btn => {
+    btn.addEventListener("click", () => focusField(btn.dataset.field));
+  });
+  document.getElementById("retryScenarioBtn").addEventListener("click", retryScenario);
+  document.getElementById("reviewMistakesBtn").addEventListener("click", () => {
+    const list = document.getElementById("arMistakesList");
+    list.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (mistakes.length) focusField(mistakes[0].field);
+  });
+}
+
+function retryScenario() {
+  clearCurrentForm();
+  assessmentSubmitted = false;
+  document.getElementById("assessmentResult").hidden = true;
+  applyModeVisibility();
+  if (modeConfig().timed) startAssessmentTimer();
 }
 
 
@@ -2402,6 +2699,18 @@ function initMobileTabs() {
 }
 
 // ==== EVENT WIRING / INIT ====
+document.querySelectorAll(".mode-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (btn.dataset.mode === state.mode) return;
+    state.mode = btn.dataset.mode;
+    saveState();
+    assessmentSubmitted = false;
+    document.getElementById("assessmentResult").hidden = true;
+    applyModeVisibility();
+    if (modeConfig().timed) startAssessmentTimer();
+    else stopAssessmentTimer();
+  });
+});
 document.getElementById("runQaBtn").addEventListener("click", runCoiQA);
 document.getElementById("gradeBtn").addEventListener("click", gradeScenario);
 document.getElementById("clearBtn").addEventListener("click", clearCurrentForm);
