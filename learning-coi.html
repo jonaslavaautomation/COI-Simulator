@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Learning COI - Understanding the ACORD 25 Form</title>
+<style>
+  :root {
+    --bg1: #0f172a;
+    --bg2: #1e293b;
+    --panel: rgba(15, 23, 42, 0.86);
+    --line: rgba(255,255,255,0.12);
+    --text: #e5eefc;
+    --muted: #a8b6d5;
+    --accent: #60a5fa;
+    --accent2: #a855f7;
+    --good: #34d399;
+    --warn: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+    background:
+      radial-gradient(circle at top right, rgba(96,165,250,0.18), transparent 26%),
+      radial-gradient(circle at bottom left, rgba(168,85,247,0.15), transparent 24%),
+      linear-gradient(135deg, var(--bg1), #111827 48%, #172554);
+    min-height: 100vh;
+  }
+  .shell {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 18px;
+    padding: 18px;
+    align-items: start;
+  }
+  .panel {
+    background: var(--panel);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: 0 18px 60px rgba(0,0,0,0.28);
+  }
+  .sidebar {
+    position: sticky;
+    top: 18px;
+    padding: 20px;
+    max-height: calc(100vh - 36px);
+    overflow: auto;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.05);
+    padding: 8px 12px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  .back-link:hover { border-color: rgba(96,165,250,0.55); color: var(--text); }
+  h1 { margin: 0 0 8px; font-size: 24px; line-height: 1.15; }
+  .sub { color: var(--muted); font-size: 13.5px; line-height: 1.5; margin-bottom: 18px; }
+  .toc-title {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 18px 0 10px;
+    font-weight: 700;
+  }
+  .toc-title:first-of-type { margin-top: 0; }
+  .toc-list { list-style: none; margin: 0 0 4px; padding: 0; display: grid; gap: 3px; }
+  .toc-list a {
+    display: block;
+    padding: 7px 10px;
+    border-radius: 10px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    border: 1px solid transparent;
+  }
+  .toc-list a:hover { background: rgba(255,255,255,0.06); color: var(--text); border-color: var(--line); }
+
+  .main { padding: 26px 30px; min-width: 0; }
+  .hero {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 22px;
+    margin-bottom: 26px;
+  }
+  .hero h1 { font-size: 30px; margin-bottom: 10px; }
+  .hero p { color: var(--muted); font-size: 15px; line-height: 1.6; max-width: 760px; }
+  .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .pill {
+    font-size: 12px; font-weight: 700; padding: 7px 10px; border-radius: 999px;
+    background: rgba(255,255,255,0.08); border: 1px solid var(--line);
+  }
+
+  .glossary {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    margin-bottom: 34px;
+  }
+  .glossary .term {
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.04);
+    border-radius: 14px;
+    padding: 12px 14px;
+  }
+  .glossary .term b { color: var(--accent); font-size: 13px; }
+  .glossary .term div { color: var(--muted); font-size: 12.5px; margin-top: 4px; line-height: 1.4; }
+
+  .topic {
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.03);
+    border-radius: 20px;
+    padding: 22px;
+    margin-bottom: 22px;
+    scroll-margin-top: 18px;
+  }
+  .topic-head { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+  .topic-head h2 { margin: 0; font-size: 19px; }
+  .tag {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--bg1); background: var(--accent); padding: 4px 9px; border-radius: 999px;
+  }
+  .topic-body { display: grid; grid-template-columns: 220px minmax(0,1fr); gap: 22px; }
+  @media (max-width: 760px) { .topic-body { grid-template-columns: 1fr; } .shell { grid-template-columns: 1fr; } .sidebar { position: static; max-height: none; } }
+
+  .form-preview {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 612 / 792;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background-image: url('acord25-template.png');
+    background-size: cover;
+    background-position: top left;
+    flex-shrink: 0;
+  }
+  .form-preview .highlight {
+    position: absolute;
+    background: rgba(96,165,250,0.35);
+    border: 2px solid #60a5fa;
+    box-shadow: 0 0 0 3px rgba(96,165,250,0.18), 0 0 14px rgba(96,165,250,0.55);
+    border-radius: 3px;
+  }
+  .form-preview .cap {
+    position: absolute;
+    bottom: 6px; left: 6px; right: 6px;
+    font-size: 10px;
+    color: #fff;
+    background: rgba(15,23,42,0.75);
+    padding: 3px 6px;
+    border-radius: 6px;
+    text-align: center;
+  }
+
+  .topic-text p { margin: 0 0 10px; font-size: 14px; line-height: 1.6; color: var(--text); }
+  .topic-text p b { color: var(--accent); }
+  .watch-list {
+    margin: 10px 0 0;
+    padding: 12px 14px;
+    border-left: 3px solid var(--warn);
+    background: rgba(251,191,36,0.08);
+    border-radius: 0 10px 10px 0;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--text);
+  }
+  .watch-list b { color: var(--warn); }
+
+  .section-divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 34px 0 18px;
+  }
+  .section-divider h3 {
+    margin: 0; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); white-space: nowrap;
+  }
+  .section-divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+  .footer-note {
+    margin-top: 30px;
+    padding: 16px 18px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: rgba(96,165,250,0.08);
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="panel sidebar">
+      <a class="back-link" href="index.html">&larr; Back to Simulator</a>
+      <h1>Learning COI</h1>
+      <div class="sub">A field-by-field walkthrough of the ACORD 25 Certificate of Liability Insurance &mdash; what each box means, why it exists, and where VAs most often get it wrong.</div>
+
+      <div class="toc-title">Getting Oriented</div>
+      <ul class="toc-list">
+        <li><a href="#sec-disclaimer">The Disclaimer</a></li>
+        <li><a href="#sec-date">Date of Issue</a></li>
+      </ul>
+
+      <div class="toc-title">Who's Who</div>
+      <ul class="toc-list">
+        <li><a href="#sec-producer">Producer</a></li>
+        <li><a href="#sec-insured">Named Insured</a></li>
+        <li><a href="#sec-insurers">Insurers &amp; NAIC Codes</a></li>
+        <li><a href="#sec-certnum">Certificate &amp; Revision No.</a></li>
+      </ul>
+
+      <div class="toc-title">The Coverage Grid</div>
+      <ul class="toc-list">
+        <li><a href="#sec-grid">Grid Overview</a></li>
+        <li><a href="#sec-gl">General Liability</a></li>
+        <li><a href="#sec-auto">Automobile Liability</a></li>
+        <li><a href="#sec-umbrella">Umbrella / Excess</a></li>
+        <li><a href="#sec-wc">Workers Compensation</a></li>
+      </ul>
+
+      <div class="toc-title">Finishing the Form</div>
+      <ul class="toc-list">
+        <li><a href="#sec-remarks">Description of Operations</a></li>
+        <li><a href="#sec-holder">Certificate Holder</a></li>
+        <li><a href="#sec-cancel">Cancellation</a></li>
+        <li><a href="#sec-signature">Authorized Representative</a></li>
+      </ul>
+    </aside>
+
+    <main class="panel main">
+      <div class="hero">
+        <h1>Learning COI</h1>
+        <p>The ACORD 25 looks like a simple one-page form, but almost every box on it maps to a real coverage decision, a real endorsement, or a real contract requirement. This guide walks through the form the same way an experienced processor reads it &mdash; section by section &mdash; so you understand <em>why</em> a box gets checked, not just that it does.</p>
+        <div class="pill-row">
+          <div class="pill">15 sections</div>
+          <div class="pill">Real ACORD 25 layout</div>
+          <div class="pill">Built for VA training</div>
+        </div>
+      </div>
+
+      <div class="section-divider"><h3>Quick Glossary</h3></div>
+      <div class="glossary">
+        <div class="term"><b>COI</b><div>Certificate of Insurance &mdash; a summary of coverage in force, not the policy itself.</div></div>
+        <div class="term"><b>ADDL INSD</b><div>Additional Insured &mdash; someone else added to the policy's protection, granted only by endorsement.</div></div>
+        <div class="term"><b>SUBR WVD</b><div>Subrogation Waived &mdash; the insurer gives up its right to recover paid claims from that party, granted only by endorsement.</div></div>
+        <div class="term"><b>OCCUR / CLAIMS-MADE</b><div>Two different triggers for when a policy responds to a claim &mdash; see the General Liability section.</div></div>
+        <div class="term"><b>CSL</b><div>Combined Single Limit &mdash; one limit covering bodily injury and property damage together, instead of split limits.</div></div>
+        <div class="term"><b>NAIC #</b><div>A unique 5-digit code identifying a licensed insurance carrier, used to verify who's really on the risk.</div></div>
+        <div class="term"><b>E&amp;O</b><div>Errors &amp; Omissions &mdash; the liability an agency carries for its own mistakes, like misrepresenting coverage on a certificate.</div></div>
+        <div class="term"><b>EL</b><div>Employers Liability &mdash; the part of a Workers Comp policy that responds to lawsuits outside the WC statute itself.</div></div>
+      </div>
+
+      <div class="section-divider"><h3>Getting Oriented</h3></div>
+
+      <section class="topic" id="sec-disclaimer">
+        <div class="topic-head"><h2>1. The Disclaimer</h2><span class="tag">Read This First</span></div>
+        <div class="topic-body">
+          <div class="form-preview"><div class="cap">Top of form</div></div>
+          <div class="topic-text">
+            <p><b>What it is:</b> The paragraph printed above everything else on the form: <em>"THIS CERTIFICATE IS ISSUED AS A MATTER OF INFORMATION ONLY AND CONFERS NO RIGHTS UPON THE CERTIFICATE HOLDER. THIS CERTIFICATE DOES NOT AFFIRMATIVELY OR NEGATIVELY AMEND, EXTEND OR ALTER THE COVERAGE AFFORDED BY THE POLICIES BELOW..."</em></p>
+            <p><b>Why it matters:</b> This is the most important sentence on the entire form, and the one certificate holders misunderstand most. A COI is a snapshot of what's on file &mdash; it is not the policy, not an endorsement, and not a contract. Issuing a certificate cannot add anyone to a policy or waive anyone's rights by itself. Additional insured status and waiver of subrogation only exist if the underlying policy has actually been endorsed for them.</p>
+            <p>If you check "Y" for something because "the certificate holder needs it," but there's no matching endorsement on file, you've just misrepresented coverage that doesn't exist &mdash; which is exactly the kind of thing that turns into an E&amp;O claim against your agency later.</p>
+            <div class="watch-list"><b>Watch for:</b> The certificate <em>reports</em> coverage; it never <em>creates</em> it. If someone insists a box gets checked, your first move is to confirm the endorsement is really on file &mdash; not to check the box because it was asked for.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic" id="sec-date">
+        <div class="topic-head"><h2>2. Date of Issue</h2></div>
+        <div class="topic-body">
+          <div class="form-preview"><div class="highlight" style="left:83.4967%;top:4.5455%;width:12.9085%;height:1.5152%;"></div></div>
+          <div class="topic-text">
+            <p><b>What it is:</b> The date the certificate itself was generated &mdash; not a policy date.</p>
+            <p><b>Why it matters:</b> A certificate is only accurate as of the moment it's issued. Coverage can lapse, cancel, or change afterward, which is exactly why many contracts require a freshly dated certificate every year, or right after a policy renews.</p>
+            <div class="watch-list"><b>Watch for:</b> Reissue a new certificate with a current date whenever a policy renews or changes &mdash; don't leave an old one circulating and assume it still reflects reality.</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"><h3>Who's Who on the Certificate</h3></div>
+
+      <section class="topic" id="sec-producer">
+        <div class="topic-head"><h2>3. Producer</h2><span class="tag">Your Agency</span></div>
+        <div class="topic-body">
+          <div class="form-preview"><div class="highlight" style="left:3.5948%;top:15.1515%;width:92.8105%;height:7.5758%;"></div></div>
+          <div class="topic-text">
+            <p><b>What it is:</b> The name, address, and contact details of the insurance agency issuing the certificate &mdash; that's you, not the insurance carrier.</p>
+            <p><b>Why it matters:</b> This is who the certificate holder calls if they have questions or need a correction. Many contracts specifically require that the producer be reachable directly. If this section is wrong or stale, nobody can verify the certificate is legitimate.</p>
+            <div class="watch-list"><b>Watch for:</b> Make sure the listed contact person and phone/email are actually current &mdash; not someone who left the agency, and not a generic line nobody checks.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic" id="sec-insured">
+        <div class="topic-head"><h2>4. Named Insured</h2></div>
+        <div class="topic-body">
+          <div class="form-preview"><div class="highlight" style="left:11.7647%;top:24.2424%;width:37.5817%;height:6.0606%;"></div></div>
+          <div class="topic-text">
+            <p><b>What it is:</b> The exact legal entity (or entities) the policy actually covers &mdash; taken from the policy declarations page, not from a business card or invoice.</p>
+            <p><b>Why it matters:</b> If the named insured on the certificate doesn't match the entity that actually signed the contract to do the work (a wrong LLC, a "doing business as" name instead of the legal name, a parent company instead of the subsidiary that's really on site), the certificate holder may reject it &mdash; or worse, coverage may not respond in a real claim because the entity doing the work isn't the entity that's insured.</p>
+            <div class="watch-list"><b>Watch for:</b> If a client operates under multiple related entities, confirm which one actually holds the contract before you assume it matches the name on file.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic" id="sec-insurers">
+        <div class="topic-head"><h2>5. Insurers &amp; NAIC Codes</h2></div>
+        <div class="topic-body">
+          <div class="form-preview"><div class="highlight" style="left:57.0261%;top:21.2121%;width:39.3791%;height:9.0909%;"></div></div>
+          <div class="topic-text">
+            <p><b>What it is:</b> Up to six insurance companies can be listed, lettered A through F, each cross-referenced to a coverage line via an "INSR LTR" column. The NAIC number is a unique 5-digit code that identifies the actual licensed carrier.</p>
+            <p><b>Why it matters:</b> Certificate holders &mdash; especially government agencies and lenders &mdash; often verify the carrier against their own approved list using the NAIC number. When General Liability and Auto are placed with different carriers (common once an umbrella policy is involved), an incorrect insurer letter on a coverage row makes it look like the wrong company is providing that line entirely.</p>
+            <div class="watch-list"><b>Watch for:</b> Re-check the letter mapping every time, especially with three or more carriers on one certificate &mdash; it's an easy copy-paste mistake.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic" id="sec-certnum">
+        <div class="topic-head"><h2>6. Certificate Number &amp; Revision Number</h2></div>
+        <div class="topic-body">
+          <div class="form-preview"><div class="highlight" style="left:42.3203%;top:30.3030%;width:54.0850%;height:1.5152%;"></div></div>
+          <div class="topic-text">
+            <p><b>What it is:</b> An internal tracking number your agency assigns to the certificate. The revision number marks this as an update to a certificate already on file for the same requirement.</p>
+            <p><b>Why it matters:</b> Larger certificate holders track compliance by certificate number. If you reissue a corrected certificate but don't bump the revision number, it can look identical to the original and get filed alongside it instead of replacing it &mdash; leaving outdated information on record.</p>
+            <div class="watch-list"><b>Watch for:</b> Increment the revision number any time you correct or update a certificate that's already been sent &mdash; not only when adding brand-new coverage.</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"><h3>The Coverage Grid</h3></div>
+
+      <section class="topic" id="sec-grid">
+        <div class="topic-head"><h2>7. Type of Insurance &mdash; Grid Overview</h2></div>
+        <div class="topic-body">
+          <div class="form-preview"><div class="highlight" style="left:2.9412%;top:37.8788%;width:93.4641%;height:29.2929%;"></div></div>
+          <div class="topic-text">
+            <p><b>What it is:</b> The main table where each line of coverage &mdash; General Liability, Automobile Liability, Umbrella/Excess, Workers Compensation, and Other &mdash; gets its own row with a checkbox, an insurer letter, a policy number, effective/expiration dates, and limits.</p>
+            <p><b>Why it matters:</b> Only check the box for a coverage line the insured actually carries and that's relevant to this request. Checking an extra box (or leaving a required one unchecked) misrepresents what's really in force.</p>
+            <div class="watch-list"><b>Watch for:</b> Cross-reference every checked row against the account file &mdash; don't check a box just because a similar client "usually" carries that coverage.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic" id="sec-gl">
+        <div class="topic-head"><h2>8. General Liability</h2></div>
+        <div class="topic-body">
+          <div class="form-preview"><div class="highlight" style="left:2.9412%;top:37.8788%;width:93.4641%;height:10.6061%;"></div></div>
+          <div class="topic-text">
+            <p><b>Occurrence vs. Claims-Made:</b> two very different triggers. Occurrence form covers an incident that happens during the policy period, no matter when the claim is later filed. Claims-made form only covers a claim that's actually made while the policy is active (or during an extended reporting period). Contracts almost always require occurrence form, because it protects the certificate holder even years after the work is done.</p>
+            <p><b>Each Occurrence Limit:</b> the most the insurer pays for a single covered incident.</p>
+            <p><b>Damage to Rented Premises:</b> covers damage the insured causes to a space they rent &mdash; fire is the classic example, which is why it's sometimes called "fire legal liability."</p>
+            <p><b>Medical Expense:</b> small, no-fault medical payments regardless of who's at fault.</p>
+            <p><b>Personal &amp; Advertising Injury:</b> covers non-physical-injury claims like libel, slander, false arrest, or advertising copyright infringement.</p>
+            <p><b>General Aggregate:</b> the total cap for all claims in the policy period (except products-completed operations, which has its own separate cap). Once it's exhausted, there's no GL coverage left for the rest of the year.</p>
+            <p><b>Products-Completed Operations Aggregate:</b> a separate cap specifically for claims that arise after the insured's work is finished &mdash; a roof that leaks six months after installation, for example.</p>
+            <p><b>Gen'l Aggregate Limit Applies Per (Policy / Project / Location):</b> determines whether the aggregate resets per project. Hugely important for contractors running multiple jobs &mdash; a "per project" endorsement keeps a bad claim on one job from eating the limit available to every other job.</p>
+            <p><b>ADDL INSD / SUBR WVD:</b> whether the certificate holder has actually been added as an additional insured and whether subrogation has actually been waived &mdash; both require a specific endorsement on the policy, never assumed from a request alone.</p>
+            <div class="watch-list"><b>Watch for:</b> OCCUR and CLAIMS-MADE sit right next to each other on the form, which makes them one of the most commonly mis-checked boxes on the whole certificate. Always confirm against the declarations page &mdash; never guess.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic" id="sec-auto">
+        <div class="topic-head"><h2>9. Automobile Liability</h2></div>
+        <div class="topic-body">
+          <div class="form-preview"><div class="highlight" style="left:2.9412%;top:48.4848%;width:93.4641%;height:7.5758%;"></div></div>
+          <div class="topic-text">
+            <p><b>Any Auto vs. Owned / Scheduled / Hired / Non-Owned:</b> "Any Auto" is broad, symbol-1 coverage for every vehicle the insured owns or operates. The other four are narrower &mdash; Hired Autos covers rentals, Non-Owned covers employees' personal vehicles used for work. A business that doesn't own vehicles but reimburses staff for mileage typically carries only Hired &amp; Non-Owned, never Any Auto.</p>
+            <p><b>Combined Single Limit (CSL) vs. split limits:</b> CSL is one number covering bodily injury and property damage together. Split limits break it into separate Bodily Injury (per person / per accident) and Property Damage figures. Only fill in the format the policy actually uses &mdash; don't invent the other one.</p>
+            <p><b>ADDL INSD / SUBR WVD:</b> the same logic as General Liability &mdash; auto and GL endorsements are separate and not interchangeable. Being an additional insured on GL says nothing about auto.</p>
+            <div class="watch-list"><b>Watch for:</b> the most common mistake here is checking Any Auto (or every box) out of habit when the business only actually carries Hired &amp; Non-Owned &mdash; verify which vehicle symbols are really purchased before checking anything.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic" id="sec-umbrella">
+        <div class="topic-head"><h2>10. Umbrella / Excess Liability</h2></div>
+        <div class="topic-body">
+          <div class="form-preview"><div class="highlight" style="left:2.9412%;top:56.0606%;width:93.4641%;height:4.5455%;"></div></div>
+          <div class="topic-text">
+            <p><b>What it is:</b> extra limits that sit above the General Liability, Auto, and Employers Liability policies once those are exhausted. "Umbrella" can also broaden coverage beyond the underlying policies; "Excess" strictly follows the underlying form's terms.</p>
+            <p><b>Occurrence/Claims-Made, Each Occurrence, Aggregate:</b> the same concepts as General Liability, just applied at a higher limit sitting on top.</p>
+            <p><b>Deductible / Retention:</b> whether the insured pays a deductible before the umbrella responds, or carries a self-insured retention instead.</p>
+            <p><b>Why it matters:</b> certificate holders sometimes require a minimum <em>combined</em> limit (for example, "$1M GL plus $2M umbrella equals $3M total"). That math only works if an umbrella policy actually exists on file.</p>
+            <div class="watch-list"><b>Watch for:</b> never write in umbrella figures for a policy that isn't on file, even if a contract's combined-limit math seems to require it &mdash; leave it blank and flag the gap instead.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic" id="sec-wc">
+        <div class="topic-head"><h2>11. Workers Compensation &amp; Employers Liability</h2></div>
+        <div class="topic-body">
+          <div class="form-preview"><div class="highlight" style="left:2.9412%;top:60.6061%;width:93.4641%;height:6.0606%;"></div></div>
+          <div class="topic-text">
+            <p><b>Per Statute:</b> Workers Comp benefits are set by state law, so this box is almost always checked instead of a dollar limit &mdash; the statute itself defines what's owed.</p>
+            <p><b>E.L. Each Accident / Disease-Each Employee / Disease-Policy Limit:</b> the Employers Liability part of the policy (sometimes called "Part B"), which responds to lawsuits that Workers Comp alone doesn't cover, like a related third-party liability claim.</p>
+            <p><b>Any proprietor/partner/executive officer/member excluded?</b> many states let business owners opt out of their own Workers Comp coverage. "Yes" means those specific people are <em>not</em> covered &mdash; critical if a contract requires coverage on everyone on site, owners included.</p>
+            <div class="watch-list"><b>Watch for:</b> there is no "additional insured" field for Workers Compensation anywhere on this form &mdash; a certificate holder can never be added as an additional insured on WC, only granted a waiver of subrogation. If someone asks for it, the honest answer is that it isn't how Workers Comp coverage works, and always verify the officer-exclusion answer against the current policy rather than what "used to be true."</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"><h3>Finishing the Form</h3></div>
+
+      <section class="topic" id="sec-remarks">
+        <div class="topic-head"><h2>12. Description of Operations / Locations / Vehicles</h2></div>
+        <div class="topic-body">
+          <div class="form-preview"><div class="highlight" style="left:3.5948%;top:72.7273%;width:92.8105%;height:8.3333%;"></div></div>
+          <div class="topic-text">
+            <p><b>What it is:</b> the free-text box where all the specific language a contract or certificate holder requires actually gets written out &mdash; additional insured wording, waiver of subrogation wording, "primary and non-contributory" language, project descriptions, and addresses. If there isn't room, ACORD 101 (Additional Remarks Schedule) gets attached as a continuation page.</p>
+            <p><b>Why it matters:</b> this box is where the certificate documents the specific terms of an agreement, and certificate holders read it literally &mdash; not the general idea, the exact words.</p>
+            <div class="watch-list"><b>Watch for:</b> copy required contract language exactly. A single missing phrase &mdash; like "primary and non-contributory" &mdash; can be the difference between a certificate satisfying a contract requirement and getting rejected.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic" id="sec-holder">
+        <div class="topic-head"><h2>13. Certificate Holder</h2></div>
+        <div class="topic-body">
+          <div class="form-preview"><div class="highlight" style="left:11.7647%;top:87.1212%;width:37.5817%;height:6.0606%;"></div></div>
+          <div class="topic-text">
+            <p><b>What it is:</b> the name and mailing address of whoever requested the certificate and will receive it &mdash; a landlord, general contractor, lender, or government agency.</p>
+            <p><b>Why it matters:</b> this is the recipient's address of record. Get it wrong and the certificate goes to the wrong desk or fails a compliance audit. For lenders, the certificate holder box is also a separate thing from a "loss payee" or "mortgagee" designation elsewhere on the policy &mdash; being listed here doesn't automatically make them either of those.</p>
+            <div class="watch-list"><b>Watch for:</b> use the exact name and department the requestor gave you (like "Attn: Risk Management"), not just the parent company's name.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic" id="sec-cancel">
+        <div class="topic-head"><h2>14. Cancellation</h2></div>
+        <div class="topic-body">
+          <div class="form-preview"><div class="cap">Standard printed clause</div></div>
+          <div class="topic-text">
+            <p><b>What it is:</b> the standard printed paragraph describing what happens if a listed policy is cancelled before its expiration date.</p>
+            <p><b>Why it matters:</b> older editions of this form promised the insurer "will endeavor to mail 30 days written notice" to the certificate holder. The current ACORD 25 edition removed that guarantee &mdash; notice is only sent if the policy itself requires it, and even then it isn't automatically 30 days. Plenty of certificate holders still assume the old promise applies.</p>
+            <div class="watch-list"><b>Watch for:</b> know this distinction so you never promise a certificate holder automatic advance notice of cancellation &mdash; the current form doesn't guarantee it.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic" id="sec-signature">
+        <div class="topic-head"><h2>15. Authorized Representative</h2></div>
+        <div class="topic-body">
+          <div class="form-preview"><div class="highlight" style="left:50.6536%;top:90.9091%;width:45.7516%;height:3.0303%;"></div></div>
+          <div class="topic-text">
+            <p><b>What it is:</b> the signature &mdash; often a digital or typed signature, or an agency stamp &mdash; of the person issuing the certificate on behalf of the producer.</p>
+            <p><b>Why it matters:</b> it's your agency's attestation that everything above accurately reflects what's actually on file at the moment of issue. That's exactly why every box before this one needs to be verified against the policy, never assumed.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer-note">Every field on this form ties back to an actual endorsement, limit, or contract term on file &mdash; never to what a requestor says should be true. When you're ready, head back to the simulator and put this into practice against a real client email and agency file.</div>
+    </main>
+  </div>
+</body>
+</html>
