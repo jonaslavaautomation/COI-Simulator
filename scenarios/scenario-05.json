@@ -1,0 +1,467 @@
+{
+  "id": "scenario-05",
+  "title": "Scenario 5 - Final Accuracy Check",
+  "formType": "acord-25",
+  "summary": "A lender's loan servicing checklist asks for more than Northwind Mechanical actually carries. This one also uses a different producer file — read carefully instead of relying on habit from earlier scenarios.",
+  "instructions": [
+    "Read the email from Northwind Mechanical. This account is serviced by a different producer than the earlier scenarios — use the producer information in this account file, not the one you've been typing from memory.",
+    "Complete General Liability and Automobile Liability using the policy files exactly as written.",
+    "Use the exact remark wording the lender requires in the description of operations box.",
+    "Leave Umbrella/Excess and Workers Compensation blank if there is no policy file for them, no matter what a lender's checklist requests.",
+    "You need 100% to finish the simulator."
+  ],
+  "request": [
+    {
+      "label": "Date",
+      "lines": [
+        "04/29/2026"
+      ]
+    },
+    {
+      "label": "Client Email",
+      "lines": [
+        "From: Renee Ortiz, Controller, Northwind Mechanical Services, Inc. <renee@northwindmech.com>",
+        "To: coi@gcrisk.com",
+        "Subject: COI for First State Bank — Loan No. 447981",
+        "Hi Jordan,",
+        "Our lender, First State Bank, needs an updated certificate of insurance for the HVAC replacement project at Warehouse 12 (Loan No. 447981). Their loan operations team sent over a checklist — they want to be added as additional insured with a waiver of subrogation on our general liability and auto policies.",
+        "Re: HVAC replacement at Warehouse 12, Loan No. 447981. Certificate holder is additional insured and waiver of subrogation applies when required by written contract.",
+        "One more thing from their checklist: it says our combined GL and umbrella limits need to total at least $3,000,000. I don't think we carry an umbrella policy, but can you check and add it to the certificate if we do?",
+        "Thanks,",
+        "Renee"
+      ]
+    },
+    {
+      "label": "Certificate Holder / Requestor",
+      "lines": [
+        "First State Bank",
+        "Attn: Loan Operations",
+        "800 Finance Plaza",
+        "Atlanta, GA 30303",
+        "Reference: Loan No. 447981 — HVAC replacement, Warehouse 12"
+      ]
+    },
+    {
+      "label": "Certificate",
+      "lines": [
+        "Certificate No: FINAL-2026-05",
+        "Revision No: leave blank"
+      ]
+    }
+  ],
+  "policyEvidence": [
+    {
+      "label": "Producer (Your Agency — This Account)",
+      "lines": [
+        "Gulf Coast Risk Advisors",
+        "4800 Causeway Center Dr, Suite 120, Tampa, FL 33619",
+        "Contact: Jordan Lee | Phone: 813-555-0247 | Fax: 813-555-0248",
+        "Email: coi@gcrisk.com"
+      ]
+    },
+    {
+      "label": "Named Insured (Account File)",
+      "lines": [
+        "Northwind Mechanical Services, Inc.",
+        "1440 Industrial Park Blvd",
+        "Savannah, GA 31408"
+      ]
+    },
+    {
+      "label": "Policy File — General Liability",
+      "lines": [
+        "Insurer A: Zurich American Insurance Company | NAIC 16535",
+        "Policy No: GLO-5578129 | Term: 06/01/2026 to 06/01/2027",
+        "Form: Occurrence",
+        "Endorsements on file: Blanket Additional Insured – Ongoing Operations; Blanket Waiver of Subrogation",
+        "Each Occurrence: 1,000,000 | Damage to Rented Premises: 300,000 | Med Exp: 10,000",
+        "Personal & Adv Injury: 1,000,000 | General Aggregate: 2,000,000 | Products-Comp/Op Agg: 2,000,000"
+      ]
+    },
+    {
+      "label": "Policy File — Automobile Liability",
+      "lines": [
+        "Insurer B: American Zurich Insurance Company | NAIC 40142",
+        "Policy No: CA-5578130 | Term: 06/01/2026 to 06/01/2027",
+        "Coverage: Any Auto — Combined Single Limit: 1,000,000",
+        "Endorsements on file: Blanket Additional Insured; Blanket Waiver of Subrogation"
+      ]
+    }
+  ],
+  "endorsements": [
+    {
+      "label": "Endorsements — General Liability",
+      "lines": [
+        "Endorsements on file: Blanket Additional Insured – Ongoing Operations; Blanket Waiver of Subrogation"
+      ]
+    },
+    {
+      "label": "Endorsements — Automobile Liability",
+      "lines": [
+        "Endorsements on file: Blanket Additional Insured; Blanket Waiver of Subrogation"
+      ]
+    }
+  ],
+  "agencyNotes": [
+    {
+      "label": "Agency Notes",
+      "lines": [
+        "No Umbrella/Excess or Workers Compensation policy is on file for Northwind Mechanical Services, Inc. Do not add coverage that hasn't been purchased, even if a lender's checklist asks for higher combined limits."
+      ]
+    }
+  ],
+  "expectedResults": {
+    "checks": [
+      {
+        "field": "F[0].P1[0].Form_CompletionDate_A[0]",
+        "value": "04/29/2026",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].Producer_FullName_A[0]",
+        "value": "Gulf Coast Risk Advisors",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_LineOne_A[0]",
+        "value": "4800 Causeway Center Dr",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_LineTwo_A[0]",
+        "value": "Suite 120",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_CityName_A[0]",
+        "value": "Tampa",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_StateOrProvinceCode_A[0]",
+        "value": "FL",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_PostalCode_A[0]",
+        "value": "33619",
+        "compare": "zip"
+      },
+      {
+        "field": "F[0].P1[0].Producer_ContactPerson_FullName_A[0]",
+        "value": "Jordan Lee",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_ContactPerson_PhoneNumber_A[0]",
+        "value": "813-555-0247",
+        "compare": "phone"
+      },
+      {
+        "field": "F[0].P1[0].Producer_FaxNumber_A[0]",
+        "value": "813-555-0248",
+        "compare": "phone"
+      },
+      {
+        "field": "F[0].P1[0].Producer_ContactPerson_EmailAddress_A[0]",
+        "value": "coi@gcrisk.com",
+        "compare": "email"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_FullName_A[0]",
+        "value": "Northwind Mechanical Services, Inc.",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_LineOne_A[0]",
+        "value": "1440 Industrial Park Blvd",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_CityName_A[0]",
+        "value": "Savannah",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_StateOrProvinceCode_A[0]",
+        "value": "GA",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_PostalCode_A[0]",
+        "value": "31408",
+        "compare": "zip"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_FullName_A[0]",
+        "value": "Zurich American Insurance Company",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_NAICCode_A[0]",
+        "value": "16535",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_FullName_B[0]",
+        "value": "American Zurich Insurance Company",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_NAICCode_B[0]",
+        "value": "40142",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfInsurance_CertificateNumberIdentifier_A[0]",
+        "value": "FINAL-2026-05",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_CoverageIndicator_A[0]",
+        "value": true,
+        "compare": "checkbox"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_OccurrenceIndicator_A[0]",
+        "value": true,
+        "compare": "checkbox"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_InsurerLetterCode_A[0]",
+        "value": "A",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfInsurance_GeneralLiability_AdditionalInsuredCode_A[0]",
+        "value": "Y",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_GeneralLiability_SubrogationWaivedCode_A[0]",
+        "value": "Y",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_GeneralLiability_PolicyNumberIdentifier_A[0]",
+        "value": "GLO-5578129",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_GeneralLiability_EffectiveDate_A[0]",
+        "value": "06/01/2026",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].Policy_GeneralLiability_ExpirationDate_A[0]",
+        "value": "06/01/2027",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_EachOccurrence_LimitAmount_A[0]",
+        "value": "1000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_FireDamageRentedPremises_EachOccurrenceLimitAmount_A[0]",
+        "value": "300000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_MedicalExpense_EachPersonLimitAmount_A[0]",
+        "value": "10000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_PersonalAndAdvertisingInjury_LimitAmount_A[0]",
+        "value": "1000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_GeneralAggregate_LimitAmount_A[0]",
+        "value": "2000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_ProductsAndCompletedOperations_AggregateLimitAmount_A[0]",
+        "value": "2000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_AnyAutoIndicator_A[0]",
+        "value": true,
+        "compare": "checkbox"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_InsurerLetterCode_A[0]",
+        "value": "B",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfInsurance_AutomobileLiability_AdditionalInsuredCode_A[0]",
+        "value": "Y",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_AutomobileLiability_SubrogationWaivedCode_A[0]",
+        "value": "Y",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_AutomobileLiability_PolicyNumberIdentifier_A[0]",
+        "value": "CA-5578130",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_AutomobileLiability_EffectiveDate_A[0]",
+        "value": "06/01/2026",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].Policy_AutomobileLiability_ExpirationDate_A[0]",
+        "value": "06/01/2027",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_CombinedSingleLimit_EachAccidentAmount_A[0]",
+        "value": "1000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfLiabilityInsurance_ACORDForm_RemarkText_A[0]",
+        "value": "Re: HVAC replacement at Warehouse 12, Loan No. 447981. Certificate holder is additional insured and waiver of subrogation applies when required by written contract.",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_FullName_A[0]",
+        "value": "First State Bank",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_LineOne_A[0]",
+        "value": "Attn: Loan Operations",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_LineTwo_A[0]",
+        "value": "800 Finance Plaza",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_CityName_A[0]",
+        "value": "Atlanta",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_StateOrProvinceCode_A[0]",
+        "value": "GA",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_PostalCode_A[0]",
+        "value": "30303",
+        "compare": "zip"
+      }
+    ],
+    "blankChecks": [
+      {
+        "field": "F[0].P1[0].Policy_PolicyType_UmbrellaIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].WorkersCompensationEmployersLiability_WorkersCompensationStatutoryLimitIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Policy_ExcessLiability_PolicyNumberIdentifier_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].Policy_WorkersCompensationAndEmployersLiability_PolicyNumberIdentifier_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].WorkersCompensationEmployersLiability_InsurerLetterCode_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfInsurance_RevisionNumberIdentifier_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_LineTwo_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_ClaimsMadeIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_AllOwnedAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_ScheduledAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_HiredAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_NonOwnedAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_B[0]",
+        "compare": "unchecked"
+      }
+    ]
+  },
+  "qaRules": [
+    {
+      "topic": "Additional Insured (GL and Automobile Liability)",
+      "requested": true,
+      "request": "Renee's email: First State Bank's checklist wants additional insured status on GL and auto.",
+      "evidence": "Both GL policy GLO-5578129 and auto policy CA-5578130 carry Blanket Additional Insured endorsements.",
+      "supported": "supported",
+      "action": "May be reflected on the COI (ADDL INSD: Y on both lines).",
+      "acordField": "F[0].P1[0].CertificateOfInsurance_GeneralLiability_AdditionalInsuredCode_A[0]"
+    },
+    {
+      "topic": "Waiver of Subrogation (GL and Automobile Liability)",
+      "requested": true,
+      "request": "Renee's email: the same checklist wants a waiver of subrogation on GL and auto.",
+      "evidence": "Both GL and auto policies carry Blanket Waiver of Subrogation endorsements.",
+      "supported": "supported",
+      "action": "May be reflected on the COI (SUBR WVD: Y on both lines).",
+      "acordField": "F[0].P1[0].Policy_GeneralLiability_SubrogationWaivedCode_A[0]"
+    },
+    {
+      "topic": "Umbrella/Excess Coverage (to meet $3,000,000 combined limit)",
+      "requested": true,
+      "request": "Renee's email: the lender's checklist wants combined GL + umbrella limits of at least $3,000,000.",
+      "evidence": "No Umbrella/Excess policy is on file for Northwind Mechanical Services, Inc.",
+      "supported": "not_supported",
+      "action": "Do not add coverage that hasn't been purchased, even to satisfy a lender's limit requirement — leave Umbrella/Excess blank.",
+      "acordField": "F[0].P1[0].Policy_PolicyType_UmbrellaIndicator_A[0]"
+    }
+  ],
+  "mistakes": [
+    "wrong-insurer",
+    "ai-without-evidence",
+    "waiver-without-evidence",
+    "wrong-policy-number",
+    "account-number-as-policy-number",
+    "expired-policy-dates",
+    "requested-limit-not-actual",
+    "unsupported-remarks-wording",
+    "cert-holder-vs-ai-confusion",
+    "phantom-umbrella",
+    "unsupported-coverage-added"
+  ]
+}

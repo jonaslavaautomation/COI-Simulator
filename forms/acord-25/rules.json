@@ -1,0 +1,198 @@
+{
+  "rules": [
+    {
+      "id": "general-liability_policy_number_required_if_active",
+      "type": "conditional_required",
+      "field": "policy_general_liability_policy_number_identifier_a",
+      "condition": {
+        "field": "general_liability_coverage_indicator_a",
+        "equals": true
+      }
+    },
+    {
+      "id": "general-liability_effective_date_required_if_active",
+      "type": "conditional_required",
+      "field": "policy_general_liability_effective_date_a",
+      "condition": {
+        "field": "general_liability_coverage_indicator_a",
+        "equals": true
+      }
+    },
+    {
+      "id": "general-liability_expiration_date_required_if_active",
+      "type": "conditional_required",
+      "field": "policy_general_liability_expiration_date_a",
+      "condition": {
+        "field": "general_liability_coverage_indicator_a",
+        "equals": true
+      }
+    },
+    {
+      "id": "automobile-liability_policy_number_required_if_active",
+      "type": "conditional_required",
+      "field": "policy_automobile_liability_policy_number_identifier_a",
+      "condition": {
+        "field": "vehicle_any_auto_indicator_a",
+        "equals": "any"
+      }
+    },
+    {
+      "id": "automobile-liability_effective_date_required_if_active",
+      "type": "conditional_required",
+      "field": "policy_automobile_liability_effective_date_a",
+      "condition": {
+        "field": "vehicle_any_auto_indicator_a",
+        "equals": "any"
+      }
+    },
+    {
+      "id": "automobile-liability_expiration_date_required_if_active",
+      "type": "conditional_required",
+      "field": "policy_automobile_liability_expiration_date_a",
+      "condition": {
+        "field": "vehicle_any_auto_indicator_a",
+        "equals": "any"
+      }
+    },
+    {
+      "id": "workers-compensation_policy_number_required_if_active",
+      "type": "conditional_required",
+      "field": "policy_workers_compensation_and_employers_liability_policy_number_identifier_a",
+      "condition": {
+        "field": "workers_compensation_employers_liability_workers_compensation_statutory_limit_indicator_a",
+        "equals": true
+      }
+    },
+    {
+      "id": "workers-compensation_effective_date_required_if_active",
+      "type": "conditional_required",
+      "field": "policy_workers_compensation_and_employers_liability_effective_date_a",
+      "condition": {
+        "field": "workers_compensation_employers_liability_workers_compensation_statutory_limit_indicator_a",
+        "equals": true
+      }
+    },
+    {
+      "id": "workers-compensation_expiration_date_required_if_active",
+      "type": "conditional_required",
+      "field": "policy_workers_compensation_and_employers_liability_expiration_date_a",
+      "condition": {
+        "field": "workers_compensation_employers_liability_workers_compensation_statutory_limit_indicator_a",
+        "equals": true
+      }
+    },
+    {
+      "id": "umbrella-excess_policy_number_required_if_active",
+      "type": "conditional_required",
+      "field": "policy_excess_liability_policy_number_identifier_a",
+      "condition": {
+        "field": "policy_policy_type_umbrella_indicator_a",
+        "equals": true
+      }
+    },
+    {
+      "id": "umbrella-excess_effective_date_required_if_active",
+      "type": "conditional_required",
+      "field": "policy_excess_liability_effective_date_a",
+      "condition": {
+        "field": "policy_policy_type_umbrella_indicator_a",
+        "equals": true
+      }
+    },
+    {
+      "id": "umbrella-excess_expiration_date_required_if_active",
+      "type": "conditional_required",
+      "field": "policy_excess_liability_expiration_date_a",
+      "condition": {
+        "field": "policy_policy_type_umbrella_indicator_a",
+        "equals": true
+      }
+    },
+    {
+      "id": "gl_occur_claims_made_mutually_exclusive",
+      "type": "mutually_exclusive",
+      "fields": [
+        "general_liability_occurrence_indicator_a",
+        "general_liability_claims_made_indicator_a"
+      ]
+    },
+    {
+      "id": "certificate_of_insurance_general_liability_additional_insured_code_a_requires_evidence",
+      "type": "requires_evidence",
+      "field": "certificate_of_insurance_general_liability_additional_insured_code_a",
+      "evidenceType": "endorsement",
+      "evidenceLabel": "Additional Insured"
+    },
+    {
+      "id": "certificate_of_insurance_automobile_liability_additional_insured_code_a_requires_evidence",
+      "type": "requires_evidence",
+      "field": "certificate_of_insurance_automobile_liability_additional_insured_code_a",
+      "evidenceType": "endorsement",
+      "evidenceLabel": "Additional Insured"
+    },
+    {
+      "id": "certificate_of_insurance_excess_liability_additional_insured_code_a_requires_evidence",
+      "type": "requires_evidence",
+      "field": "certificate_of_insurance_excess_liability_additional_insured_code_a",
+      "evidenceType": "endorsement",
+      "evidenceLabel": "Additional Insured"
+    },
+    {
+      "id": "certificate_of_insurance_other_policy_additional_insured_code_a_requires_evidence",
+      "type": "requires_evidence",
+      "field": "certificate_of_insurance_other_policy_additional_insured_code_a",
+      "evidenceType": "endorsement",
+      "evidenceLabel": "Additional Insured"
+    },
+    {
+      "id": "policy_general_liability_subrogation_waived_code_a_requires_evidence",
+      "type": "requires_evidence",
+      "field": "policy_general_liability_subrogation_waived_code_a",
+      "evidenceType": "endorsement",
+      "evidenceLabel": "Waiver of Subrogation"
+    },
+    {
+      "id": "policy_automobile_liability_subrogation_waived_code_a_requires_evidence",
+      "type": "requires_evidence",
+      "field": "policy_automobile_liability_subrogation_waived_code_a",
+      "evidenceType": "endorsement",
+      "evidenceLabel": "Waiver of Subrogation"
+    },
+    {
+      "id": "policy_excess_liability_subrogation_waived_code_a_requires_evidence",
+      "type": "requires_evidence",
+      "field": "policy_excess_liability_subrogation_waived_code_a",
+      "evidenceType": "endorsement",
+      "evidenceLabel": "Waiver of Subrogation"
+    },
+    {
+      "id": "policy_workers_compensation_subrogation_waived_code_a_requires_evidence",
+      "type": "requires_evidence",
+      "field": "policy_workers_compensation_subrogation_waived_code_a",
+      "evidenceType": "endorsement",
+      "evidenceLabel": "Waiver of Subrogation"
+    },
+    {
+      "id": "other_policy_subrogation_waived_code_a_requires_evidence",
+      "type": "requires_evidence",
+      "field": "other_policy_subrogation_waived_code_a",
+      "evidenceType": "endorsement",
+      "evidenceLabel": "Waiver of Subrogation"
+    },
+    {
+      "id": "producer_full_name_a_required",
+      "type": "required",
+      "field": "producer_full_name_a"
+    },
+    {
+      "id": "named_insured_full_name_a_required",
+      "type": "required",
+      "field": "named_insured_full_name_a"
+    },
+    {
+      "id": "certificate_holder_full_name_a_required",
+      "type": "required",
+      "field": "certificate_holder_full_name_a"
+    }
+  ]
+}

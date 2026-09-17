@@ -1,0 +1,13 @@
+{
+  "id": "acord-25",
+  "name": "ACORD 25",
+  "category": "Certificate",
+  "version": "",
+  "effectiveFrom": "",
+  "effectiveTo": "",
+  "pageCount": 1,
+  "width": 612,
+  "height": 792,
+  "background": "assets/acord25-template.png",
+  "status": "active"
+}

@@ -1,0 +1,407 @@
+{
+  "id": "scenario-01",
+  "title": "Scenario 1 - General Liability for Landlord",
+  "formType": "acord-25",
+  "summary": "Suncrest Painting LLC emails asking for a certificate for their landlord. Not every request in the email is something their policy actually supports — check the agency file before you complete the form.",
+  "instructions": [
+    "Read the email from Suncrest Painting and weigh every request against the agency file below — only enter coverage and endorsements that actually exist on file.",
+    "Complete the producer, named insured, insurer, certificate number, and General Liability section using the policy file exactly as written.",
+    "Use the exact remark wording the property manager requires in the description of operations box.",
+    "If a requested coverage isn't listed in the agency file, leave that section of the form blank — never assume coverage that isn't documented.",
+    "A perfect score is required to unlock the next scenario."
+  ],
+  "request": [
+    {
+      "label": "Date",
+      "lines": [
+        "04/29/2026"
+      ]
+    },
+    {
+      "label": "Client Email",
+      "lines": [
+        "From: Marcus Webb, Owner, Suncrest Painting LLC <mwebb@suncrestpainting.com>",
+        "To: certificates@lavatraining.com",
+        "Subject: COI needed for Bayfront Commercial Properties",
+        "Hi Ana,",
+        "We just signed on to repaint the exterior of a strip mall for Bayfront Commercial Properties, LLC. Their property manager needs a certificate before we can get on site Monday.",
+        "They need to be listed as additional insured and they want a waiver of subrogation too. Here's the exact wording their property manager, Denise, wants in the description box:",
+        "\"Certificate holder is included as additional insured and waiver of subrogation applies with respect to the painting work at 88 Bayfront Plaza, Tampa, FL.\"",
+        "Denise also mentioned our crew will be up on ladders and scaffolding, and asked if we could show workers comp coverage on the certificate too, just to be safe. Can you take care of this today?",
+        "Thanks,",
+        "Marcus"
+      ]
+    },
+    {
+      "label": "Certificate Holder / Requestor",
+      "lines": [
+        "Bayfront Commercial Properties, LLC",
+        "Attn: Property Management",
+        "88 Bayfront Plaza",
+        "Tampa, FL 33607"
+      ]
+    },
+    {
+      "label": "Certificate",
+      "lines": [
+        "Certificate No: CERT-1001",
+        "Revision No: leave blank"
+      ]
+    }
+  ],
+  "policyEvidence": [
+    {
+      "label": "Producer (Your Agency)",
+      "lines": [
+        "LAVA Training Insurance Services",
+        "1200 Harbor Blvd, Suite 300, Tampa, FL 33602",
+        "Contact: Ana Morales | Phone: 813-555-0199 | Fax: 813-555-0100",
+        "Email: certificates@lavatraining.com"
+      ]
+    },
+    {
+      "label": "Named Insured (Account File)",
+      "lines": [
+        "Suncrest Painting LLC",
+        "455 Oak Industrial Way",
+        "Jacksonville, FL 32256"
+      ]
+    },
+    {
+      "label": "Policy File — General Liability",
+      "lines": [
+        "Insurer A: Liberty Surplus Insurance Corporation | NAIC 10725",
+        "Policy No: GLS1234567 | Term: 01/01/2026 to 01/01/2027",
+        "Form: Occurrence",
+        "Endorsements on file: Blanket Additional Insured – Ongoing Operations; Blanket Waiver of Subrogation",
+        "Each Occurrence: 1,000,000 | Damage to Rented Premises: 100,000 | Med Exp: 5,000",
+        "Personal & Adv Injury: 1,000,000 | General Aggregate: 2,000,000 | Products-Comp/Op Agg: 2,000,000"
+      ]
+    }
+  ],
+  "endorsements": [
+    {
+      "label": "Endorsements — General Liability",
+      "lines": [
+        "Endorsements on file: Blanket Additional Insured – Ongoing Operations; Blanket Waiver of Subrogation"
+      ]
+    }
+  ],
+  "agencyNotes": [
+    {
+      "label": "Agency Notes",
+      "lines": [
+        "Suncrest Painting LLC has an approved corporate-officer exemption on file with the State of Florida — no Workers Compensation policy is in force.",
+        "No Automobile or Umbrella/Excess policies are on file for this insured."
+      ]
+    }
+  ],
+  "expectedResults": {
+    "checks": [
+      {
+        "field": "F[0].P1[0].Form_CompletionDate_A[0]",
+        "value": "04/29/2026",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].Producer_FullName_A[0]",
+        "value": "LAVA Training Insurance Services",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_LineOne_A[0]",
+        "value": "1200 Harbor Blvd",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_LineTwo_A[0]",
+        "value": "Suite 300",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_CityName_A[0]",
+        "value": "Tampa",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_StateOrProvinceCode_A[0]",
+        "value": "FL",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_PostalCode_A[0]",
+        "value": "33602",
+        "compare": "zip"
+      },
+      {
+        "field": "F[0].P1[0].Producer_ContactPerson_FullName_A[0]",
+        "value": "Ana Morales",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_ContactPerson_PhoneNumber_A[0]",
+        "value": "813-555-0199",
+        "compare": "phone"
+      },
+      {
+        "field": "F[0].P1[0].Producer_FaxNumber_A[0]",
+        "value": "813-555-0100",
+        "compare": "phone"
+      },
+      {
+        "field": "F[0].P1[0].Producer_ContactPerson_EmailAddress_A[0]",
+        "value": "certificates@lavatraining.com",
+        "compare": "email"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_FullName_A[0]",
+        "value": "Suncrest Painting LLC",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_LineOne_A[0]",
+        "value": "455 Oak Industrial Way",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_CityName_A[0]",
+        "value": "Jacksonville",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_StateOrProvinceCode_A[0]",
+        "value": "FL",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_PostalCode_A[0]",
+        "value": "32256",
+        "compare": "zip"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_FullName_A[0]",
+        "value": "Liberty Surplus Insurance Corporation",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_NAICCode_A[0]",
+        "value": "10725",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfInsurance_CertificateNumberIdentifier_A[0]",
+        "value": "CERT-1001",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_CoverageIndicator_A[0]",
+        "value": true,
+        "compare": "checkbox"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_OccurrenceIndicator_A[0]",
+        "value": true,
+        "compare": "checkbox"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_InsurerLetterCode_A[0]",
+        "value": "A",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfInsurance_GeneralLiability_AdditionalInsuredCode_A[0]",
+        "value": "Y",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_GeneralLiability_SubrogationWaivedCode_A[0]",
+        "value": "Y",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_GeneralLiability_PolicyNumberIdentifier_A[0]",
+        "value": "GLS1234567",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_GeneralLiability_EffectiveDate_A[0]",
+        "value": "01/01/2026",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].Policy_GeneralLiability_ExpirationDate_A[0]",
+        "value": "01/01/2027",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_EachOccurrence_LimitAmount_A[0]",
+        "value": "1000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_FireDamageRentedPremises_EachOccurrenceLimitAmount_A[0]",
+        "value": "100000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_MedicalExpense_EachPersonLimitAmount_A[0]",
+        "value": "5000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_PersonalAndAdvertisingInjury_LimitAmount_A[0]",
+        "value": "1000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_GeneralAggregate_LimitAmount_A[0]",
+        "value": "2000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_ProductsAndCompletedOperations_AggregateLimitAmount_A[0]",
+        "value": "2000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfLiabilityInsurance_ACORDForm_RemarkText_A[0]",
+        "value": "Certificate holder is included as additional insured and waiver of subrogation applies with respect to the painting work at 88 Bayfront Plaza, Tampa, FL.",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_FullName_A[0]",
+        "value": "Bayfront Commercial Properties, LLC",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_LineOne_A[0]",
+        "value": "Attn: Property Management",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_LineTwo_A[0]",
+        "value": "88 Bayfront Plaza",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_CityName_A[0]",
+        "value": "Tampa",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_StateOrProvinceCode_A[0]",
+        "value": "FL",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_PostalCode_A[0]",
+        "value": "33607",
+        "compare": "zip"
+      }
+    ],
+    "blankChecks": [
+      {
+        "field": "F[0].P1[0].Vehicle_AnyAutoIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Policy_PolicyType_UmbrellaIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].WorkersCompensationEmployersLiability_WorkersCompensationStatutoryLimitIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_InsurerLetterCode_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].Policy_ExcessLiability_PolicyNumberIdentifier_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].Policy_WorkersCompensationAndEmployersLiability_PolicyNumberIdentifier_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfInsurance_RevisionNumberIdentifier_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_LineTwo_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_ClaimsMadeIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_AllOwnedAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_ScheduledAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_HiredAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_NonOwnedAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_B[0]",
+        "compare": "unchecked"
+      }
+    ]
+  },
+  "qaRules": [
+    {
+      "topic": "Additional Insured (General Liability)",
+      "requested": true,
+      "request": "Marcus's email: the property manager needs Suncrest listed as additional insured.",
+      "evidence": "GL policy GLS1234567 carries a Blanket Additional Insured – Ongoing Operations endorsement.",
+      "supported": "supported",
+      "action": "May be reflected on the COI (General Liability ADDL INSD: Y).",
+      "acordField": "F[0].P1[0].CertificateOfInsurance_GeneralLiability_AdditionalInsuredCode_A[0]"
+    },
+    {
+      "topic": "Waiver of Subrogation (General Liability)",
+      "requested": true,
+      "request": "Marcus's email: the property manager also wants a waiver of subrogation.",
+      "evidence": "GL policy GLS1234567 carries a Blanket Waiver of Subrogation endorsement.",
+      "supported": "supported",
+      "action": "May be reflected on the COI (General Liability SUBR WVD: Y).",
+      "acordField": "F[0].P1[0].Policy_GeneralLiability_SubrogationWaivedCode_A[0]"
+    },
+    {
+      "topic": "Workers Compensation Coverage",
+      "requested": true,
+      "request": "Marcus's email: the property manager asked to show workers comp coverage too.",
+      "evidence": "No Workers Compensation policy is in force — Suncrest has an approved FL corporate-officer exemption on file.",
+      "supported": "not_supported",
+      "action": "Do not add unsupported coverage — leave the Workers Compensation section blank.",
+      "acordField": "F[0].P1[0].WorkersCompensationEmployersLiability_WorkersCompensationStatutoryLimitIndicator_A[0]"
+    }
+  ],
+  "mistakes": [
+    "wrong-insurer",
+    "ai-without-evidence",
+    "waiver-without-evidence",
+    "wrong-policy-number",
+    "account-number-as-policy-number",
+    "expired-policy-dates",
+    "requested-limit-not-actual",
+    "unsupported-remarks-wording",
+    "cert-holder-vs-ai-confusion",
+    "phantom-umbrella",
+    "unsupported-coverage-added"
+  ]
+}

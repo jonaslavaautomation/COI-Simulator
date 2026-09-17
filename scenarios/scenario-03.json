@@ -1,0 +1,478 @@
+{
+  "id": "scenario-03",
+  "title": "Scenario 3 - GL and Workers Comp for Subcontractor",
+  "formType": "acord-25",
+  "summary": "Apex Roofing emails about a reroofing job for a general contractor. Their office manager isn't sure about one detail on the workers comp policy — the agency file has the answer.",
+  "instructions": [
+    "Read the email from Apex Roofing. When the sender is unsure about a policy detail, trust the agency file below, not their guess.",
+    "Complete General Liability and Workers Compensation using the policy file exactly as written.",
+    "Use the exact remark wording required for the general contractor in the description of operations box.",
+    "Leave Automobile Liability and Umbrella/Excess blank — there is no file for those coverages on this account.",
+    "A perfect score is required to unlock the next scenario."
+  ],
+  "request": [
+    {
+      "label": "Date",
+      "lines": [
+        "04/29/2026"
+      ]
+    },
+    {
+      "label": "Client Email",
+      "lines": [
+        "From: Dana Osei, Office Manager, Apex Roofing & Sheet Metal, LLC <dana@apexroofingfl.com>",
+        "To: certificates@lavatraining.com",
+        "Subject: COI needed for ABC General Contractors — Naples reroofing job",
+        "Hi Ana,",
+        "We start the reroofing job for ABC General Contractors at 550 Harbor Point Rd in Naples next week and their risk management office needs a certificate before our crew can badge in.",
+        "The contract requires them as additional insured on our GL with a waiver of subrogation, and they also want to see our workers comp info since we'll have several crew on the roof.",
+        "ABC General Contractors, Inc. is additional insured for ongoing operations. Waiver of subrogation applies where required by written contract for reroofing project at 550 Harbor Point Rd, Naples, FL.",
+        "One more thing — our owner, Ray, thought he's still listed as excluded from the work comp policy from back when it was just him and one helper, but I think that changed when we added the new roofing crew this year. Can you double check that against the policy on file before you send this out?",
+        "Thanks,",
+        "Dana"
+      ]
+    },
+    {
+      "label": "Certificate Holder / Requestor",
+      "lines": [
+        "ABC General Contractors, Inc.",
+        "Attn: Risk Management",
+        "550 Harbor Point Rd",
+        "Naples, FL 34102"
+      ]
+    },
+    {
+      "label": "Certificate",
+      "lines": [
+        "Certificate No: CERT-1003",
+        "Revision No: leave blank"
+      ]
+    }
+  ],
+  "policyEvidence": [
+    {
+      "label": "Producer (Your Agency)",
+      "lines": [
+        "LAVA Training Insurance Services",
+        "1200 Harbor Blvd, Suite 300, Tampa, FL 33602",
+        "Contact: Ana Morales | Phone: 813-555-0199 | Fax: 813-555-0100",
+        "Email: certificates@lavatraining.com"
+      ]
+    },
+    {
+      "label": "Named Insured (Account File)",
+      "lines": [
+        "Apex Roofing & Sheet Metal, LLC",
+        "2100 Commerce Park Dr",
+        "Fort Myers, FL 33908"
+      ]
+    },
+    {
+      "label": "Policy File — General Liability",
+      "lines": [
+        "Insurer A: Travelers Property Casualty Company of America | NAIC 25674",
+        "Policy No: TRV-GL-883190 | Term: 02/01/2026 to 02/01/2027",
+        "Form: Occurrence",
+        "Endorsements on file: Blanket Additional Insured – Ongoing Operations; Blanket Waiver of Subrogation",
+        "Each Occurrence: 1,000,000 | Damage to Rented Premises: 100,000 | Med Exp: 5,000",
+        "Personal & Adv Injury: 1,000,000 | General Aggregate: 2,000,000 | Products-Comp/Op Agg: 2,000,000"
+      ]
+    },
+    {
+      "label": "Policy File — Workers Compensation",
+      "lines": [
+        "Insurer C: Travelers Indemnity Company | NAIC 25658",
+        "Policy No: TRV-WC-883191 | Term: 02/01/2026 to 02/01/2027",
+        "Coverage: Statutory limits | EL Each Accident: 1,000,000 | EL Disease Ea Employee: 1,000,000 | EL Disease Policy Limit: 1,000,000",
+        "Endorsement: Waiver of Subrogation (blanket, per written contract)",
+        "Officer/Owner exclusion: NONE on file — owner Ray Delgado elected coverage effective 02/01/2026 when the crew was added; no exclusion endorsement is currently in force."
+      ]
+    }
+  ],
+  "endorsements": [
+    {
+      "label": "Endorsements — General Liability",
+      "lines": [
+        "Endorsements on file: Blanket Additional Insured – Ongoing Operations; Blanket Waiver of Subrogation"
+      ]
+    },
+    {
+      "label": "Endorsements — Workers Compensation",
+      "lines": [
+        "Endorsement: Waiver of Subrogation (blanket, per written contract)",
+        "Officer/Owner exclusion: NONE on file — owner Ray Delgado elected coverage effective 02/01/2026 when the crew was added; no exclusion endorsement is currently in force."
+      ]
+    }
+  ],
+  "agencyNotes": [
+    {
+      "label": "Agency Notes",
+      "lines": [
+        "No Automobile or Umbrella/Excess policies are on file for this insured."
+      ]
+    }
+  ],
+  "expectedResults": {
+    "checks": [
+      {
+        "field": "F[0].P1[0].Form_CompletionDate_A[0]",
+        "value": "04/29/2026",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].Producer_FullName_A[0]",
+        "value": "LAVA Training Insurance Services",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_LineOne_A[0]",
+        "value": "1200 Harbor Blvd",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_LineTwo_A[0]",
+        "value": "Suite 300",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_CityName_A[0]",
+        "value": "Tampa",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_StateOrProvinceCode_A[0]",
+        "value": "FL",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_PostalCode_A[0]",
+        "value": "33602",
+        "compare": "zip"
+      },
+      {
+        "field": "F[0].P1[0].Producer_ContactPerson_FullName_A[0]",
+        "value": "Ana Morales",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_ContactPerson_PhoneNumber_A[0]",
+        "value": "813-555-0199",
+        "compare": "phone"
+      },
+      {
+        "field": "F[0].P1[0].Producer_FaxNumber_A[0]",
+        "value": "813-555-0100",
+        "compare": "phone"
+      },
+      {
+        "field": "F[0].P1[0].Producer_ContactPerson_EmailAddress_A[0]",
+        "value": "certificates@lavatraining.com",
+        "compare": "email"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_FullName_A[0]",
+        "value": "Apex Roofing & Sheet Metal, LLC",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_LineOne_A[0]",
+        "value": "2100 Commerce Park Dr",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_CityName_A[0]",
+        "value": "Fort Myers",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_StateOrProvinceCode_A[0]",
+        "value": "FL",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_PostalCode_A[0]",
+        "value": "33908",
+        "compare": "zip"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_FullName_A[0]",
+        "value": "Travelers Property Casualty Company of America",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_NAICCode_A[0]",
+        "value": "25674",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_FullName_C[0]",
+        "value": "Travelers Indemnity Company",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_NAICCode_C[0]",
+        "value": "25658",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfInsurance_CertificateNumberIdentifier_A[0]",
+        "value": "CERT-1003",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_CoverageIndicator_A[0]",
+        "value": true,
+        "compare": "checkbox"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_OccurrenceIndicator_A[0]",
+        "value": true,
+        "compare": "checkbox"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_InsurerLetterCode_A[0]",
+        "value": "A",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfInsurance_GeneralLiability_AdditionalInsuredCode_A[0]",
+        "value": "Y",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_GeneralLiability_SubrogationWaivedCode_A[0]",
+        "value": "Y",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_GeneralLiability_PolicyNumberIdentifier_A[0]",
+        "value": "TRV-GL-883190",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_GeneralLiability_EffectiveDate_A[0]",
+        "value": "02/01/2026",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].Policy_GeneralLiability_ExpirationDate_A[0]",
+        "value": "02/01/2027",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_EachOccurrence_LimitAmount_A[0]",
+        "value": "1000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_FireDamageRentedPremises_EachOccurrenceLimitAmount_A[0]",
+        "value": "100000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_MedicalExpense_EachPersonLimitAmount_A[0]",
+        "value": "5000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_PersonalAndAdvertisingInjury_LimitAmount_A[0]",
+        "value": "1000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_GeneralAggregate_LimitAmount_A[0]",
+        "value": "2000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_ProductsAndCompletedOperations_AggregateLimitAmount_A[0]",
+        "value": "2000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].WorkersCompensationEmployersLiability_InsurerLetterCode_A[0]",
+        "value": "C",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].WorkersCompensationEmployersLiability_AnyPersonsExcludedIndicator_A[0]",
+        "value": "N",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_WorkersCompensation_SubrogationWaivedCode_A[0]",
+        "value": "Y",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_WorkersCompensationAndEmployersLiability_PolicyNumberIdentifier_A[0]",
+        "value": "TRV-WC-883191",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_WorkersCompensationAndEmployersLiability_EffectiveDate_A[0]",
+        "value": "02/01/2026",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].Policy_WorkersCompensationAndEmployersLiability_ExpirationDate_A[0]",
+        "value": "02/01/2027",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].WorkersCompensationEmployersLiability_WorkersCompensationStatutoryLimitIndicator_A[0]",
+        "value": true,
+        "compare": "checkbox"
+      },
+      {
+        "field": "F[0].P1[0].WorkersCompensationEmployersLiability_EmployersLiability_EachAccidentLimitAmount_A[0]",
+        "value": "1000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].WorkersCompensationEmployersLiability_EmployersLiability_DiseaseEachEmployeeLimitAmount_A[0]",
+        "value": "1000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].WorkersCompensationEmployersLiability_EmployersLiability_DiseasePolicyLimitAmount_A[0]",
+        "value": "1000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfLiabilityInsurance_ACORDForm_RemarkText_A[0]",
+        "value": "ABC General Contractors, Inc. is additional insured for ongoing operations. Waiver of subrogation applies where required by written contract for reroofing project at 550 Harbor Point Rd, Naples, FL.",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_FullName_A[0]",
+        "value": "ABC General Contractors, Inc.",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_LineOne_A[0]",
+        "value": "Attn: Risk Management",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_LineTwo_A[0]",
+        "value": "550 Harbor Point Rd",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_CityName_A[0]",
+        "value": "Naples",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_StateOrProvinceCode_A[0]",
+        "value": "FL",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_PostalCode_A[0]",
+        "value": "34102",
+        "compare": "zip"
+      }
+    ],
+    "blankChecks": [
+      {
+        "field": "F[0].P1[0].Vehicle_AnyAutoIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Policy_PolicyType_UmbrellaIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_InsurerLetterCode_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].Policy_AutomobileLiability_PolicyNumberIdentifier_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].Policy_ExcessLiability_PolicyNumberIdentifier_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfInsurance_RevisionNumberIdentifier_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_LineTwo_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_ClaimsMadeIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_AllOwnedAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_ScheduledAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_HiredAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_NonOwnedAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_B[0]",
+        "compare": "unchecked"
+      }
+    ]
+  },
+  "qaRules": [
+    {
+      "topic": "Additional Insured (General Liability)",
+      "requested": true,
+      "request": "Dana's email: the general contractor's written contract requires additional insured status.",
+      "evidence": "GL policy TRV-GL-883190 carries a Blanket Additional Insured – Ongoing Operations endorsement.",
+      "supported": "supported",
+      "action": "May be reflected on the COI (General Liability ADDL INSD: Y).",
+      "acordField": "F[0].P1[0].CertificateOfInsurance_GeneralLiability_AdditionalInsuredCode_A[0]"
+    },
+    {
+      "topic": "Waiver of Subrogation (General Liability)",
+      "requested": true,
+      "request": "Dana's email: the contract also requires a waiver of subrogation.",
+      "evidence": "GL policy TRV-GL-883190 carries a Blanket Waiver of Subrogation endorsement.",
+      "supported": "supported",
+      "action": "May be reflected on the COI (General Liability SUBR WVD: Y).",
+      "acordField": "F[0].P1[0].Policy_GeneralLiability_SubrogationWaivedCode_A[0]"
+    },
+    {
+      "topic": "Owner Excluded from Workers Compensation?",
+      "requested": true,
+      "request": "Dana's email: she isn't sure whether owner Ray is still excluded from the WC policy and asked you to check.",
+      "evidence": "WC file shows NO exclusion endorsement in force — Ray elected coverage when the crew was added.",
+      "supported": "needs_review",
+      "action": "Don't take the client's uncertain memory as the answer — the file resolves it: answer N (not excluded).",
+      "acordField": "F[0].P1[0].WorkersCompensationEmployersLiability_AnyPersonsExcludedIndicator_A[0]"
+    }
+  ],
+  "mistakes": [
+    "wrong-insurer",
+    "ai-without-evidence",
+    "waiver-without-evidence",
+    "wrong-policy-number",
+    "account-number-as-policy-number",
+    "expired-policy-dates",
+    "requested-limit-not-actual",
+    "unsupported-remarks-wording",
+    "cert-holder-vs-ai-confusion",
+    "phantom-umbrella"
+  ]
+}

@@ -1,0 +1,367 @@
+{
+  "id": "scenario-02",
+  "title": "Scenario 2 - Auto Liability for Delivery Access",
+  "formType": "acord-25",
+  "summary": "Harbor Fresh Produce Delivery emails about a City of Orlando permit. The city's ask goes beyond what the auto policy actually provides — verify against the file before you check any boxes.",
+  "instructions": [
+    "Read the email from Harbor Fresh and check every request against the automobile policy file below — a request doesn't make it true.",
+    "Complete the producer, insured, insurer, certificate number, Automobile Liability section, description, and certificate holder.",
+    "Only mark an endorsement (additional insured, waiver of subrogation) as granted if the policy file says it's actually in force.",
+    "Leave General Liability, Umbrella/Excess, and Workers Compensation blank — there is no file for those coverages on this account.",
+    "A perfect score is required to unlock the next scenario."
+  ],
+  "request": [
+    {
+      "label": "Date",
+      "lines": [
+        "04/29/2026"
+      ]
+    },
+    {
+      "label": "Client Email",
+      "lines": [
+        "From: Priya Chandra, Operations Manager, Harbor Fresh Produce Delivery Inc. <priya@harborfreshdelivery.com>",
+        "To: certificates@lavatraining.com",
+        "Subject: COI for City of Orlando delivery permit",
+        "Hi Ana,",
+        "The City of Orlando's procurement office is requiring proof of auto liability before they'll renew our delivery access permit for the food services contract.",
+        "One of their reviewers told our driver they also need us to add the City as additional insured and waive subrogation on the auto policy, same as they've seen on our GL certificates before.",
+        "Re: Delivery access permit for City of Orlando food services contract.",
+        "Can you get this over to them today?",
+        "Thanks,",
+        "Priya"
+      ]
+    },
+    {
+      "label": "Certificate Holder / Requestor",
+      "lines": [
+        "City of Orlando Procurement Division",
+        "400 South Orange Ave",
+        "Orlando, FL 32801"
+      ]
+    },
+    {
+      "label": "Certificate",
+      "lines": [
+        "Certificate No: CERT-1002",
+        "Revision No: leave blank"
+      ]
+    }
+  ],
+  "policyEvidence": [
+    {
+      "label": "Producer (Your Agency)",
+      "lines": [
+        "LAVA Training Insurance Services",
+        "1200 Harbor Blvd, Suite 300, Tampa, FL 33602",
+        "Contact: Ana Morales | Phone: 813-555-0199 | Fax: 813-555-0100",
+        "Email: certificates@lavatraining.com"
+      ]
+    },
+    {
+      "label": "Named Insured (Account File)",
+      "lines": [
+        "Harbor Fresh Produce Delivery Inc.",
+        "901 Market Loop",
+        "Orlando, FL 32809"
+      ]
+    },
+    {
+      "label": "Policy File — Automobile Liability",
+      "lines": [
+        "Insurer B: Progressive Express Insurance Company | NAIC 10193",
+        "Policy No: AUTO774411 | Term: 03/15/2026 to 03/15/2027",
+        "Coverage: Any Auto — Combined Single Limit: 1,000,000",
+        "Endorsements on file: none. This business auto policy does not include a blanket additional insured or waiver of subrogation endorsement."
+      ]
+    }
+  ],
+  "endorsements": [
+    {
+      "label": "Endorsements — Automobile Liability",
+      "lines": [
+        "Endorsements on file: none. This business auto policy does not include a blanket additional insured or waiver of subrogation endorsement."
+      ]
+    }
+  ],
+  "agencyNotes": [
+    {
+      "label": "Agency Notes",
+      "lines": [
+        "No General Liability, Workers Compensation, or Umbrella/Excess policies are on file for this insured."
+      ]
+    }
+  ],
+  "expectedResults": {
+    "checks": [
+      {
+        "field": "F[0].P1[0].Form_CompletionDate_A[0]",
+        "value": "04/29/2026",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].Producer_FullName_A[0]",
+        "value": "LAVA Training Insurance Services",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_LineOne_A[0]",
+        "value": "1200 Harbor Blvd",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_LineTwo_A[0]",
+        "value": "Suite 300",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_CityName_A[0]",
+        "value": "Tampa",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_StateOrProvinceCode_A[0]",
+        "value": "FL",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_PostalCode_A[0]",
+        "value": "33602",
+        "compare": "zip"
+      },
+      {
+        "field": "F[0].P1[0].Producer_ContactPerson_FullName_A[0]",
+        "value": "Ana Morales",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_ContactPerson_PhoneNumber_A[0]",
+        "value": "813-555-0199",
+        "compare": "phone"
+      },
+      {
+        "field": "F[0].P1[0].Producer_FaxNumber_A[0]",
+        "value": "813-555-0100",
+        "compare": "phone"
+      },
+      {
+        "field": "F[0].P1[0].Producer_ContactPerson_EmailAddress_A[0]",
+        "value": "certificates@lavatraining.com",
+        "compare": "email"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_FullName_A[0]",
+        "value": "Harbor Fresh Produce Delivery Inc.",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_LineOne_A[0]",
+        "value": "901 Market Loop",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_CityName_A[0]",
+        "value": "Orlando",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_StateOrProvinceCode_A[0]",
+        "value": "FL",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_PostalCode_A[0]",
+        "value": "32809",
+        "compare": "zip"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_FullName_B[0]",
+        "value": "Progressive Express Insurance Company",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_NAICCode_B[0]",
+        "value": "10193",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfInsurance_CertificateNumberIdentifier_A[0]",
+        "value": "CERT-1002",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_AnyAutoIndicator_A[0]",
+        "value": true,
+        "compare": "checkbox"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_InsurerLetterCode_A[0]",
+        "value": "B",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfInsurance_AutomobileLiability_AdditionalInsuredCode_A[0]",
+        "value": "N",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_AutomobileLiability_PolicyNumberIdentifier_A[0]",
+        "value": "AUTO774411",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_AutomobileLiability_EffectiveDate_A[0]",
+        "value": "03/15/2026",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].Policy_AutomobileLiability_ExpirationDate_A[0]",
+        "value": "03/15/2027",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_CombinedSingleLimit_EachAccidentAmount_A[0]",
+        "value": "1000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfLiabilityInsurance_ACORDForm_RemarkText_A[0]",
+        "value": "Re: Delivery access permit for City of Orlando food services contract.",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_FullName_A[0]",
+        "value": "City of Orlando Procurement Division",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_LineTwo_A[0]",
+        "value": "400 South Orange Ave",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_CityName_A[0]",
+        "value": "Orlando",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_StateOrProvinceCode_A[0]",
+        "value": "FL",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_PostalCode_A[0]",
+        "value": "32801",
+        "compare": "zip"
+      }
+    ],
+    "blankChecks": [
+      {
+        "field": "F[0].P1[0].GeneralLiability_CoverageIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Policy_PolicyType_UmbrellaIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].WorkersCompensationEmployersLiability_WorkersCompensationStatutoryLimitIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_InsurerLetterCode_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].Policy_GeneralLiability_PolicyNumberIdentifier_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].Policy_ExcessLiability_PolicyNumberIdentifier_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfInsurance_RevisionNumberIdentifier_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_LineOne_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_LineTwo_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].Policy_AutomobileLiability_SubrogationWaivedCode_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_AllOwnedAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_ScheduledAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_HiredAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_NonOwnedAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_B[0]",
+        "compare": "unchecked"
+      }
+    ]
+  },
+  "qaRules": [
+    {
+      "topic": "Additional Insured (Automobile Liability)",
+      "requested": true,
+      "request": "Priya's email: a city reviewer said the City needs to be added as additional insured on the auto policy.",
+      "evidence": "Auto policy AUTO774411 has no blanket additional insured endorsement on file.",
+      "supported": "not_supported",
+      "action": "Enter N — do not grant an endorsement the policy doesn't have.",
+      "acordField": "F[0].P1[0].CertificateOfInsurance_AutomobileLiability_AdditionalInsuredCode_A[0]"
+    },
+    {
+      "topic": "Waiver of Subrogation (Automobile Liability)",
+      "requested": true,
+      "request": "Priya's email: same reviewer asked for a waiver of subrogation on the auto policy.",
+      "evidence": "Auto policy AUTO774411 has no waiver of subrogation endorsement on file.",
+      "supported": "not_supported",
+      "action": "Leave blank — the endorsement doesn't exist on this policy.",
+      "acordField": "F[0].P1[0].Policy_AutomobileLiability_SubrogationWaivedCode_A[0]"
+    },
+    {
+      "topic": "General Liability Coverage",
+      "requested": false,
+      "request": "Not mentioned in the email — this request is auto-only.",
+      "evidence": "No General Liability policy is on file for this insured.",
+      "supported": "not_requested",
+      "action": "Leave the General Liability section blank.",
+      "acordField": "F[0].P1[0].GeneralLiability_CoverageIndicator_A[0]"
+    }
+  ],
+  "mistakes": [
+    "wrong-insurer",
+    "ai-without-evidence",
+    "unsupported-coverage-added",
+    "wrong-policy-number",
+    "account-number-as-policy-number",
+    "expired-policy-dates",
+    "requested-limit-not-actual",
+    "unsupported-remarks-wording",
+    "cert-holder-vs-ai-confusion",
+    "phantom-umbrella",
+    "waiver-without-evidence"
+  ]
+}

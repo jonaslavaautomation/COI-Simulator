@@ -1,0 +1,527 @@
+{
+  "id": "scenario-04",
+  "title": "Scenario 4 - GL, Auto, and Umbrella for Event Operations",
+  "formType": "acord-25",
+  "summary": "Coastal Event Group emails about a revised certificate for a festival venue. The venue's waiver-of-subrogation ask isn't something every policy on file actually has — read the endorsements carefully.",
+  "instructions": [
+    "Read the email from Coastal Event Group and check the waiver-of-subrogation request against each policy file below — don't assume it applies just because it was asked for.",
+    "Complete the General Liability, Automobile Liability, and Umbrella sections using the policy files exactly as written.",
+    "Use the exact remark wording required for the venue in the description of operations box.",
+    "Leave Workers Compensation blank — there is no file for that coverage on this account.",
+    "Set the revision number as the email describes."
+  ],
+  "request": [
+    {
+      "label": "Date",
+      "lines": [
+        "04/29/2026"
+      ]
+    },
+    {
+      "label": "Client Email",
+      "lines": [
+        "From: Felix Tran, Managing Partner, Coastal Event Group, LLC <felix@coastaleventgroup.com>",
+        "To: certificates@lavatraining.com",
+        "Subject: Revised COI for Bayside Convention Center — Summer Festival",
+        "Hi Ana,",
+        "The Bayside Convention Center reviewed the certificate we sent for the 2026 Summer Food & Music Festival (June 14-16) and said it needs a revision number since we added the umbrella policy this year — please mark this as revision 1.",
+        "The certificate holder is included as additional insured with respect to the named insured's event operations for the 2026 Summer Food & Music Festival held June 14-16, 2026.",
+        "Their events coordinator also asked for a waiver of subrogation across all our policies — GL, auto, and umbrella — since that's apparently standard for their venue contracts. Let me know if that's something we already have.",
+        "Also, just a reminder: we don't own any vehicles, our staff just drives rental vans and their own cars to haul equipment, so make sure the auto section reflects that.",
+        "Thanks,",
+        "Felix"
+      ]
+    },
+    {
+      "label": "Certificate Holder / Requestor",
+      "lines": [
+        "Bayside Convention Center",
+        "1901 Convention Center Dr",
+        "Miami Beach, FL 33139"
+      ]
+    },
+    {
+      "label": "Certificate",
+      "lines": [
+        "Certificate No: CERT-1004",
+        "Revision No: 1 (per the email)"
+      ]
+    }
+  ],
+  "policyEvidence": [
+    {
+      "label": "Producer (Your Agency)",
+      "lines": [
+        "LAVA Training Insurance Services",
+        "1200 Harbor Blvd, Suite 300, Tampa, FL 33602",
+        "Contact: Ana Morales | Phone: 813-555-0199 | Fax: 813-555-0100",
+        "Email: certificates@lavatraining.com"
+      ]
+    },
+    {
+      "label": "Named Insured (Account File)",
+      "lines": [
+        "Coastal Event Group, LLC",
+        "77 Palm Ave",
+        "Miami Beach, FL 33139"
+      ]
+    },
+    {
+      "label": "Policy File — General Liability",
+      "lines": [
+        "Insurer A: Philadelphia Indemnity Insurance Company | NAIC 18058",
+        "Policy No: PHLY-CGL-22091 | Term: 05/01/2026 to 05/01/2027",
+        "Form: Occurrence",
+        "Endorsements on file: Blanket Additional Insured – Ongoing Operations. Waiver of Subrogation endorsement: not purchased this term.",
+        "Each Occurrence: 1,000,000 | Damage to Rented Premises: 100,000 | Med Exp: 5,000",
+        "Personal & Adv Injury: 1,000,000 | General Aggregate: 2,000,000 | Products-Comp/Op Agg: 2,000,000"
+      ]
+    },
+    {
+      "label": "Policy File — Automobile Liability",
+      "lines": [
+        "Insurer B: National Union Fire Insurance Company of Pittsburgh, Pa. | NAIC 19445",
+        "Policy No: AUL-90210 | Term: 05/01/2026 to 05/01/2027",
+        "Coverage: Hired Autos and Non-Owned Autos only — no owned vehicles on file — Combined Single Limit: 1,000,000",
+        "Endorsements on file: Blanket Additional Insured (hired/non-owned). Waiver of Subrogation endorsement: not purchased this term."
+      ]
+    },
+    {
+      "label": "Policy File — Umbrella/Excess Liability",
+      "lines": [
+        "Insurer D: Great American Assurance Company | NAIC 26344",
+        "Policy No: UMB-44018 | Term: 05/01/2026 to 05/01/2027",
+        "Form: Occurrence, follows form over the General Liability and Automobile Liability policies",
+        "Each Occurrence: 2,000,000 | Aggregate: 2,000,000",
+        "Waiver of Subrogation endorsement: not purchased this term."
+      ]
+    }
+  ],
+  "endorsements": [
+    {
+      "label": "Endorsements — General Liability",
+      "lines": [
+        "Endorsements on file: Blanket Additional Insured – Ongoing Operations. Waiver of Subrogation endorsement: not purchased this term."
+      ]
+    },
+    {
+      "label": "Endorsements — Automobile Liability",
+      "lines": [
+        "Endorsements on file: Blanket Additional Insured (hired/non-owned). Waiver of Subrogation endorsement: not purchased this term."
+      ]
+    },
+    {
+      "label": "Endorsements — Umbrella/Excess Liability",
+      "lines": [
+        "Waiver of Subrogation endorsement: not purchased this term."
+      ]
+    }
+  ],
+  "agencyNotes": [
+    {
+      "label": "Agency Notes",
+      "lines": [
+        "No Workers Compensation policy is on file for this insured."
+      ]
+    }
+  ],
+  "expectedResults": {
+    "checks": [
+      {
+        "field": "F[0].P1[0].Form_CompletionDate_A[0]",
+        "value": "04/29/2026",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].Producer_FullName_A[0]",
+        "value": "LAVA Training Insurance Services",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_LineOne_A[0]",
+        "value": "1200 Harbor Blvd",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_LineTwo_A[0]",
+        "value": "Suite 300",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_CityName_A[0]",
+        "value": "Tampa",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_StateOrProvinceCode_A[0]",
+        "value": "FL",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Producer_MailingAddress_PostalCode_A[0]",
+        "value": "33602",
+        "compare": "zip"
+      },
+      {
+        "field": "F[0].P1[0].Producer_ContactPerson_FullName_A[0]",
+        "value": "Ana Morales",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Producer_ContactPerson_PhoneNumber_A[0]",
+        "value": "813-555-0199",
+        "compare": "phone"
+      },
+      {
+        "field": "F[0].P1[0].Producer_FaxNumber_A[0]",
+        "value": "813-555-0100",
+        "compare": "phone"
+      },
+      {
+        "field": "F[0].P1[0].Producer_ContactPerson_EmailAddress_A[0]",
+        "value": "certificates@lavatraining.com",
+        "compare": "email"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_FullName_A[0]",
+        "value": "Coastal Event Group, LLC",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_LineOne_A[0]",
+        "value": "77 Palm Ave",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_CityName_A[0]",
+        "value": "Miami Beach",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_StateOrProvinceCode_A[0]",
+        "value": "FL",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_PostalCode_A[0]",
+        "value": "33139",
+        "compare": "zip"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_FullName_A[0]",
+        "value": "Philadelphia Indemnity Insurance Company",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_NAICCode_A[0]",
+        "value": "18058",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_FullName_B[0]",
+        "value": "National Union Fire Insurance Company of Pittsburgh, Pa.",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_NAICCode_B[0]",
+        "value": "19445",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_FullName_D[0]",
+        "value": "Great American Assurance Company",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].Insurer_NAICCode_D[0]",
+        "value": "26344",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfInsurance_CertificateNumberIdentifier_A[0]",
+        "value": "CERT-1004",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfInsurance_RevisionNumberIdentifier_A[0]",
+        "value": "1",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_CoverageIndicator_A[0]",
+        "value": true,
+        "compare": "checkbox"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_OccurrenceIndicator_A[0]",
+        "value": true,
+        "compare": "checkbox"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_InsurerLetterCode_A[0]",
+        "value": "A",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfInsurance_GeneralLiability_AdditionalInsuredCode_A[0]",
+        "value": "Y",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_GeneralLiability_PolicyNumberIdentifier_A[0]",
+        "value": "PHLY-CGL-22091",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_GeneralLiability_EffectiveDate_A[0]",
+        "value": "05/01/2026",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].Policy_GeneralLiability_ExpirationDate_A[0]",
+        "value": "05/01/2027",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_EachOccurrence_LimitAmount_A[0]",
+        "value": "1000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_FireDamageRentedPremises_EachOccurrenceLimitAmount_A[0]",
+        "value": "100000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_MedicalExpense_EachPersonLimitAmount_A[0]",
+        "value": "5000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_PersonalAndAdvertisingInjury_LimitAmount_A[0]",
+        "value": "1000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_GeneralAggregate_LimitAmount_A[0]",
+        "value": "2000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_ProductsAndCompletedOperations_AggregateLimitAmount_A[0]",
+        "value": "2000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_HiredAutosIndicator_A[0]",
+        "value": true,
+        "compare": "checkbox"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_NonOwnedAutosIndicator_A[0]",
+        "value": true,
+        "compare": "checkbox"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_InsurerLetterCode_A[0]",
+        "value": "B",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfInsurance_AutomobileLiability_AdditionalInsuredCode_A[0]",
+        "value": "Y",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_AutomobileLiability_PolicyNumberIdentifier_A[0]",
+        "value": "AUL-90210",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_AutomobileLiability_EffectiveDate_A[0]",
+        "value": "05/01/2026",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].Policy_AutomobileLiability_ExpirationDate_A[0]",
+        "value": "05/01/2027",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_CombinedSingleLimit_EachAccidentAmount_A[0]",
+        "value": "1000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].Policy_PolicyType_UmbrellaIndicator_A[0]",
+        "value": true,
+        "compare": "checkbox"
+      },
+      {
+        "field": "F[0].P1[0].ExcessUmbrella_OccurrenceIndicator_A[0]",
+        "value": true,
+        "compare": "checkbox"
+      },
+      {
+        "field": "F[0].P1[0].ExcessUmbrella_InsurerLetterCode_A[0]",
+        "value": "D",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_ExcessLiability_PolicyNumberIdentifier_A[0]",
+        "value": "UMB-44018",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].Policy_ExcessLiability_EffectiveDate_A[0]",
+        "value": "05/01/2026",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].Policy_ExcessLiability_ExpirationDate_A[0]",
+        "value": "05/01/2027",
+        "compare": "date"
+      },
+      {
+        "field": "F[0].P1[0].ExcessUmbrella_Umbrella_EachOccurrenceAmount_A[0]",
+        "value": "2000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].ExcessUmbrella_Umbrella_AggregateAmount_A[0]",
+        "value": "2000000",
+        "compare": "money"
+      },
+      {
+        "field": "F[0].P1[0].CertificateOfLiabilityInsurance_ACORDForm_RemarkText_A[0]",
+        "value": "The certificate holder is included as additional insured with respect to the named insured's event operations for the 2026 Summer Food & Music Festival held June 14-16, 2026.",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_FullName_A[0]",
+        "value": "Bayside Convention Center",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_LineTwo_A[0]",
+        "value": "1901 Convention Center Dr",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_CityName_A[0]",
+        "value": "Miami Beach",
+        "compare": "text"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_StateOrProvinceCode_A[0]",
+        "value": "FL",
+        "compare": "code"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_PostalCode_A[0]",
+        "value": "33139",
+        "compare": "zip"
+      }
+    ],
+    "blankChecks": [
+      {
+        "field": "F[0].P1[0].WorkersCompensationEmployersLiability_WorkersCompensationStatutoryLimitIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Policy_WorkersCompensationAndEmployersLiability_PolicyNumberIdentifier_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].WorkersCompensationEmployersLiability_InsurerLetterCode_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].CertificateHolder_MailingAddress_LineOne_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].NamedInsured_MailingAddress_LineTwo_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].Policy_GeneralLiability_SubrogationWaivedCode_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].Policy_AutomobileLiability_SubrogationWaivedCode_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].Policy_ExcessLiability_SubrogationWaivedCode_A[0]",
+        "compare": "blank"
+      },
+      {
+        "field": "F[0].P1[0].GeneralLiability_ClaimsMadeIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_AnyAutoIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_AllOwnedAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_ScheduledAutosIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_A[0]",
+        "compare": "unchecked"
+      },
+      {
+        "field": "F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_B[0]",
+        "compare": "unchecked"
+      }
+    ]
+  },
+  "qaRules": [
+    {
+      "topic": "Additional Insured (General Liability)",
+      "requested": true,
+      "request": "Felix's email: the venue is included as additional insured for event operations.",
+      "evidence": "GL policy PHLY-CGL-22091 carries a Blanket Additional Insured – Ongoing Operations endorsement.",
+      "supported": "supported",
+      "action": "May be reflected on the COI (General Liability ADDL INSD: Y).",
+      "acordField": "F[0].P1[0].CertificateOfInsurance_GeneralLiability_AdditionalInsuredCode_A[0]"
+    },
+    {
+      "topic": "Additional Insured (Automobile Liability)",
+      "requested": true,
+      "request": "Felix's email: same additional insured requirement applies to the auto policy.",
+      "evidence": "Auto policy AUL-90210 carries a Blanket Additional Insured endorsement (hired/non-owned).",
+      "supported": "supported",
+      "action": "May be reflected on the COI (Automobile ADDL INSD: Y).",
+      "acordField": "F[0].P1[0].CertificateOfInsurance_AutomobileLiability_AdditionalInsuredCode_A[0]"
+    },
+    {
+      "topic": "Waiver of Subrogation (GL, Auto, and Umbrella)",
+      "requested": true,
+      "request": "Felix's email: the venue's events coordinator asked for a waiver of subrogation across all three policies.",
+      "evidence": "None of the three policies (GL, Auto, Umbrella) show a waiver of subrogation endorsement purchased this term.",
+      "supported": "not_supported",
+      "action": "Leave all three SUBR WVD boxes blank — asked for, but not in force on any of the policies.",
+      "acordField": "F[0].P1[0].Policy_GeneralLiability_SubrogationWaivedCode_A[0]"
+    }
+  ],
+  "mistakes": [
+    "wrong-insurer",
+    "ai-without-evidence",
+    "wrong-policy-number",
+    "account-number-as-policy-number",
+    "expired-policy-dates",
+    "requested-limit-not-actual",
+    "phantom-umbrella",
+    "unsupported-remarks-wording",
+    "cert-holder-vs-ai-confusion",
+    "waiver-without-evidence",
+    "unsupported-coverage-added"
+  ]
+}

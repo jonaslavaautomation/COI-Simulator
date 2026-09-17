@@ -1,0 +1,1182 @@
+{
+  "producer_full_name_a": {
+    "title": "Producer",
+    "description": "The insurance agency issuing this certificate — its name, mailing address, and contact details.",
+    "source": "Producer / Agency file for this account",
+    "commonMistakes": [
+      "Do not use the insured's contact information here.",
+      "Do not carry over a producer from a different scenario or account — check which agency actually services this account."
+    ],
+    "expectedSource": "The Producer block for this scenario."
+  },
+  "producer_mailing_address_line_one_a": {
+    "title": "Producer",
+    "description": "The insurance agency issuing this certificate — its name, mailing address, and contact details.",
+    "source": "Producer / Agency file for this account",
+    "commonMistakes": [
+      "Do not use the insured's contact information here.",
+      "Do not carry over a producer from a different scenario or account — check which agency actually services this account."
+    ],
+    "expectedSource": "The Producer block for this scenario."
+  },
+  "producer_mailing_address_line_two_a": {
+    "title": "Producer",
+    "description": "The insurance agency issuing this certificate — its name, mailing address, and contact details.",
+    "source": "Producer / Agency file for this account",
+    "commonMistakes": [
+      "Do not use the insured's contact information here.",
+      "Do not carry over a producer from a different scenario or account — check which agency actually services this account."
+    ],
+    "expectedSource": "The Producer block for this scenario."
+  },
+  "producer_mailing_address_city_name_a": {
+    "title": "Producer",
+    "description": "The insurance agency issuing this certificate — its name, mailing address, and contact details.",
+    "source": "Producer / Agency file for this account",
+    "commonMistakes": [
+      "Do not use the insured's contact information here.",
+      "Do not carry over a producer from a different scenario or account — check which agency actually services this account."
+    ],
+    "expectedSource": "The Producer block for this scenario."
+  },
+  "producer_mailing_address_state_or_province_code_a": {
+    "title": "Producer",
+    "description": "The insurance agency issuing this certificate — its name, mailing address, and contact details.",
+    "source": "Producer / Agency file for this account",
+    "commonMistakes": [
+      "Do not use the insured's contact information here.",
+      "Do not carry over a producer from a different scenario or account — check which agency actually services this account."
+    ],
+    "expectedSource": "The Producer block for this scenario."
+  },
+  "producer_mailing_address_postal_code_a": {
+    "title": "Producer",
+    "description": "The insurance agency issuing this certificate — its name, mailing address, and contact details.",
+    "source": "Producer / Agency file for this account",
+    "commonMistakes": [
+      "Do not use the insured's contact information here.",
+      "Do not carry over a producer from a different scenario or account — check which agency actually services this account."
+    ],
+    "expectedSource": "The Producer block for this scenario."
+  },
+  "producer_contact_person_full_name_a": {
+    "title": "Producer",
+    "description": "The insurance agency issuing this certificate — its name, mailing address, and contact details.",
+    "source": "Producer / Agency file for this account",
+    "commonMistakes": [
+      "Do not use the insured's contact information here.",
+      "Do not carry over a producer from a different scenario or account — check which agency actually services this account."
+    ],
+    "expectedSource": "The Producer block for this scenario."
+  },
+  "producer_contact_person_phone_number_a": {
+    "title": "Producer",
+    "description": "The insurance agency issuing this certificate — its name, mailing address, and contact details.",
+    "source": "Producer / Agency file for this account",
+    "commonMistakes": [
+      "Do not use the insured's contact information here.",
+      "Do not carry over a producer from a different scenario or account — check which agency actually services this account."
+    ],
+    "expectedSource": "The Producer block for this scenario."
+  },
+  "producer_fax_number_a": {
+    "title": "Producer",
+    "description": "The insurance agency issuing this certificate — its name, mailing address, and contact details.",
+    "source": "Producer / Agency file for this account",
+    "commonMistakes": [
+      "Do not use the insured's contact information here.",
+      "Do not carry over a producer from a different scenario or account — check which agency actually services this account."
+    ],
+    "expectedSource": "The Producer block for this scenario."
+  },
+  "producer_contact_person_email_address_a": {
+    "title": "Producer",
+    "description": "The insurance agency issuing this certificate — its name, mailing address, and contact details.",
+    "source": "Producer / Agency file for this account",
+    "commonMistakes": [
+      "Do not use the insured's contact information here.",
+      "Do not carry over a producer from a different scenario or account — check which agency actually services this account."
+    ],
+    "expectedSource": "The Producer block for this scenario."
+  },
+  "named_insured_full_name_a": {
+    "title": "Named Insured",
+    "description": "The exact legal entity the policy actually covers — not a nickname, DBA, or the certificate holder's name.",
+    "source": "Named Insured (Account File)",
+    "commonMistakes": [
+      "Do not use a “doing business as” name if the file lists a different legal entity.",
+      "Do not confuse the named insured with the certificate holder — they are almost always different parties."
+    ],
+    "expectedSource": "The Named Insured block in the account file."
+  },
+  "named_insured_mailing_address_line_one_a": {
+    "title": "Named Insured",
+    "description": "The exact legal entity the policy actually covers — not a nickname, DBA, or the certificate holder's name.",
+    "source": "Named Insured (Account File)",
+    "commonMistakes": [
+      "Do not use a “doing business as” name if the file lists a different legal entity.",
+      "Do not confuse the named insured with the certificate holder — they are almost always different parties."
+    ],
+    "expectedSource": "The Named Insured block in the account file."
+  },
+  "named_insured_mailing_address_line_two_a": {
+    "title": "Named Insured",
+    "description": "The exact legal entity the policy actually covers — not a nickname, DBA, or the certificate holder's name.",
+    "source": "Named Insured (Account File)",
+    "commonMistakes": [
+      "Do not use a “doing business as” name if the file lists a different legal entity.",
+      "Do not confuse the named insured with the certificate holder — they are almost always different parties."
+    ],
+    "expectedSource": "The Named Insured block in the account file."
+  },
+  "named_insured_mailing_address_city_name_a": {
+    "title": "Named Insured",
+    "description": "The exact legal entity the policy actually covers — not a nickname, DBA, or the certificate holder's name.",
+    "source": "Named Insured (Account File)",
+    "commonMistakes": [
+      "Do not use a “doing business as” name if the file lists a different legal entity.",
+      "Do not confuse the named insured with the certificate holder — they are almost always different parties."
+    ],
+    "expectedSource": "The Named Insured block in the account file."
+  },
+  "named_insured_mailing_address_state_or_province_code_a": {
+    "title": "Named Insured",
+    "description": "The exact legal entity the policy actually covers — not a nickname, DBA, or the certificate holder's name.",
+    "source": "Named Insured (Account File)",
+    "commonMistakes": [
+      "Do not use a “doing business as” name if the file lists a different legal entity.",
+      "Do not confuse the named insured with the certificate holder — they are almost always different parties."
+    ],
+    "expectedSource": "The Named Insured block in the account file."
+  },
+  "named_insured_mailing_address_postal_code_a": {
+    "title": "Named Insured",
+    "description": "The exact legal entity the policy actually covers — not a nickname, DBA, or the certificate holder's name.",
+    "source": "Named Insured (Account File)",
+    "commonMistakes": [
+      "Do not use a “doing business as” name if the file lists a different legal entity.",
+      "Do not confuse the named insured with the certificate holder — they are almost always different parties."
+    ],
+    "expectedSource": "The Named Insured block in the account file."
+  },
+  "insurer_full_name_a": {
+    "title": "Insurer Name",
+    "description": "The full legal name of the carrier actually writing this coverage line.",
+    "source": "Policy File for the relevant coverage line",
+    "commonMistakes": [
+      "Do not guess based on which carrier writes a different line — GL, Auto, and Umbrella can each be written by a different company.",
+      "Do not abbreviate or shorten the carrier's name."
+    ],
+    "expectedSource": "The insurer name shown in that coverage line's Policy File block."
+  },
+  "insurer_naiccode_a": {
+    "title": "NAIC Number",
+    "description": "The 5-digit code that uniquely identifies the licensed carrier, used to verify who's really on the risk.",
+    "source": "Policy File for the relevant coverage line",
+    "commonMistakes": [
+      "Do not reuse the NAIC number from a different insurer letter — each carrier has its own.",
+      "Do not confuse it with a policy number."
+    ],
+    "expectedSource": "The NAIC number shown next to that insurer in the Policy File."
+  },
+  "insurer_full_name_b": {
+    "title": "Insurer Name",
+    "description": "The full legal name of the carrier actually writing this coverage line.",
+    "source": "Policy File for the relevant coverage line",
+    "commonMistakes": [
+      "Do not guess based on which carrier writes a different line — GL, Auto, and Umbrella can each be written by a different company.",
+      "Do not abbreviate or shorten the carrier's name."
+    ],
+    "expectedSource": "The insurer name shown in that coverage line's Policy File block."
+  },
+  "insurer_naiccode_b": {
+    "title": "NAIC Number",
+    "description": "The 5-digit code that uniquely identifies the licensed carrier, used to verify who's really on the risk.",
+    "source": "Policy File for the relevant coverage line",
+    "commonMistakes": [
+      "Do not reuse the NAIC number from a different insurer letter — each carrier has its own.",
+      "Do not confuse it with a policy number."
+    ],
+    "expectedSource": "The NAIC number shown next to that insurer in the Policy File."
+  },
+  "insurer_full_name_c": {
+    "title": "Insurer Name",
+    "description": "The full legal name of the carrier actually writing this coverage line.",
+    "source": "Policy File for the relevant coverage line",
+    "commonMistakes": [
+      "Do not guess based on which carrier writes a different line — GL, Auto, and Umbrella can each be written by a different company.",
+      "Do not abbreviate or shorten the carrier's name."
+    ],
+    "expectedSource": "The insurer name shown in that coverage line's Policy File block."
+  },
+  "insurer_naiccode_c": {
+    "title": "NAIC Number",
+    "description": "The 5-digit code that uniquely identifies the licensed carrier, used to verify who's really on the risk.",
+    "source": "Policy File for the relevant coverage line",
+    "commonMistakes": [
+      "Do not reuse the NAIC number from a different insurer letter — each carrier has its own.",
+      "Do not confuse it with a policy number."
+    ],
+    "expectedSource": "The NAIC number shown next to that insurer in the Policy File."
+  },
+  "insurer_full_name_d": {
+    "title": "Insurer Name",
+    "description": "The full legal name of the carrier actually writing this coverage line.",
+    "source": "Policy File for the relevant coverage line",
+    "commonMistakes": [
+      "Do not guess based on which carrier writes a different line — GL, Auto, and Umbrella can each be written by a different company.",
+      "Do not abbreviate or shorten the carrier's name."
+    ],
+    "expectedSource": "The insurer name shown in that coverage line's Policy File block."
+  },
+  "insurer_naiccode_d": {
+    "title": "NAIC Number",
+    "description": "The 5-digit code that uniquely identifies the licensed carrier, used to verify who's really on the risk.",
+    "source": "Policy File for the relevant coverage line",
+    "commonMistakes": [
+      "Do not reuse the NAIC number from a different insurer letter — each carrier has its own.",
+      "Do not confuse it with a policy number."
+    ],
+    "expectedSource": "The NAIC number shown next to that insurer in the Policy File."
+  },
+  "insurer_full_name_e": {
+    "title": "Insurer Name",
+    "description": "The full legal name of the carrier actually writing this coverage line.",
+    "source": "Policy File for the relevant coverage line",
+    "commonMistakes": [
+      "Do not guess based on which carrier writes a different line — GL, Auto, and Umbrella can each be written by a different company.",
+      "Do not abbreviate or shorten the carrier's name."
+    ],
+    "expectedSource": "The insurer name shown in that coverage line's Policy File block."
+  },
+  "insurer_naiccode_e": {
+    "title": "NAIC Number",
+    "description": "The 5-digit code that uniquely identifies the licensed carrier, used to verify who's really on the risk.",
+    "source": "Policy File for the relevant coverage line",
+    "commonMistakes": [
+      "Do not reuse the NAIC number from a different insurer letter — each carrier has its own.",
+      "Do not confuse it with a policy number."
+    ],
+    "expectedSource": "The NAIC number shown next to that insurer in the Policy File."
+  },
+  "insurer_full_name_f": {
+    "title": "Insurer Name",
+    "description": "The full legal name of the carrier actually writing this coverage line.",
+    "source": "Policy File for the relevant coverage line",
+    "commonMistakes": [
+      "Do not guess based on which carrier writes a different line — GL, Auto, and Umbrella can each be written by a different company.",
+      "Do not abbreviate or shorten the carrier's name."
+    ],
+    "expectedSource": "The insurer name shown in that coverage line's Policy File block."
+  },
+  "insurer_naiccode_f": {
+    "title": "NAIC Number",
+    "description": "The 5-digit code that uniquely identifies the licensed carrier, used to verify who's really on the risk.",
+    "source": "Policy File for the relevant coverage line",
+    "commonMistakes": [
+      "Do not reuse the NAIC number from a different insurer letter — each carrier has its own.",
+      "Do not confuse it with a policy number."
+    ],
+    "expectedSource": "The NAIC number shown next to that insurer in the Policy File."
+  },
+  "general_liability_insurer_letter_code_a": {
+    "title": "Insurer Letter (General Liability)",
+    "description": "Which lettered insurer (A–F) is actually providing the General Liability coverage.",
+    "source": "Policy File for this coverage line",
+    "commonMistakes": [
+      "Do not guess the letter — match it exactly to the insurer listed for General Liability in the Policy File.",
+      "Do not reuse a letter from a different coverage line unless the same carrier really writes both."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_coverage_indicator_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_claims_made_indicator_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_occurrence_indicator_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_other_coverage_indicator_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_other_coverage_description_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_other_coverage_indicator_b": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_other_coverage_description_b": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_general_aggregate_limit_applies_per_policy_indicator_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_general_aggregate_limit_applies_per_project_indicator_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_general_aggregate_limit_applies_per_location_indicator_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_general_aggregate_limit_applies_to_other_indicator_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_general_aggregate_limit_applies_to_code_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "certificate_of_insurance_general_liability_additional_insured_code_a": {
+    "title": "Additional Insured (General Liability)",
+    "description": "Whether the certificate holder has actually been added as an additional insured on the General Liability policy.",
+    "source": "Policy File — General Liability endorsements",
+    "commonMistakes": [
+      "Do not answer Y just because it was requested — an endorsement has to actually be on file.",
+      "Do not assume an endorsement on one coverage line applies to another."
+    ],
+    "expectedSource": "The endorsement information for General Liability in the Policy File."
+  },
+  "policy_general_liability_subrogation_waived_code_a": {
+    "title": "Waiver of Subrogation (General Liability)",
+    "description": "Whether the carrier has actually waived its right to recover paid claims from the certificate holder on the General Liability policy.",
+    "source": "Policy File — General Liability endorsements",
+    "commonMistakes": [
+      "Do not answer Y just because it was requested — this needs its own endorsement, separate from additional insured.",
+      "Do not assume it carries over from a different coverage line."
+    ],
+    "expectedSource": "The endorsement information for General Liability in the Policy File."
+  },
+  "policy_general_liability_policy_number_identifier_a": {
+    "title": "General Liability Policy Number",
+    "description": "The policy number associated with the General Liability coverage.",
+    "source": "Policy File",
+    "commonMistakes": [
+      "Do not use: account number, quote number, submission number.",
+      "Do not reuse a policy number from a different coverage line."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "policy_general_liability_effective_date_a": {
+    "title": "General Liability Effective Date",
+    "description": "The date the General Liability policy term begins.",
+    "source": "Policy File",
+    "commonMistakes": [
+      "Do not use today's date or the certificate's issue date.",
+      "Do not swap the effective and expiration dates."
+    ],
+    "expectedSource": "General Liability policy term dates."
+  },
+  "policy_general_liability_expiration_date_a": {
+    "title": "General Liability Expiration Date",
+    "description": "The date the General Liability policy term ends.",
+    "source": "Policy File",
+    "commonMistakes": [
+      "Do not use an assumed renewal date that isn't documented.",
+      "Do not swap the effective and expiration dates."
+    ],
+    "expectedSource": "General Liability policy term dates."
+  },
+  "general_liability_each_occurrence_limit_amount_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_fire_damage_rented_premises_each_occurrence_limit_amount_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_medical_expense_each_person_limit_amount_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_personal_and_advertising_injury_limit_amount_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_general_aggregate_limit_amount_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_products_and_completed_operations_aggregate_limit_amount_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_other_coverage_limit_description_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "general_liability_other_coverage_limit_amount_a": {
+    "title": "General Liability Coverage",
+    "description": "The General Liability policy's form type, limits, and whether the section applies at all.",
+    "source": "Policy File — General Liability",
+    "commonMistakes": [
+      "Do not check this section at all if there's no General Liability policy on file.",
+      "Do not guess a limit — copy it exactly from the Policy File."
+    ],
+    "expectedSource": "General Liability policy information."
+  },
+  "vehicle_insurer_letter_code_a": {
+    "title": "Insurer Letter (Automobile Liability)",
+    "description": "Which lettered insurer (A–F) is actually providing the Automobile Liability coverage.",
+    "source": "Policy File for this coverage line",
+    "commonMistakes": [
+      "Do not guess the letter — match it exactly to the insurer listed for Automobile Liability in the Policy File.",
+      "Do not reuse a letter from a different coverage line unless the same carrier really writes both."
+    ],
+    "expectedSource": "Automobile Liability policy information."
+  },
+  "vehicle_any_auto_indicator_a": {
+    "title": "Automobile Liability Coverage",
+    "description": "Which auto exposures are actually covered (Any Auto, Owned, Scheduled, Hired, Non-Owned) and the applicable limits.",
+    "source": "Policy File — Automobile Liability",
+    "commonMistakes": [
+      "Do not check “Any Auto” out of habit if the policy only covers Hired & Non-Owned.",
+      "Do not invent a limit format (combined single limit vs. split limits) — use whichever the policy actually shows."
+    ],
+    "expectedSource": "Automobile Liability policy information."
+  },
+  "vehicle_all_owned_autos_indicator_a": {
+    "title": "Automobile Liability Coverage",
+    "description": "Which auto exposures are actually covered (Any Auto, Owned, Scheduled, Hired, Non-Owned) and the applicable limits.",
+    "source": "Policy File — Automobile Liability",
+    "commonMistakes": [
+      "Do not check “Any Auto” out of habit if the policy only covers Hired & Non-Owned.",
+      "Do not invent a limit format (combined single limit vs. split limits) — use whichever the policy actually shows."
+    ],
+    "expectedSource": "Automobile Liability policy information."
+  },
+  "vehicle_hired_autos_indicator_a": {
+    "title": "Automobile Liability Coverage",
+    "description": "Which auto exposures are actually covered (Any Auto, Owned, Scheduled, Hired, Non-Owned) and the applicable limits.",
+    "source": "Policy File — Automobile Liability",
+    "commonMistakes": [
+      "Do not check “Any Auto” out of habit if the policy only covers Hired & Non-Owned.",
+      "Do not invent a limit format (combined single limit vs. split limits) — use whichever the policy actually shows."
+    ],
+    "expectedSource": "Automobile Liability policy information."
+  },
+  "vehicle_other_covered_auto_indicator_a": {
+    "title": "Automobile Liability Coverage",
+    "description": "Which auto exposures are actually covered (Any Auto, Owned, Scheduled, Hired, Non-Owned) and the applicable limits.",
+    "source": "Policy File — Automobile Liability",
+    "commonMistakes": [
+      "Do not check “Any Auto” out of habit if the policy only covers Hired & Non-Owned.",
+      "Do not invent a limit format (combined single limit vs. split limits) — use whichever the policy actually shows."
+    ],
+    "expectedSource": "Automobile Liability policy information."
+  },
+  "vehicle_other_covered_auto_description_a": {
+    "title": "Automobile Liability Coverage",
+    "description": "Which auto exposures are actually covered (Any Auto, Owned, Scheduled, Hired, Non-Owned) and the applicable limits.",
+    "source": "Policy File — Automobile Liability",
+    "commonMistakes": [
+      "Do not check “Any Auto” out of habit if the policy only covers Hired & Non-Owned.",
+      "Do not invent a limit format (combined single limit vs. split limits) — use whichever the policy actually shows."
+    ],
+    "expectedSource": "Automobile Liability policy information."
+  },
+  "vehicle_scheduled_autos_indicator_a": {
+    "title": "Automobile Liability Coverage",
+    "description": "Which auto exposures are actually covered (Any Auto, Owned, Scheduled, Hired, Non-Owned) and the applicable limits.",
+    "source": "Policy File — Automobile Liability",
+    "commonMistakes": [
+      "Do not check “Any Auto” out of habit if the policy only covers Hired & Non-Owned.",
+      "Do not invent a limit format (combined single limit vs. split limits) — use whichever the policy actually shows."
+    ],
+    "expectedSource": "Automobile Liability policy information."
+  },
+  "vehicle_non_owned_autos_indicator_a": {
+    "title": "Automobile Liability Coverage",
+    "description": "Which auto exposures are actually covered (Any Auto, Owned, Scheduled, Hired, Non-Owned) and the applicable limits.",
+    "source": "Policy File — Automobile Liability",
+    "commonMistakes": [
+      "Do not check “Any Auto” out of habit if the policy only covers Hired & Non-Owned.",
+      "Do not invent a limit format (combined single limit vs. split limits) — use whichever the policy actually shows."
+    ],
+    "expectedSource": "Automobile Liability policy information."
+  },
+  "vehicle_other_covered_auto_indicator_b": {
+    "title": "Automobile Liability Coverage",
+    "description": "Which auto exposures are actually covered (Any Auto, Owned, Scheduled, Hired, Non-Owned) and the applicable limits.",
+    "source": "Policy File — Automobile Liability",
+    "commonMistakes": [
+      "Do not check “Any Auto” out of habit if the policy only covers Hired & Non-Owned.",
+      "Do not invent a limit format (combined single limit vs. split limits) — use whichever the policy actually shows."
+    ],
+    "expectedSource": "Automobile Liability policy information."
+  },
+  "vehicle_other_covered_auto_description_b": {
+    "title": "Automobile Liability Coverage",
+    "description": "Which auto exposures are actually covered (Any Auto, Owned, Scheduled, Hired, Non-Owned) and the applicable limits.",
+    "source": "Policy File — Automobile Liability",
+    "commonMistakes": [
+      "Do not check “Any Auto” out of habit if the policy only covers Hired & Non-Owned.",
+      "Do not invent a limit format (combined single limit vs. split limits) — use whichever the policy actually shows."
+    ],
+    "expectedSource": "Automobile Liability policy information."
+  },
+  "certificate_of_insurance_automobile_liability_additional_insured_code_a": {
+    "title": "Additional Insured (Automobile Liability)",
+    "description": "Whether the certificate holder has actually been added as an additional insured on the Automobile Liability policy.",
+    "source": "Policy File — Automobile Liability endorsements",
+    "commonMistakes": [
+      "Do not answer Y just because it was requested — an endorsement has to actually be on file.",
+      "Do not assume an endorsement on one coverage line applies to another."
+    ],
+    "expectedSource": "The endorsement information for Automobile Liability in the Policy File."
+  },
+  "policy_automobile_liability_subrogation_waived_code_a": {
+    "title": "Waiver of Subrogation (Automobile Liability)",
+    "description": "Whether the carrier has actually waived its right to recover paid claims from the certificate holder on the Automobile Liability policy.",
+    "source": "Policy File — Automobile Liability endorsements",
+    "commonMistakes": [
+      "Do not answer Y just because it was requested — this needs its own endorsement, separate from additional insured.",
+      "Do not assume it carries over from a different coverage line."
+    ],
+    "expectedSource": "The endorsement information for Automobile Liability in the Policy File."
+  },
+  "policy_automobile_liability_policy_number_identifier_a": {
+    "title": "Automobile Liability Policy Number",
+    "description": "The policy number associated with the Automobile Liability coverage.",
+    "source": "Policy File",
+    "commonMistakes": [
+      "Do not use: account number, quote number, submission number.",
+      "Do not reuse a policy number from a different coverage line."
+    ],
+    "expectedSource": "Automobile Liability policy information."
+  },
+  "policy_automobile_liability_effective_date_a": {
+    "title": "Automobile Liability Effective Date",
+    "description": "The date the Automobile Liability policy term begins.",
+    "source": "Policy File",
+    "commonMistakes": [
+      "Do not use today's date or the certificate's issue date.",
+      "Do not swap the effective and expiration dates."
+    ],
+    "expectedSource": "Automobile Liability policy term dates."
+  },
+  "policy_automobile_liability_expiration_date_a": {
+    "title": "Automobile Liability Expiration Date",
+    "description": "The date the Automobile Liability policy term ends.",
+    "source": "Policy File",
+    "commonMistakes": [
+      "Do not use an assumed renewal date that isn't documented.",
+      "Do not swap the effective and expiration dates."
+    ],
+    "expectedSource": "Automobile Liability policy term dates."
+  },
+  "vehicle_combined_single_limit_each_accident_amount_a": {
+    "title": "Automobile Liability Coverage",
+    "description": "Which auto exposures are actually covered (Any Auto, Owned, Scheduled, Hired, Non-Owned) and the applicable limits.",
+    "source": "Policy File — Automobile Liability",
+    "commonMistakes": [
+      "Do not check “Any Auto” out of habit if the policy only covers Hired & Non-Owned.",
+      "Do not invent a limit format (combined single limit vs. split limits) — use whichever the policy actually shows."
+    ],
+    "expectedSource": "Automobile Liability policy information."
+  },
+  "vehicle_bodily_injury_per_person_limit_amount_a": {
+    "title": "Automobile Liability Coverage",
+    "description": "Which auto exposures are actually covered (Any Auto, Owned, Scheduled, Hired, Non-Owned) and the applicable limits.",
+    "source": "Policy File — Automobile Liability",
+    "commonMistakes": [
+      "Do not check “Any Auto” out of habit if the policy only covers Hired & Non-Owned.",
+      "Do not invent a limit format (combined single limit vs. split limits) — use whichever the policy actually shows."
+    ],
+    "expectedSource": "Automobile Liability policy information."
+  },
+  "vehicle_bodily_injury_per_accident_limit_amount_a": {
+    "title": "Automobile Liability Coverage",
+    "description": "Which auto exposures are actually covered (Any Auto, Owned, Scheduled, Hired, Non-Owned) and the applicable limits.",
+    "source": "Policy File — Automobile Liability",
+    "commonMistakes": [
+      "Do not check “Any Auto” out of habit if the policy only covers Hired & Non-Owned.",
+      "Do not invent a limit format (combined single limit vs. split limits) — use whichever the policy actually shows."
+    ],
+    "expectedSource": "Automobile Liability policy information."
+  },
+  "vehicle_property_damage_per_accident_limit_amount_a": {
+    "title": "Automobile Liability Coverage",
+    "description": "Which auto exposures are actually covered (Any Auto, Owned, Scheduled, Hired, Non-Owned) and the applicable limits.",
+    "source": "Policy File — Automobile Liability",
+    "commonMistakes": [
+      "Do not check “Any Auto” out of habit if the policy only covers Hired & Non-Owned.",
+      "Do not invent a limit format (combined single limit vs. split limits) — use whichever the policy actually shows."
+    ],
+    "expectedSource": "Automobile Liability policy information."
+  },
+  "vehicle_other_coverage_coverage_description_a": {
+    "title": "Automobile Liability Coverage",
+    "description": "Which auto exposures are actually covered (Any Auto, Owned, Scheduled, Hired, Non-Owned) and the applicable limits.",
+    "source": "Policy File — Automobile Liability",
+    "commonMistakes": [
+      "Do not check “Any Auto” out of habit if the policy only covers Hired & Non-Owned.",
+      "Do not invent a limit format (combined single limit vs. split limits) — use whichever the policy actually shows."
+    ],
+    "expectedSource": "Automobile Liability policy information."
+  },
+  "vehicle_other_coverage_limit_amount_a": {
+    "title": "Automobile Liability Coverage",
+    "description": "Which auto exposures are actually covered (Any Auto, Owned, Scheduled, Hired, Non-Owned) and the applicable limits.",
+    "source": "Policy File — Automobile Liability",
+    "commonMistakes": [
+      "Do not check “Any Auto” out of habit if the policy only covers Hired & Non-Owned.",
+      "Do not invent a limit format (combined single limit vs. split limits) — use whichever the policy actually shows."
+    ],
+    "expectedSource": "Automobile Liability policy information."
+  },
+  "excess_umbrella_insurer_letter_code_a": {
+    "title": "Insurer Letter (Umbrella/Excess)",
+    "description": "Which lettered insurer (A–F) is actually providing the Umbrella/Excess coverage.",
+    "source": "Policy File for this coverage line",
+    "commonMistakes": [
+      "Do not guess the letter — match it exactly to the insurer listed for Umbrella/Excess in the Policy File.",
+      "Do not reuse a letter from a different coverage line unless the same carrier really writes both."
+    ],
+    "expectedSource": "Umbrella/Excess policy information."
+  },
+  "policy_policy_type_umbrella_indicator_a": {
+    "title": "Umbrella/Excess Coverage",
+    "description": "Excess limits sitting on top of the underlying General Liability, Auto, and Employers Liability policies.",
+    "source": "Policy File — Umbrella/Excess Liability",
+    "commonMistakes": [
+      "Do not add umbrella limits just because a contract or lender requires a higher combined total — the coverage has to actually exist.",
+      "Do not confuse this with a higher General Liability limit."
+    ],
+    "expectedSource": "Umbrella/Excess policy information."
+  },
+  "policy_policy_type_excess_indicator_a": {
+    "title": "Umbrella/Excess Coverage",
+    "description": "Excess limits sitting on top of the underlying General Liability, Auto, and Employers Liability policies.",
+    "source": "Policy File — Umbrella/Excess Liability",
+    "commonMistakes": [
+      "Do not add umbrella limits just because a contract or lender requires a higher combined total — the coverage has to actually exist.",
+      "Do not confuse this with a higher General Liability limit."
+    ],
+    "expectedSource": "Umbrella/Excess policy information."
+  },
+  "excess_umbrella_occurrence_indicator_a": {
+    "title": "Umbrella/Excess Coverage",
+    "description": "Excess limits sitting on top of the underlying General Liability, Auto, and Employers Liability policies.",
+    "source": "Policy File — Umbrella/Excess Liability",
+    "commonMistakes": [
+      "Do not add umbrella limits just because a contract or lender requires a higher combined total — the coverage has to actually exist.",
+      "Do not confuse this with a higher General Liability limit."
+    ],
+    "expectedSource": "Umbrella/Excess policy information."
+  },
+  "excess_umbrella_claims_made_indicator_a": {
+    "title": "Umbrella/Excess Coverage",
+    "description": "Excess limits sitting on top of the underlying General Liability, Auto, and Employers Liability policies.",
+    "source": "Policy File — Umbrella/Excess Liability",
+    "commonMistakes": [
+      "Do not add umbrella limits just because a contract or lender requires a higher combined total — the coverage has to actually exist.",
+      "Do not confuse this with a higher General Liability limit."
+    ],
+    "expectedSource": "Umbrella/Excess policy information."
+  },
+  "excess_umbrella_deductible_indicator_a": {
+    "title": "Umbrella/Excess Coverage",
+    "description": "Excess limits sitting on top of the underlying General Liability, Auto, and Employers Liability policies.",
+    "source": "Policy File — Umbrella/Excess Liability",
+    "commonMistakes": [
+      "Do not add umbrella limits just because a contract or lender requires a higher combined total — the coverage has to actually exist.",
+      "Do not confuse this with a higher General Liability limit."
+    ],
+    "expectedSource": "Umbrella/Excess policy information."
+  },
+  "excess_umbrella_retention_indicator_a": {
+    "title": "Umbrella/Excess Coverage",
+    "description": "Excess limits sitting on top of the underlying General Liability, Auto, and Employers Liability policies.",
+    "source": "Policy File — Umbrella/Excess Liability",
+    "commonMistakes": [
+      "Do not add umbrella limits just because a contract or lender requires a higher combined total — the coverage has to actually exist.",
+      "Do not confuse this with a higher General Liability limit."
+    ],
+    "expectedSource": "Umbrella/Excess policy information."
+  },
+  "excess_umbrella_umbrella_deductible_or_retention_amount_a": {
+    "title": "Umbrella/Excess Coverage",
+    "description": "Excess limits sitting on top of the underlying General Liability, Auto, and Employers Liability policies.",
+    "source": "Policy File — Umbrella/Excess Liability",
+    "commonMistakes": [
+      "Do not add umbrella limits just because a contract or lender requires a higher combined total — the coverage has to actually exist.",
+      "Do not confuse this with a higher General Liability limit."
+    ],
+    "expectedSource": "Umbrella/Excess policy information."
+  },
+  "certificate_of_insurance_excess_liability_additional_insured_code_a": {
+    "title": "Additional Insured (Umbrella/Excess)",
+    "description": "Whether the certificate holder has actually been added as an additional insured on the Umbrella/Excess policy.",
+    "source": "Policy File — Umbrella/Excess endorsements",
+    "commonMistakes": [
+      "Do not answer Y just because it was requested — an endorsement has to actually be on file.",
+      "Do not assume an endorsement on one coverage line applies to another."
+    ],
+    "expectedSource": "The endorsement information for Umbrella/Excess in the Policy File."
+  },
+  "policy_excess_liability_subrogation_waived_code_a": {
+    "title": "Waiver of Subrogation (Umbrella/Excess)",
+    "description": "Whether the carrier has actually waived its right to recover paid claims from the certificate holder on the Umbrella/Excess policy.",
+    "source": "Policy File — Umbrella/Excess endorsements",
+    "commonMistakes": [
+      "Do not answer Y just because it was requested — this needs its own endorsement, separate from additional insured.",
+      "Do not assume it carries over from a different coverage line."
+    ],
+    "expectedSource": "The endorsement information for Umbrella/Excess in the Policy File."
+  },
+  "policy_excess_liability_policy_number_identifier_a": {
+    "title": "Umbrella/Excess Policy Number",
+    "description": "The policy number associated with the Umbrella/Excess coverage.",
+    "source": "Policy File",
+    "commonMistakes": [
+      "Do not use: account number, quote number, submission number.",
+      "Do not reuse a policy number from a different coverage line."
+    ],
+    "expectedSource": "Umbrella/Excess policy information."
+  },
+  "policy_excess_liability_effective_date_a": {
+    "title": "Umbrella/Excess Effective Date",
+    "description": "The date the Umbrella/Excess policy term begins.",
+    "source": "Policy File",
+    "commonMistakes": [
+      "Do not use today's date or the certificate's issue date.",
+      "Do not swap the effective and expiration dates."
+    ],
+    "expectedSource": "Umbrella/Excess policy term dates."
+  },
+  "policy_excess_liability_expiration_date_a": {
+    "title": "Umbrella/Excess Expiration Date",
+    "description": "The date the Umbrella/Excess policy term ends.",
+    "source": "Policy File",
+    "commonMistakes": [
+      "Do not use an assumed renewal date that isn't documented.",
+      "Do not swap the effective and expiration dates."
+    ],
+    "expectedSource": "Umbrella/Excess policy term dates."
+  },
+  "excess_umbrella_umbrella_each_occurrence_amount_a": {
+    "title": "Umbrella/Excess Coverage",
+    "description": "Excess limits sitting on top of the underlying General Liability, Auto, and Employers Liability policies.",
+    "source": "Policy File — Umbrella/Excess Liability",
+    "commonMistakes": [
+      "Do not add umbrella limits just because a contract or lender requires a higher combined total — the coverage has to actually exist.",
+      "Do not confuse this with a higher General Liability limit."
+    ],
+    "expectedSource": "Umbrella/Excess policy information."
+  },
+  "excess_umbrella_umbrella_aggregate_amount_a": {
+    "title": "Umbrella/Excess Coverage",
+    "description": "Excess limits sitting on top of the underlying General Liability, Auto, and Employers Liability policies.",
+    "source": "Policy File — Umbrella/Excess Liability",
+    "commonMistakes": [
+      "Do not add umbrella limits just because a contract or lender requires a higher combined total — the coverage has to actually exist.",
+      "Do not confuse this with a higher General Liability limit."
+    ],
+    "expectedSource": "Umbrella/Excess policy information."
+  },
+  "excess_umbrella_other_coverage_description_a": {
+    "title": "Umbrella/Excess Coverage",
+    "description": "Excess limits sitting on top of the underlying General Liability, Auto, and Employers Liability policies.",
+    "source": "Policy File — Umbrella/Excess Liability",
+    "commonMistakes": [
+      "Do not add umbrella limits just because a contract or lender requires a higher combined total — the coverage has to actually exist.",
+      "Do not confuse this with a higher General Liability limit."
+    ],
+    "expectedSource": "Umbrella/Excess policy information."
+  },
+  "excess_umbrella_other_coverage_limit_amount_a": {
+    "title": "Umbrella/Excess Coverage",
+    "description": "Excess limits sitting on top of the underlying General Liability, Auto, and Employers Liability policies.",
+    "source": "Policy File — Umbrella/Excess Liability",
+    "commonMistakes": [
+      "Do not add umbrella limits just because a contract or lender requires a higher combined total — the coverage has to actually exist.",
+      "Do not confuse this with a higher General Liability limit."
+    ],
+    "expectedSource": "Umbrella/Excess policy information."
+  },
+  "workers_compensation_employers_liability_insurer_letter_code_a": {
+    "title": "Insurer Letter (Workers Compensation)",
+    "description": "Which lettered insurer (A–F) is actually providing the Workers Compensation coverage.",
+    "source": "Policy File for this coverage line",
+    "commonMistakes": [
+      "Do not guess the letter — match it exactly to the insurer listed for Workers Compensation in the Policy File.",
+      "Do not reuse a letter from a different coverage line unless the same carrier really writes both."
+    ],
+    "expectedSource": "Workers Compensation policy information."
+  },
+  "workers_compensation_employers_liability_any_persons_excluded_indicator_a": {
+    "title": "Workers Compensation Coverage",
+    "description": "Statutory Workers Compensation and Employers Liability details for this insured.",
+    "source": "Policy File — Workers Compensation",
+    "commonMistakes": [
+      "Do not check this section if no Workers Compensation policy is on file, even if it was requested — some insureds have a legal exemption instead.",
+      "Do not guess an officer-exclusion answer — verify it in the file."
+    ],
+    "expectedSource": "Workers Compensation policy information."
+  },
+  "policy_workers_compensation_subrogation_waived_code_a": {
+    "title": "Waiver of Subrogation (Workers Compensation)",
+    "description": "Whether the carrier has actually waived its right to recover paid claims from the certificate holder on the Workers Compensation policy.",
+    "source": "Policy File — Workers Compensation endorsements",
+    "commonMistakes": [
+      "Do not answer Y just because it was requested — this needs its own endorsement, separate from additional insured.",
+      "Do not assume it carries over from a different coverage line."
+    ],
+    "expectedSource": "The endorsement information for Workers Compensation in the Policy File."
+  },
+  "policy_workers_compensation_and_employers_liability_policy_number_identifier_a": {
+    "title": "Workers Compensation Policy Number",
+    "description": "The policy number associated with the Workers Compensation coverage.",
+    "source": "Policy File",
+    "commonMistakes": [
+      "Do not use: account number, quote number, submission number.",
+      "Do not reuse a policy number from a different coverage line."
+    ],
+    "expectedSource": "Workers Compensation policy information."
+  },
+  "policy_workers_compensation_and_employers_liability_effective_date_a": {
+    "title": "Workers Compensation Effective Date",
+    "description": "The date the Workers Compensation policy term begins.",
+    "source": "Policy File",
+    "commonMistakes": [
+      "Do not use today's date or the certificate's issue date.",
+      "Do not swap the effective and expiration dates."
+    ],
+    "expectedSource": "Workers Compensation policy term dates."
+  },
+  "policy_workers_compensation_and_employers_liability_expiration_date_a": {
+    "title": "Workers Compensation Expiration Date",
+    "description": "The date the Workers Compensation policy term ends.",
+    "source": "Policy File",
+    "commonMistakes": [
+      "Do not use an assumed renewal date that isn't documented.",
+      "Do not swap the effective and expiration dates."
+    ],
+    "expectedSource": "Workers Compensation policy term dates."
+  },
+  "workers_compensation_employers_liability_workers_compensation_statutory_limit_indicator_a": {
+    "title": "Workers Compensation Coverage",
+    "description": "Statutory Workers Compensation and Employers Liability details for this insured.",
+    "source": "Policy File — Workers Compensation",
+    "commonMistakes": [
+      "Do not check this section if no Workers Compensation policy is on file, even if it was requested — some insureds have a legal exemption instead.",
+      "Do not guess an officer-exclusion answer — verify it in the file."
+    ],
+    "expectedSource": "Workers Compensation policy information."
+  },
+  "workers_compensation_employers_liability_other_coverage_indicator_a": {
+    "title": "Workers Compensation Coverage",
+    "description": "Statutory Workers Compensation and Employers Liability details for this insured.",
+    "source": "Policy File — Workers Compensation",
+    "commonMistakes": [
+      "Do not check this section if no Workers Compensation policy is on file, even if it was requested — some insureds have a legal exemption instead.",
+      "Do not guess an officer-exclusion answer — verify it in the file."
+    ],
+    "expectedSource": "Workers Compensation policy information."
+  },
+  "workers_compensation_employers_liability_other_coverage_description_a": {
+    "title": "Workers Compensation Coverage",
+    "description": "Statutory Workers Compensation and Employers Liability details for this insured.",
+    "source": "Policy File — Workers Compensation",
+    "commonMistakes": [
+      "Do not check this section if no Workers Compensation policy is on file, even if it was requested — some insureds have a legal exemption instead.",
+      "Do not guess an officer-exclusion answer — verify it in the file."
+    ],
+    "expectedSource": "Workers Compensation policy information."
+  },
+  "workers_compensation_employers_liability_employers_liability_each_accident_limit_amount_a": {
+    "title": "Workers Compensation Coverage",
+    "description": "Statutory Workers Compensation and Employers Liability details for this insured.",
+    "source": "Policy File — Workers Compensation",
+    "commonMistakes": [
+      "Do not check this section if no Workers Compensation policy is on file, even if it was requested — some insureds have a legal exemption instead.",
+      "Do not guess an officer-exclusion answer — verify it in the file."
+    ],
+    "expectedSource": "Workers Compensation policy information."
+  },
+  "workers_compensation_employers_liability_employers_liability_disease_each_employee_limit_amount_a": {
+    "title": "Workers Compensation Coverage",
+    "description": "Statutory Workers Compensation and Employers Liability details for this insured.",
+    "source": "Policy File — Workers Compensation",
+    "commonMistakes": [
+      "Do not check this section if no Workers Compensation policy is on file, even if it was requested — some insureds have a legal exemption instead.",
+      "Do not guess an officer-exclusion answer — verify it in the file."
+    ],
+    "expectedSource": "Workers Compensation policy information."
+  },
+  "workers_compensation_employers_liability_employers_liability_disease_policy_limit_amount_a": {
+    "title": "Workers Compensation Coverage",
+    "description": "Statutory Workers Compensation and Employers Liability details for this insured.",
+    "source": "Policy File — Workers Compensation",
+    "commonMistakes": [
+      "Do not check this section if no Workers Compensation policy is on file, even if it was requested — some insureds have a legal exemption instead.",
+      "Do not guess an officer-exclusion answer — verify it in the file."
+    ],
+    "expectedSource": "Workers Compensation policy information."
+  },
+  "other_policy_insurer_letter_code_a": {
+    "title": "Insurer Letter (the Other Policy line)",
+    "description": "Which lettered insurer (A–F) is actually providing the the Other Policy line coverage.",
+    "source": "Policy File for this coverage line",
+    "commonMistakes": [
+      "Do not guess the letter — match it exactly to the insurer listed for the Other Policy line in the Policy File.",
+      "Do not reuse a letter from a different coverage line unless the same carrier really writes both."
+    ],
+    "expectedSource": "the Other Policy line policy information."
+  },
+  "certificate_of_insurance_other_policy_additional_insured_code_a": {
+    "title": "Additional Insured (the Other Policy line)",
+    "description": "Whether the certificate holder has actually been added as an additional insured on the the Other Policy line policy.",
+    "source": "Policy File — the Other Policy line endorsements",
+    "commonMistakes": [
+      "Do not answer Y just because it was requested — an endorsement has to actually be on file.",
+      "Do not assume an endorsement on one coverage line applies to another."
+    ],
+    "expectedSource": "The endorsement information for the Other Policy line in the Policy File."
+  },
+  "other_policy_subrogation_waived_code_a": {
+    "title": "Waiver of Subrogation (the Other Policy line)",
+    "description": "Whether the carrier has actually waived its right to recover paid claims from the certificate holder on the the Other Policy line policy.",
+    "source": "Policy File — the Other Policy line endorsements",
+    "commonMistakes": [
+      "Do not answer Y just because it was requested — this needs its own endorsement, separate from additional insured.",
+      "Do not assume it carries over from a different coverage line."
+    ],
+    "expectedSource": "The endorsement information for the Other Policy line in the Policy File."
+  },
+  "other_policy_policy_number_identifier_a": {
+    "title": "the Other Policy line Policy Number",
+    "description": "The policy number associated with the the Other Policy line coverage.",
+    "source": "Policy File",
+    "commonMistakes": [
+      "Do not use: account number, quote number, submission number.",
+      "Do not reuse a policy number from a different coverage line."
+    ],
+    "expectedSource": "the Other Policy line policy information."
+  },
+  "other_policy_policy_effective_date_a": {
+    "title": "the Other Policy line Effective Date",
+    "description": "The date the the Other Policy line policy term begins.",
+    "source": "Policy File",
+    "commonMistakes": [
+      "Do not use today's date or the certificate's issue date.",
+      "Do not swap the effective and expiration dates."
+    ],
+    "expectedSource": "the Other Policy line policy term dates."
+  },
+  "other_policy_policy_expiration_date_a": {
+    "title": "the Other Policy line Expiration Date",
+    "description": "The date the the Other Policy line policy term ends.",
+    "source": "Policy File",
+    "commonMistakes": [
+      "Do not use an assumed renewal date that isn't documented.",
+      "Do not swap the effective and expiration dates."
+    ],
+    "expectedSource": "the Other Policy line policy term dates."
+  },
+  "certificate_of_liability_insurance_acordform_remark_text_a": {
+    "title": "Remarks / Description of Operations",
+    "description": "The specific wording a contract or certificate holder requires — additional insured language, waiver of subrogation language, project description, and similar terms.",
+    "source": "The client's email or the certificate holder's exact required wording",
+    "commonMistakes": [
+      "Do not paraphrase required contract language — copy it exactly, including punctuation.",
+      "Do not leave this blank if a certificate holder gave specific wording to include."
+    ],
+    "expectedSource": "The exact remark wording quoted in the Request tab."
+  },
+  "certificate_holder_full_name_a": {
+    "title": "Certificate Holder",
+    "description": "The person or organization requesting this certificate, who will receive it — a landlord, general contractor, lender, or agency.",
+    "source": "Certificate Holder / Requestor block, or the client's email",
+    "commonMistakes": [
+      "Do not enter the named insured's own address here.",
+      "Do not drop an “Attn:” line or department name if one was given — it's part of the mailing address."
+    ],
+    "expectedSource": "The Certificate Holder / Requestor information in the Request tab."
+  },
+  "certificate_holder_mailing_address_line_one_a": {
+    "title": "Certificate Holder",
+    "description": "The person or organization requesting this certificate, who will receive it — a landlord, general contractor, lender, or agency.",
+    "source": "Certificate Holder / Requestor block, or the client's email",
+    "commonMistakes": [
+      "Do not enter the named insured's own address here.",
+      "Do not drop an “Attn:” line or department name if one was given — it's part of the mailing address."
+    ],
+    "expectedSource": "The Certificate Holder / Requestor information in the Request tab."
+  },
+  "certificate_holder_mailing_address_line_two_a": {
+    "title": "Certificate Holder",
+    "description": "The person or organization requesting this certificate, who will receive it — a landlord, general contractor, lender, or agency.",
+    "source": "Certificate Holder / Requestor block, or the client's email",
+    "commonMistakes": [
+      "Do not enter the named insured's own address here.",
+      "Do not drop an “Attn:” line or department name if one was given — it's part of the mailing address."
+    ],
+    "expectedSource": "The Certificate Holder / Requestor information in the Request tab."
+  },
+  "certificate_holder_mailing_address_city_name_a": {
+    "title": "Certificate Holder",
+    "description": "The person or organization requesting this certificate, who will receive it — a landlord, general contractor, lender, or agency.",
+    "source": "Certificate Holder / Requestor block, or the client's email",
+    "commonMistakes": [
+      "Do not enter the named insured's own address here.",
+      "Do not drop an “Attn:” line or department name if one was given — it's part of the mailing address."
+    ],
+    "expectedSource": "The Certificate Holder / Requestor information in the Request tab."
+  },
+  "certificate_holder_mailing_address_state_or_province_code_a": {
+    "title": "Certificate Holder",
+    "description": "The person or organization requesting this certificate, who will receive it — a landlord, general contractor, lender, or agency.",
+    "source": "Certificate Holder / Requestor block, or the client's email",
+    "commonMistakes": [
+      "Do not enter the named insured's own address here.",
+      "Do not drop an “Attn:” line or department name if one was given — it's part of the mailing address."
+    ],
+    "expectedSource": "The Certificate Holder / Requestor information in the Request tab."
+  },
+  "certificate_holder_mailing_address_postal_code_a": {
+    "title": "Certificate Holder",
+    "description": "The person or organization requesting this certificate, who will receive it — a landlord, general contractor, lender, or agency.",
+    "source": "Certificate Holder / Requestor block, or the client's email",
+    "commonMistakes": [
+      "Do not enter the named insured's own address here.",
+      "Do not drop an “Attn:” line or department name if one was given — it's part of the mailing address."
+    ],
+    "expectedSource": "The Certificate Holder / Requestor information in the Request tab."
+  },
+  "producer_authorized_representative_signature_a": {
+    "title": "Producer",
+    "description": "The insurance agency issuing this certificate — its name, mailing address, and contact details.",
+    "source": "Producer / Agency file for this account",
+    "commonMistakes": [
+      "Do not use the insured's contact information here.",
+      "Do not carry over a producer from a different scenario or account — check which agency actually services this account."
+    ],
+    "expectedSource": "The Producer block for this scenario."
+  }
+}
