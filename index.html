@@ -6,288 +6,447 @@
 <title>COI Simulator - ACORD 25 Training</title>
 <style>
   :root {
-    --bg1: #0f172a;
-    --bg2: #1e293b;
-    --panel: rgba(15, 23, 42, 0.86);
-    --line: rgba(255,255,255,0.12);
-    --text: #e5eefc;
-    --muted: #a8b6d5;
+    --bg1: #0b1220;
+    --bg2: #131c2e;
+    --panel: #111a2b;
+    --panel-soft: rgba(255,255,255,0.03);
+    --line: rgba(255,255,255,0.10);
+    --line-strong: rgba(255,255,255,0.18);
+    --text: #e7edf7;
+    --muted: #93a0b8;
+    --muted-dim: #6b7690;
+    --accent: #4f8cf7;
+    --accent-soft: rgba(79,140,247,0.14);
+    --good: #22c55e;
+    --good-soft: rgba(34,197,94,0.14);
+    --warn: #f0a83c;
+    --warn-soft: rgba(240,168,60,0.14);
+    --bad: #ef4444;
+    --bad-soft: rgba(239,68,68,0.14);
+    --neutral: #64748b;
+    --neutral-soft: rgba(100,116,139,0.14);
     --pageW: 918px;
+    --header-h: 60px;
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
+  html, body { margin: 0; padding: 0; height: 100%; }
   body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: -apple-system, "Segoe UI", Arial, Helvetica, sans-serif;
     color: var(--text);
-    background:
-      radial-gradient(circle at top right, rgba(96,165,250,0.18), transparent 26%),
-      radial-gradient(circle at bottom left, rgba(168,85,247,0.15), transparent 24%),
-      linear-gradient(135deg, var(--bg1), #111827 48%, #172554);
+    background: linear-gradient(160deg, var(--bg1), #0d1526 55%, var(--bg2));
     min-height: 100vh;
-  }
-  .shell {
-    display: grid;
-    grid-template-columns: 370px minmax(0, 1fr);
-    gap: 18px;
-    padding: 18px;
-    align-items: start;
-  }
-  .panel {
-    background: var(--panel);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    box-shadow: 0 18px 60px rgba(0,0,0,0.28);
-  }
-  .sidebar {
-    position: sticky;
-    top: 18px;
-    padding: 18px;
-    max-height: calc(100vh - 36px);
-    overflow: auto;
-  }
-  h1 {
-    margin: 0 0 8px;
-    font-size: 28px;
-    line-height: 1.08;
-  }
-  .sub {
-    color: var(--muted);
     font-size: 14px;
-    line-height: 1.45;
-    margin-bottom: 14px;
   }
-  .pill-row {
+
+  /* ===== App shell ===== */
+  .app-shell {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  /* ===== Top header ===== */
+  .topbar {
+    height: var(--header-h);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 18px;
+    background: #0d1526;
+    border-bottom: 1px solid var(--line);
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
     gap: 8px;
-    margin-bottom: 16px;
+    white-space: nowrap;
   }
-  .pill {
-    font-size: 12px;
-    font-weight: 700;
-    padding: 7px 10px;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid var(--line);
-  }
-  .learn-link {
-    display: block;
+  .brand-mark {
+    font-weight: 800;
     font-size: 13px;
-    font-weight: 600;
-    color: #60a5fa;
-    text-decoration: none;
-    border: 1px solid rgba(96,165,250,0.35);
-    background: rgba(96,165,250,0.1);
-    padding: 10px 12px;
-    border-radius: 14px;
-    margin-bottom: 16px;
-    transition: 0.18s ease;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid rgba(79,140,247,0.35);
+    padding: 3px 7px;
+    border-radius: 6px;
   }
-  .learn-link:hover {
-    border-color: rgba(96,165,250,0.7);
-    background: rgba(96,165,250,0.18);
-  }
-  .scenario-list {
-    display: grid;
-    gap: 10px;
-    margin-bottom: 16px;
-  }
-  .scenario-btn {
-    width: 100%;
-    border: 1px solid var(--line);
-    background: rgba(255,255,255,0.05);
-    color: var(--text);
-    border-radius: 16px;
-    padding: 12px 14px;
-    text-align: left;
-    cursor: pointer;
-    transition: 0.18s ease;
-  }
-  .scenario-btn:hover:not(:disabled) {
-    transform: translateY(-1px);
-    border-color: rgba(96,165,250,0.55);
-  }
-  .scenario-btn.active {
-    border-color: rgba(96,165,250,0.9);
-    background: rgba(96,165,250,0.16);
-  }
-  .scenario-btn:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-  }
-  .scenario-title {
-    font-size: 14px;
+  .brand-name {
     font-weight: 700;
-    margin-bottom: 5px;
+    font-size: 15px;
+    color: var(--text);
   }
-  .scenario-meta {
+  .topbar-stats {
     display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    color: var(--muted);
-    font-size: 12px;
+    align-items: center;
+    gap: 22px;
+    flex: 1;
+    overflow-x: auto;
+    scrollbar-width: none;
   }
-  .badge {
+  .topbar-stats::-webkit-scrollbar { display: none; }
+  .topbar-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    white-space: nowrap;
+  }
+  .topbar-stat .stat-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted-dim);
+    font-weight: 700;
+  }
+  .topbar-stat .stat-value {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .qa-chip {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    font-weight: 700;
-    padding: 4px 9px;
-    border-radius: 999px;
+    gap: 5px;
     font-size: 11px;
-    border: 1px solid var(--line);
-    background: rgba(255,255,255,0.06);
-  }
-  .badge.pass {
-    color: #c8ffd8;
-    background: rgba(22,163,74,0.18);
-    border-color: rgba(22,163,74,0.35);
-  }
-  .badge.locked {
-    color: #ffd9a8;
-    background: rgba(245,158,11,0.15);
-    border-color: rgba(245,158,11,0.35);
-  }
-  .section-title {
-    margin: 18px 0 8px;
-    font-size: 15px;
     font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--neutral-soft);
+    color: #cbd5e1;
   }
-  .packet {
-    border: 1px solid var(--line);
-    background: rgba(255,255,255,0.04);
-    border-radius: 16px;
-    padding: 14px;
-    display: grid;
-    gap: 12px;
+  .qa-chip::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--neutral);
   }
-  .packet-block {
-    border-left: 3px solid rgba(96,165,250,0.55);
-    padding-left: 10px;
-  }
-  .packet-label {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #93c5fd;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
-  .packet-line {
-    font-size: 13px;
-    line-height: 1.4;
-    color: var(--text);
-  }
-  .instruction-list, .feedback-list {
-    margin: 0;
-    padding-left: 18px;
-  }
-  .instruction-list li, .feedback-list li {
-    margin: 6px 0;
-    line-height: 1.42;
-    color: var(--text);
-    font-size: 13px;
-  }
-  .helper {
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.45;
-  }
-  .result-box {
-    margin-top: 14px;
-    padding: 14px;
-    border-radius: 16px;
-    border: 1px solid var(--line);
-    background: rgba(255,255,255,0.04);
-  }
-  .result-box.pass {
-    border-color: rgba(22,163,74,0.45);
-    background: rgba(22,163,74,0.14);
-  }
-  .result-box.fail {
-    border-color: rgba(239,68,68,0.45);
-    background: rgba(239,68,68,0.10);
-  }
-  .result-head {
+  .qa-chip.pass { background: var(--good-soft); border-color: rgba(34,197,94,0.4); color: #b7f5c8; }
+  .qa-chip.pass::before { background: var(--good); }
+  .qa-chip.fail { background: var(--bad-soft); border-color: rgba(239,68,68,0.4); color: #fecaca; }
+  .qa-chip.fail::before { background: var(--bad); }
+
+  .topbar-actions {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 6px;
-    font-size: 14px;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .topbar-link {
+    font-size: 12px;
     font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 7px 10px;
+    border-radius: 8px;
+    border: 1px solid transparent;
   }
-  .result-score {
-    font-size: 22px;
-    font-weight: 800;
+  .topbar-link:hover { background: var(--accent-soft); border-color: rgba(79,140,247,0.3); }
+  .topbar-btn {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    background: var(--panel-soft);
+    border: 1px solid var(--line);
+    padding: 7px 12px;
+    border-radius: 8px;
+    cursor: pointer;
   }
-  .controls {
+  .topbar-btn:hover { border-color: var(--line-strong); }
+  .topbar-btn.danger { color: #fecaca; border-color: rgba(239,68,68,0.35); }
+  .topbar-btn.danger:hover { background: var(--bad-soft); }
+
+  /* ===== Mobile panel switcher (hidden on desktop) ===== */
+  .mobile-tabs {
+    display: none;
+    flex-shrink: 0;
+    gap: 6px;
+    padding: 8px 12px;
+    background: #0d1526;
+    border-bottom: 1px solid var(--line);
+  }
+  .mobile-tabs button {
+    flex: 1;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    background: var(--panel-soft);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px 6px;
+    cursor: pointer;
+  }
+  .mobile-tabs button.active {
+    color: var(--text);
+    background: var(--accent-soft);
+    border-color: rgba(79,140,247,0.45);
+  }
+
+  /* ===== Main 3-column layout ===== */
+  .workbench {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr) 320px;
+    gap: 1px;
+    background: var(--line);
+    overflow: hidden;
+  }
+  .wb-panel {
+    background: var(--panel);
+    min-height: 0;
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 16px;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .wb-panel-head {
+    flex-shrink: 0;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .wb-panel-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-weight: 800;
+    color: var(--muted);
+  }
+  .wb-panel-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 14px;
+  }
+  .wb-panel-body::-webkit-scrollbar { width: 8px; }
+  .wb-panel-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 8px; }
+
+  /* ===== Left panel: scenario strip ===== */
+  .scenario-list {
+    display: flex;
+    gap: 6px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    flex-shrink: 0;
+  }
+  .scenario-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--panel-soft);
+    cursor: pointer;
+    color: var(--muted);
+  }
+  .scenario-btn .n {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.08);
+    font-size: 11px;
+    font-weight: 700;
+    color: inherit;
+  }
+  .scenario-btn.active { border-color: rgba(79,140,247,0.55); background: var(--accent-soft); }
+  .scenario-btn.active .n { background: var(--accent); color: #fff; }
+  .scenario-btn.pass .n { background: var(--good); color: #06240f; }
+  .scenario-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .scenario-btn:hover:not(:disabled):not(.active) { border-color: var(--line-strong); }
+
+  .instructions-card {
+    margin: 12px 14px 0;
+    padding: 12px 12px;
+    border: 1px solid var(--line);
+    background: var(--panel-soft);
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+  .instructions-card .wb-panel-title { margin-bottom: 6px; }
+  .instruction-list, .feedback-list { margin: 0; padding-left: 16px; }
+  .instruction-list li, .feedback-list li {
+    margin: 5px 0;
+    line-height: 1.42;
+    color: var(--text);
+    font-size: 12.5px;
+  }
+
+  /* ===== Left panel tabs ===== */
+  .tabbar {
+    display: flex;
+    gap: 2px;
+    padding: 10px 14px 0;
+    flex-shrink: 0;
+  }
+  .tabbar button {
+    flex: 1;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-bottom: none;
+    padding: 8px 4px;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+  }
+  .tabbar button.active {
+    color: var(--text);
+    background: var(--panel-soft);
+    border-color: var(--line-strong);
+  }
+  .tab-panels {
+    border: 1px solid var(--line-strong);
+    border-radius: 0 8px 8px 8px;
+    margin: 0 14px;
+    background: var(--panel-soft);
+    flex-shrink: 0;
+    max-height: 46vh;
+    overflow-y: auto;
+  }
+  .tab-panel { display: none; padding: 12px; }
+  .tab-panel.active { display: block; }
+  .packet-block { margin-bottom: 12px; }
+  .packet-block:last-child { margin-bottom: 0; }
+  .packet-label {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    font-weight: 800;
+    margin-bottom: 4px;
+    border-left: 2px solid var(--accent);
+    padding-left: 6px;
+  }
+  .packet-line {
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: var(--text);
+    padding-left: 8px;
+  }
+  .email-block .packet-line {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 12px;
+    color: #dbe4f3;
+  }
+  .tab-empty {
+    color: var(--muted-dim);
+    font-size: 12.5px;
+    font-style: italic;
+    padding: 4px 8px;
+  }
+
+  /* ===== Left panel controls ===== */
+  .left-controls {
+    margin-top: auto;
+    flex-shrink: 0;
+    display: grid;
+    gap: 8px;
+    padding: 12px 14px;
+    border-top: 1px solid var(--line);
   }
   button.action {
     border: 1px solid var(--line);
-    color: white;
-    padding: 10px 14px;
-    border-radius: 12px;
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 9px;
     cursor: pointer;
     font-weight: 700;
-    background: rgba(255,255,255,0.06);
+    font-size: 12.5px;
+    background: var(--panel-soft);
   }
-  button.primary {
-    background: linear-gradient(135deg, #2563eb, #3b82f6);
-    border-color: rgba(96,165,250,0.65);
-  }
-  button.success {
-    background: linear-gradient(135deg, #15803d, #16a34a);
-    border-color: rgba(22,163,74,0.55);
-  }
-  button.warn {
-    background: linear-gradient(135deg, #b45309, #d97706);
-    border-color: rgba(245,158,11,0.55);
-  }
-  button.action:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-  }
-  .workspace {
-    padding: 16px;
-  }
-  .workspace-top {
+  button.action.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button.action.primary:hover { background: #6ba0f9; }
+  button.action.success { background: var(--good); border-color: var(--good); color: #06240f; }
+  button.action:disabled { opacity: 0.4; cursor: not-allowed; }
+  button.action:not(.primary):not(.success):hover { border-color: var(--line-strong); }
+
+  /* ===== Center panel: ACORD workspace ===== */
+  .workspace-toolbar {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: 14px;
-    padding-bottom: 12px;
+    gap: 10px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    flex-shrink: 0;
   }
+  .workspace-title-wrap { min-width: 0; }
   .workspace-title {
-    font-size: 22px;
+    font-size: 14px;
     font-weight: 800;
-    margin: 0 0 6px;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .workspace-sub {
-    color: var(--muted);
-    font-size: 13px;
-    max-width: 640px;
-    line-height: 1.45;
+    color: var(--muted-dim);
+    font-size: 11.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 44ch;
   }
-  .status-stack {
+  .zoom-toolbar {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: flex-end;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
   }
+  .zoom-btn {
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line);
+    background: var(--panel-soft);
+    color: var(--text);
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 800;
+  }
+  .zoom-btn:hover { border-color: var(--line-strong); }
+  .zoom-pct {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--muted);
+    min-width: 40px;
+    text-align: center;
+  }
+  .zoom-text-btn {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    background: var(--panel-soft);
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    padding: 0 9px;
+    height: 28px;
+    cursor: pointer;
+  }
+  .zoom-text-btn:hover { border-color: var(--line-strong); color: var(--text); }
+
   .form-scroll {
+    flex: 1;
+    min-height: 0;
     overflow: auto;
-    padding: 8px 0 4px;
+    padding: 22px;
+    background:
+      radial-gradient(circle at 30% 0%, rgba(79,140,247,0.06), transparent 40%),
+      #0a0f1c;
   }
+  .form-scroll::-webkit-scrollbar { width: 10px; height: 10px; }
+  .form-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.14); border-radius: 8px; }
+
   .page-wrap {
     width: var(--pageW);
     min-width: var(--pageW);
     margin: 0 auto;
+    transition: width 0.12s ease;
   }
   .page {
     position: relative;
@@ -296,10 +455,20 @@
     background-image: url('acord25-template.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    border-radius: 18px;
-    box-shadow: 0 16px 44px rgba(0,0,0,0.28);
+    border-radius: 6px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     overflow: hidden;
   }
+  .footer-note {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    color: var(--muted-dim);
+    font-size: 11px;
+    text-align: center;
+    border-top: 1px solid var(--line);
+  }
+
+  /* ===== Form fields (unchanged classes, JS depends on these names) ===== */
   .field {
     position: absolute;
     border: none;
@@ -313,11 +482,13 @@
     box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
   }
   .field:hover {
-    background: rgba(254, 249, 195, 0.38);
+    background: rgba(254, 249, 195, 0.45);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.18);
   }
   .field:focus {
-    background: rgba(255, 255, 255, 0.85);
-    box-shadow: inset 0 0 0 1px rgba(37,99,235,0.75), 0 0 0 2px rgba(37,99,235,0.14);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: inset 0 0 0 1.5px rgba(79,140,247,0.9), 0 0 0 3px rgba(79,140,247,0.22);
+    z-index: 2;
   }
   .field.amount {
     text-align: right;
@@ -352,7 +523,7 @@
     height: 100%;
   }
   .field.checkbox:checked::after {
-    content: "✓";
+    content: "\2713";
     position: absolute;
     inset: -2px 0 0 0;
     color: #111827;
@@ -363,87 +534,234 @@
     justify-content: center;
   }
   .field.error {
-    background: rgba(254, 202, 202, 0.88) !important;
-    box-shadow: inset 0 0 0 1px rgba(185, 28, 28, 0.78);
+    background: rgba(254, 202, 202, 0.9) !important;
+    box-shadow: inset 0 0 0 1.5px rgba(220, 38, 38, 0.9) !important;
   }
   .field.correct {
-    background: rgba(187, 247, 208, 0.62) !important;
-    box-shadow: inset 0 0 0 1px rgba(22, 101, 52, 0.55);
+    background: rgba(187, 247, 208, 0.68) !important;
+    box-shadow: inset 0 0 0 1.5px rgba(22, 163, 74, 0.7) !important;
   }
-  .footer-note {
-    margin-top: 10px;
+
+  /* ===== Right panel: QA ===== */
+  .qa-summary {
+    margin: 0 0 12px;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--panel-soft);
+  }
+  .qa-summary.pass { border-color: rgba(34,197,94,0.4); background: var(--good-soft); }
+  .qa-summary.fail { border-color: rgba(239,68,68,0.4); background: var(--bad-soft); }
+  .result-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 5px;
+    font-size: 13px;
+    font-weight: 800;
+  }
+  .result-score { font-size: 20px; font-weight: 800; }
+  .helper { color: var(--muted); font-size: 11.5px; line-height: 1.45; }
+
+  .qa-category {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .qa-category-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 9px 11px;
+    cursor: pointer;
+    background: var(--panel-soft);
+  }
+  .qa-category-name {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text);
+  }
+  .qa-category-count {
+    font-size: 10.5px;
+    font-weight: 700;
     color: var(--muted);
-    font-size: 12px;
-    text-align: center;
   }
-  @media (max-width: 1080px) {
-    .shell {
-      grid-template-columns: 1fr;
-    }
-    .sidebar {
-      position: static;
-      max-height: none;
-    }
+  .qa-category-badge {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+  }
+  .qa-category-badge.verified { color: #b7f5c8; background: var(--good-soft); border-color: rgba(34,197,94,0.4); }
+  .qa-category-badge.incorrect { color: #fecaca; background: var(--bad-soft); border-color: rgba(239,68,68,0.4); }
+  .qa-category-badge.warning { color: #fde3b8; background: var(--warn-soft); border-color: rgba(240,168,60,0.45); }
+  .qa-category-badge.unchecked { color: #cbd5e1; background: var(--neutral-soft); border-color: var(--line-strong); }
+
+  .qa-items { display: none; }
+  .qa-category.open .qa-items { display: block; }
+  .qa-category-head .chevron { font-size: 10px; color: var(--muted-dim); transition: transform 0.12s ease; }
+  .qa-category.open .chevron { transform: rotate(90deg); }
+
+  .qa-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 7px 11px;
+    border-top: 1px solid var(--line);
+    cursor: pointer;
+    font-size: 12px;
+  }
+  .qa-item:hover { background: rgba(255,255,255,0.03); }
+  .qa-item-label { color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .qa-item-state {
+    flex-shrink: 0;
+    font-size: 9.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    padding: 2px 6px;
+    border-radius: 999px;
+  }
+  .qa-item-state.verified { color: #b7f5c8; background: var(--good-soft); }
+  .qa-item-state.incorrect { color: #fecaca; background: var(--bad-soft); }
+  .qa-item-state.warning { color: #fde3b8; background: var(--warn-soft); }
+  .qa-item-state.unchecked { color: #cbd5e1; background: var(--neutral-soft); }
+  .qa-item.linked-active { background: rgba(79,140,247,0.14); }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 1180px) {
+    .workbench { grid-template-columns: 280px minmax(0,1fr) 280px; }
+  }
+  @media (max-width: 980px) {
+    .mobile-tabs { display: flex; }
+    .workbench { grid-template-columns: 1fr; }
+    .wb-panel { display: none; }
+    .wb-panel.mobile-active { display: flex; }
+    .topbar-stats { gap: 14px; }
+    .topbar-stat .stat-value { font-size: 12px; }
+  }
+  @media (max-width: 560px) {
+    .topbar { flex-wrap: wrap; height: auto; padding: 8px 12px; gap: 8px; }
+    .topbar-stats { order: 3; width: 100%; justify-content: space-between; }
   }
 </style>
 </head>
 <body>
-  <div class="shell">
-    <aside class="panel sidebar">
-      <h1>Certificate of Insurance Simulator</h1>
-      <div class="sub">Interactive VA training for a Certificate of Liability Insurance workflow. Complete each case from the scenario packet, grade your work, and unlock the next scenario only after a perfect pass.</div>
-      <div class="pill-row">
-        <div class="pill">5 graded scenarios</div>
-        <div class="pill">Attention to detail</div>
-        <div class="pill">Exact ACORD-style form</div>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">LAVA</span>
+        <span class="brand-name">COI Processing Lab</span>
       </div>
-      <a href="learning-coi.html" class="learn-link">Learning COI &mdash; understand every field on the ACORD 25 &rarr;</a>
-
-      <div class="section-title">Scenario progress</div>
-      <div id="scenarioList" class="scenario-list"></div>
-
-      <div class="section-title">Scenario instructions</div>
-      <ul id="instructionList" class="instruction-list"></ul>
-
-      <div class="section-title">Scenario packet</div>
-      <div id="packet" class="packet"></div>
-
-      <div class="section-title">Grading result</div>
-      <div id="resultBox" class="result-box">
-        <div class="result-head">
-          <span>Not graded yet</span>
-          <span class="badge">0 / 100</span>
+      <div class="topbar-stats">
+        <div class="topbar-stat">
+          <span class="stat-label">Scenario</span>
+          <span class="stat-value" id="currentStatus">Scenario 1 of 5</span>
         </div>
-        <div class="helper">Click <strong>Grade Scenario</strong> after filling the form. The next scenario stays locked until you pass the current one with 100% accuracy.</div>
-      </div>
-
-      <div class="controls">
-        <button class="action primary" id="gradeBtn">Grade Scenario</button>
-        <button class="action" id="clearBtn">Clear Current Form</button>
-        <button class="action warn" id="resetBtn">Reset All Progress</button>
-        <button class="action success" id="nextBtn" disabled>Next Scenario</button>
-      </div>
-    </aside>
-
-    <main class="panel workspace">
-      <div class="workspace-top">
-        <div>
-          <div class="workspace-title" id="workspaceTitle">Scenario 1</div>
-          <div class="workspace-sub" id="workspaceSub">Fill the form based on the scenario packet. Unused coverage sections should stay blank unless the case packet says otherwise.</div>
+        <div class="topbar-stat">
+          <span class="stat-label">Progress</span>
+          <span class="stat-value" id="unlockStatus">Need 100% to unlock next</span>
         </div>
-        <div class="status-stack">
-          <div class="badge" id="currentStatus">Scenario 1 of 5</div>
-          <div class="badge" id="unlockStatus">Need 100% to unlock next</div>
+        <div class="topbar-stat">
+          <span class="stat-label">Score</span>
+          <span class="stat-value" id="hdrScore">&mdash;</span>
+        </div>
+        <div class="topbar-stat">
+          <span class="stat-label">QA Status</span>
+          <span class="qa-chip" id="hdrQAStatus">Not graded</span>
         </div>
       </div>
-
-      <div class="form-scroll">
-        <div class="page-wrap">
-          <div class="page" id="page"></div>
-        </div>
+      <div class="topbar-actions">
+        <a href="learning-coi.html" class="topbar-link">Learning COI</a>
+        <button class="topbar-btn" id="resetBtn">Reset</button>
+        <button class="topbar-btn danger" id="exitBtn" title="Return to the Learning COI guide">Exit</button>
       </div>
-      <div class="footer-note">Tip: Hover or click fields to enter data. Incorrect fields are highlighted after grading. Progress is saved locally in your browser.</div>
-    </main>
+    </header>
+
+    <div class="mobile-tabs">
+      <button class="mobile-tab-btn active" data-panel="left">Case File</button>
+      <button class="mobile-tab-btn" data-panel="center">ACORD Form</button>
+      <button class="mobile-tab-btn" data-panel="right">QA Panel</button>
+    </div>
+
+    <div class="workbench">
+      <!-- LEFT PANEL -->
+      <aside class="wb-panel mobile-active" data-panel="left">
+        <div class="scenario-list" id="scenarioList"></div>
+
+        <div class="instructions-card">
+          <div class="wb-panel-title">Scenario Instructions</div>
+          <ul id="instructionList" class="instruction-list"></ul>
+        </div>
+
+        <div class="tabbar" role="tablist">
+          <button class="tab-btn active" data-tab="request" type="button">Request</button>
+          <button class="tab-btn" data-tab="policy" type="button">Policy</button>
+          <button class="tab-btn" data-tab="endorsements" type="button">Endorsements</button>
+          <button class="tab-btn" data-tab="notes" type="button">Notes</button>
+        </div>
+        <div class="tab-panels">
+          <div class="tab-panel active" data-panel="request" id="tabRequest"></div>
+          <div class="tab-panel" data-panel="policy" id="tabPolicy"></div>
+          <div class="tab-panel" data-panel="endorsements" id="tabEndorsements"></div>
+          <div class="tab-panel" data-panel="notes" id="tabNotes"></div>
+        </div>
+
+        <div class="left-controls">
+          <button class="action primary" id="gradeBtn">Grade Scenario</button>
+          <button class="action" id="clearBtn">Clear Current Form</button>
+          <button class="action success" id="nextBtn" disabled>Next Scenario</button>
+        </div>
+      </aside>
+
+      <!-- CENTER PANEL -->
+      <main class="wb-panel" data-panel="center">
+        <div class="workspace-toolbar">
+          <div class="workspace-title-wrap">
+            <div class="workspace-title" id="workspaceTitle">Scenario 1</div>
+            <div class="workspace-sub" id="workspaceSub">Fill the form based on the scenario packet.</div>
+          </div>
+          <div class="zoom-toolbar">
+            <button class="zoom-btn" id="zoomOutBtn" type="button" title="Zoom out">&minus;</button>
+            <span class="zoom-pct" id="zoomPct">100%</span>
+            <button class="zoom-btn" id="zoomInBtn" type="button" title="Zoom in">+</button>
+            <button class="zoom-text-btn" id="zoomFitBtn" type="button" title="Fit to screen">Fit</button>
+            <button class="zoom-text-btn" id="zoomResetBtn" type="button" title="Reset to 100%">100%</button>
+          </div>
+        </div>
+
+        <div class="form-scroll" id="formScroll">
+          <div class="page-wrap" id="pageWrap">
+            <div class="page" id="page"></div>
+          </div>
+        </div>
+        <div class="footer-note">Tip: Hover or click fields to enter data. Incorrect fields are highlighted after grading. Progress is saved locally in your browser.</div>
+      </main>
+
+      <!-- RIGHT PANEL -->
+      <aside class="wb-panel" data-panel="right">
+        <div class="wb-panel-head">
+          <div class="wb-panel-title">COI QA Panel</div>
+        </div>
+        <div class="wb-panel-body">
+          <div id="resultBox" class="qa-summary">
+            <div class="result-head">
+              <span>Not graded yet</span>
+              <span class="result-score">0%</span>
+            </div>
+            <div class="helper">Click <strong>Grade Scenario</strong> after filling the form. The next scenario stays locked until you pass the current one with 100% accuracy.</div>
+          </div>
+          <div id="qaCategories"></div>
+        </div>
+      </aside>
+    </div>
   </div>
 
 <script>
@@ -553,11 +871,15 @@ function buildForm() {
     el.addEventListener("input", () => {
       clearFieldStatus(field.name);
       persistCurrentForm();
+      renderQAPanel();
     });
     el.addEventListener("change", () => {
       clearFieldStatus(field.name);
       persistCurrentForm();
+      renderQAPanel();
     });
+    el.addEventListener("focus", () => setLinkedQAItem(field.name, true));
+    el.addEventListener("blur", () => setLinkedQAItem(field.name, false));
 
     page.appendChild(el);
     fieldMap[field.name] = el;
@@ -725,21 +1047,26 @@ function gradeScenario() {
 function renderResult() {
   const box = document.getElementById("resultBox");
   const result = state.lastResult;
+  const hdrScore = document.getElementById("hdrScore");
+  const hdrQA = document.getElementById("hdrQAStatus");
 
   if (!result || result.scenario !== currentScenario) {
-    box.className = "result-box";
+    box.className = "qa-summary";
     box.innerHTML = `
       <div class="result-head">
         <span>Not graded yet</span>
-        <span class="badge">0 / 100</span>
+        <span class="result-score">0%</span>
       </div>
       <div class="helper">Click <strong>Grade Scenario</strong> after filling the form. The next scenario stays locked until you pass the current one with 100% accuracy.</div>
     `;
     document.getElementById("nextBtn").disabled = !state.passed[currentScenario];
+    if (hdrScore) hdrScore.textContent = "—";
+    if (hdrQA) { hdrQA.textContent = "Not graded"; hdrQA.className = "qa-chip"; }
+    renderQAPanel();
     return;
   }
 
-  box.className = "result-box " + (result.passed ? "pass" : "fail");
+  box.className = "qa-summary " + (result.passed ? "pass" : "fail");
   const previewErrors = result.errors.slice(0, 10).map(e => `<li>${e}</li>`).join("");
 
   box.innerHTML = `
@@ -752,6 +1079,12 @@ function renderResult() {
   `;
 
   document.getElementById("nextBtn").disabled = !state.passed[currentScenario];
+  if (hdrScore) hdrScore.textContent = result.score + "%";
+  if (hdrQA) {
+    hdrQA.textContent = result.passed ? "Passed" : "Needs correction";
+    hdrQA.className = "qa-chip " + (result.passed ? "pass" : "fail");
+  }
+  renderQAPanel();
 }
 
 function renderScenarioList() {
@@ -761,17 +1094,10 @@ function renderScenarioList() {
   SCENARIOS.forEach((scenario, index) => {
     const unlocked = index === 0 || state.passed[index - 1] || state.passed[index];
     const btn = document.createElement("button");
-    btn.className = "scenario-btn" + (index === currentScenario ? " active" : "");
+    btn.className = "scenario-btn" + (index === currentScenario ? " active" : "") + (state.passed[index] ? " pass" : "");
     btn.disabled = !unlocked;
-    btn.innerHTML = `
-      <div class="scenario-title">${scenario.title}</div>
-      <div class="scenario-meta">
-        <span>${scenario.summary}</span>
-        <span class="badge ${state.passed[index] ? "pass" : (unlocked ? "" : "locked")}">
-          ${state.passed[index] ? "Passed" : (unlocked ? "Open" : "Locked")}
-        </span>
-      </div>
-    `;
+    btn.title = `${scenario.title} — ${state.passed[index] ? "Passed" : (unlocked ? "Open" : "Locked")}`;
+    btn.innerHTML = `<span class="n">${index + 1}</span>`;
     btn.addEventListener("click", () => loadScenario(index));
     wrap.appendChild(btn);
   });
@@ -782,14 +1108,161 @@ function renderInstructions(index) {
   list.innerHTML = SCENARIOS[index].instructions.map(item => `<li>${item}</li>`).join("");
 }
 
+// Buckets the existing packet blocks (unchanged data) into the Request/
+// Policy/Endorsements/Notes tabs by label. Purely a display grouping - it
+// never edits SCENARIOS, so the underlying case packet stays exactly as
+// authored.
+function categorizePacketLabel(label) {
+  if (label === "Date" || label === "Client Email" || label === "Certificate Holder / Requestor" || label === "Certificate") return "request";
+  if (label === "Agency Notes") return "notes";
+  return "policy";
+}
+
 function renderPacket(index) {
-  const pack = document.getElementById("packet");
-  pack.innerHTML = SCENARIOS[index].packet.map(block => `
-    <div class="packet-block">
-      <div class="packet-label">${block.label}</div>
-      ${block.lines.map(line => `<div class="packet-line">${line}</div>`).join("")}
-    </div>
-  `).join("");
+  const packet = SCENARIOS[index].packet;
+  const tabs = { request: [], policy: [], endorsements: [], notes: [] };
+
+  packet.forEach(block => {
+    tabs[categorizePacketLabel(block.label)].push(block);
+
+    if (block.label.indexOf("Policy File") === 0) {
+      const endorsementLines = block.lines.filter(line => /endorsement/i.test(line));
+      if (endorsementLines.length) {
+        tabs.endorsements.push({ label: block.label.replace("Policy File", "Endorsements"), lines: endorsementLines });
+      }
+    }
+  });
+
+  const renderBlocks = (blocks) => {
+    if (!blocks.length) return `<div class="tab-empty">Nothing on file for this tab in this scenario.</div>`;
+    return blocks.map(block => `
+      <div class="packet-block${block.label === "Client Email" ? " email-block" : ""}">
+        <div class="packet-label">${block.label}</div>
+        ${block.lines.map(line => `<div class="packet-line">${line}</div>`).join("")}
+      </div>
+    `).join("");
+  };
+
+  document.getElementById("tabRequest").innerHTML = renderBlocks(tabs.request);
+  document.getElementById("tabPolicy").innerHTML = renderBlocks(tabs.policy);
+  document.getElementById("tabEndorsements").innerHTML = renderBlocks(tabs.endorsements);
+  document.getElementById("tabNotes").innerHTML = renderBlocks(tabs.notes);
+}
+
+// ==== COI QA PANEL ====
+// Buckets each graded field (from the scenario's existing checks/blankChecks
+// - never modified) into one of six review categories by field name pattern,
+// purely for display. Category order matches the ACORD 25 reading order.
+const QA_CATEGORY_LABELS = {
+  identity: "Identity",
+  policy: "Policy",
+  coverage: "Coverage",
+  endorsements: "Endorsements",
+  holder: "Certificate Holder",
+  remarks: "Remarks"
+};
+const QA_CATEGORY_ORDER = ["identity", "policy", "coverage", "endorsements", "holder", "remarks"];
+
+function qaCategoryForField(name) {
+  if (/RemarkText/.test(name)) return "remarks";
+  if (/\.CertificateHolder_/.test(name)) return "holder";
+  if (/AdditionalInsuredCode|SubrogationWaivedCode/.test(name)) return "endorsements";
+  if (/\.(Producer_|NamedInsured_|Insurer_FullName_|Insurer_NAICCode_)/.test(name) ||
+      /CertificateNumberIdentifier|RevisionNumberIdentifier|Form_CompletionDate/.test(name)) return "identity";
+  if (/PolicyNumberIdentifier|EffectiveDate|ExpirationDate|InsurerLetterCode/.test(name)) return "policy";
+  return "coverage";
+}
+
+// Reuses the exact correct/error classes gradeScenario() already applies via
+// markField() - this never recomputes the grading result itself, so it can
+// never drift from the real answer key.
+function qaFieldState(item) {
+  const el = fieldMap[item.field];
+  if (!el) return "unchecked";
+  if (el.classList.contains("correct")) return "verified";
+  if (el.classList.contains("error")) return "incorrect";
+  const hasContent = el.type === "checkbox" ? el.checked : String(el.value || "").trim() !== "";
+  if (item.kind === "check") return hasContent ? "unchecked" : "warning";
+  return hasContent ? "warning" : "unchecked";
+}
+
+function renderQAPanel() {
+  const wrap = document.getElementById("qaCategories");
+  if (!wrap) return;
+  const scenario = SCENARIOS[currentScenario];
+  const items = [
+    ...scenario.checks.map(c => ({ ...c, kind: "check" })),
+    ...scenario.blankChecks.map(c => ({ ...c, kind: "blank" }))
+  ];
+
+  const buckets = {};
+  QA_CATEGORY_ORDER.forEach(cat => { buckets[cat] = []; });
+  items.forEach(item => {
+    buckets[qaCategoryForField(item.field)].push(item);
+  });
+
+  const openState = {};
+  wrap.querySelectorAll(".qa-category").forEach(el => { openState[el.dataset.category] = el.classList.contains("open"); });
+
+  wrap.innerHTML = QA_CATEGORY_ORDER.map(cat => {
+    const catItems = buckets[cat];
+    if (!catItems.length) return "";
+    const states = catItems.map(qaFieldState);
+    const badge = states.includes("incorrect") ? "incorrect"
+      : states.includes("warning") ? "warning"
+      : states.every(s => s === "verified") ? "verified"
+      : "unchecked";
+    const badgeText = { incorrect: "Incorrect", warning: "Warning", verified: "Verified", unchecked: "Unchecked" }[badge];
+    const isOpen = openState[cat] ?? (badge === "incorrect" || badge === "warning");
+
+    const rows = catItems.map((item, i) => `
+      <div class="qa-item" data-field="${item.field}">
+        <span class="qa-item-label" title="${fieldLabel(item.field)}">${fieldLabel(item.field)}</span>
+        <span class="qa-item-state ${states[i]}">${states[i]}</span>
+      </div>
+    `).join("");
+
+    return `
+      <div class="qa-category${isOpen ? " open" : ""}" data-category="${cat}">
+        <div class="qa-category-head">
+          <span class="qa-category-name">${QA_CATEGORY_LABELS[cat]}</span>
+          <span class="qa-category-count">${catItems.length} field${catItems.length === 1 ? "" : "s"}</span>
+          <span class="qa-category-badge ${badge}">${badgeText}</span>
+          <span class="chevron">&#9656;</span>
+        </div>
+        <div class="qa-items">${rows}</div>
+      </div>
+    `;
+  }).join("");
+
+  wrap.querySelectorAll(".qa-category-head").forEach(head => {
+    head.addEventListener("click", () => {
+      head.parentElement.classList.toggle("open");
+    });
+  });
+
+  wrap.querySelectorAll(".qa-item").forEach(row => {
+    row.addEventListener("click", (e) => {
+      e.stopPropagation();
+      focusField(row.dataset.field);
+    });
+  });
+}
+
+// Scrolls/focuses a form field from the QA panel and briefly links the two
+// panels visually so the reviewer can see exactly which box is being discussed.
+function focusField(name) {
+  const el = fieldMap[name];
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+  el.focus();
+}
+
+// The reverse direction: focusing a field on the form highlights its row in
+// the QA panel, if that field is currently listed there.
+function setLinkedQAItem(name, active) {
+  const row = document.querySelector(`.qa-item[data-field="${CSS.escape(name)}"]`);
+  if (row) row.classList.toggle("linked-active", active);
 }
 
 function renderHeader() {
@@ -820,6 +1293,68 @@ function loadScenario(index, skipPersist) {
   saveState();
 }
 
+// ==== LEFT PANEL TABS (Request / Policy / Endorsements / Notes) ====
+// UI-only: switches which already-rendered tab panel is visible. Does not
+// touch scenario data or which blocks are in each tab (that's renderPacket).
+function initTabs() {
+  const buttons = document.querySelectorAll(".tabbar .tab-btn");
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      buttons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      document.querySelectorAll(".tab-panels .tab-panel").forEach(panel => {
+        panel.classList.toggle("active", panel.dataset.panel === btn.dataset.tab);
+      });
+    });
+  });
+}
+
+// ==== ACORD FORM ZOOM ====
+// Zoom scales the same --pageW CSS variable buildForm()'s percentage-based
+// field positions already rely on, so field alignment is unaffected at any
+// zoom level - nothing about how fields are placed changes, only the size
+// of the page they're placed on.
+const ZOOM_BASE_PX = 918;
+const ZOOM_MIN = 0.4;
+const ZOOM_MAX = 2.2;
+let zoomLevel = 1;
+
+function applyZoom(level) {
+  zoomLevel = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, level));
+  document.documentElement.style.setProperty("--pageW", Math.round(ZOOM_BASE_PX * zoomLevel) + "px");
+  const pct = document.getElementById("zoomPct");
+  if (pct) pct.textContent = Math.round(zoomLevel * 100) + "%";
+}
+
+function initZoom() {
+  document.getElementById("zoomInBtn").addEventListener("click", () => applyZoom(zoomLevel + 0.1));
+  document.getElementById("zoomOutBtn").addEventListener("click", () => applyZoom(zoomLevel - 0.1));
+  document.getElementById("zoomResetBtn").addEventListener("click", () => applyZoom(1));
+  document.getElementById("zoomFitBtn").addEventListener("click", () => {
+    const container = document.getElementById("formScroll");
+    const available = container.clientWidth - 44; // account for scroll padding
+    applyZoom(available / ZOOM_BASE_PX);
+  });
+  applyZoom(1);
+}
+
+// ==== MOBILE PANEL SWITCHER ====
+// Below the responsive breakpoint the three workbench panels stack and only
+// one is shown at a time; above it this has no visible effect since the CSS
+// media query keeps all three panels displayed regardless of .mobile-active.
+function initMobileTabs() {
+  const buttons = document.querySelectorAll(".mobile-tabs .mobile-tab-btn");
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      buttons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      document.querySelectorAll(".wb-panel").forEach(panel => {
+        panel.classList.toggle("mobile-active", panel.dataset.panel === btn.dataset.panel);
+      });
+    });
+  });
+}
+
 // ==== EVENT WIRING / INIT ====
 document.getElementById("gradeBtn").addEventListener("click", gradeScenario);
 document.getElementById("clearBtn").addEventListener("click", clearCurrentForm);
@@ -828,6 +1363,15 @@ document.getElementById("nextBtn").addEventListener("click", () => {
   if (!state.passed[currentScenario]) return;
   if (currentScenario < SCENARIOS.length - 1) loadScenario(currentScenario + 1);
 });
+document.getElementById("exitBtn").addEventListener("click", () => {
+  if (confirm("Exit the COI Processing Lab? Your progress is saved automatically, and this returns you to the Learning COI guide.")) {
+    window.location.href = "learning-coi.html";
+  }
+});
+
+initTabs();
+initZoom();
+initMobileTabs();
 
 buildForm();
 loadScenario(currentScenario, true);
