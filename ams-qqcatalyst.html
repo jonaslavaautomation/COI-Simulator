@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QQCatalyst&reg; - AMS COI Trainer</title>
+<style>
+  :root {
+    --qq-navy: #1c3f66;
+    --qq-navy-dark: #14304f;
+    --qq-orange: #f47a20;
+    --qq-green: #5cb82f;
+    --qq-green-dark: #4a9c24;
+    --qq-dark: #232323;
+    --qq-dark-2: #2c2c2c;
+    --qq-bg: #eef1f4;
+    --qq-line: #d8dde3;
+    --qq-text: #2b2b2b;
+    --qq-muted: #6b7280;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    background: var(--qq-bg);
+    color: var(--qq-text);
+    font-size: 13px;
+  }
+  button { font-family: inherit; cursor: pointer; }
+  input, textarea, select { font-family: inherit; }
+  a { cursor: pointer; }
+
+  /* ===== Layout shell ===== */
+  #app-shell { display: flex; flex-direction: column; min-height: 100vh; }
+
+  /* ===== Top nav ===== */
+  .qq-topnav {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #fff; border-bottom: 1px solid var(--qq-line);
+    padding: 0 16px; height: 46px; flex-shrink: 0;
+  }
+  .qq-logo { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 17px; letter-spacing: 0.2px; }
+  .qq-logo-mark {
+    width: 26px; height: 26px; border-radius: 6px;
+    background: linear-gradient(135deg, var(--qq-orange), #ff9a4d);
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 900; transform: skewX(-6deg);
+  }
+  .qq-logo-text { color: var(--qq-navy); }
+  .qq-logo-text sup { font-size: 9px; }
+  .qq-nav-links { display: flex; align-items: center; gap: 2px; flex: 1; margin-left: 24px; height: 100%; }
+  .qq-nav-link {
+    display: flex; align-items: center; gap: 4px; height: 100%; padding: 0 12px;
+    color: var(--qq-navy); text-decoration: none; font-size: 13px; font-weight: 600;
+    border: none; background: none;
+  }
+  .qq-nav-link:hover { background: #f2f5f8; }
+  .qq-nav-link.active { background: var(--qq-navy); color: #fff; }
+  .qq-nav-link .caret { font-size: 9px; opacity: 0.7; }
+  .qq-user { display: flex; align-items: center; gap: 6px; color: var(--qq-navy); font-weight: 600; font-size: 12.5px; }
+  .qq-user-avatar {
+    width: 22px; height: 22px; border-radius: 50%; background: #cbd5e1;
+    display: flex; align-items: center; justify-content: center; font-size: 12px; color: #475569;
+  }
+
+  /* ===== Generic dark toolbar / breadcrumb bars ===== */
+  .qq-darkbar {
+    background: linear-gradient(#3c3c3c, #202020);
+    color: #fff; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 14px; min-height: 40px; flex-shrink: 0; flex-wrap: wrap; gap: 8px;
+  }
+  .qq-darkbar-tabs { display: flex; align-items: center; height: 100%; }
+  .qq-darkbar-tab {
+    padding: 9px 14px; font-size: 12.5px; font-weight: 700; background: var(--qq-navy); color: #fff;
+    border-radius: 2px 2px 0 0;
+  }
+  .qq-darkbar-actions { display: flex; align-items: center; gap: 14px; }
+  .qq-darkbar-action {
+    display: flex; flex-direction: column; align-items: center; gap: 2px; color: #d7dbe0;
+    background: none; border: none; font-size: 10.5px; padding: 4px 2px;
+  }
+  .qq-darkbar-action:hover { color: #fff; }
+  .qq-darkbar-icon { font-size: 15px; }
+
+  .qq-breadcrumb-bar {
+    background: linear-gradient(90deg, #6cc23a, var(--qq-green));
+    color: #fff; display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 16px; font-weight: 800; font-size: 14px; flex-shrink: 0;
+  }
+  .qq-breadcrumb-bar .qq-help-link { font-size: 12px; font-weight: 600; color: #eafbe0; text-decoration: none; }
+
+  /* ===== Contact toolbar ===== */
+  .qq-contact-toolbar {
+    display: flex; flex-wrap: wrap; gap: 6px; background: #f7f8fa; border-bottom: 1px solid var(--qq-line);
+    padding: 8px 14px;
+  }
+  .qq-tbtn {
+    display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 62px;
+    padding: 6px 8px; border: 1px solid #d5dae0; background: #fff; border-radius: 3px;
+    font-size: 10px; color: #374151; font-weight: 600; text-align: center;
+  }
+  .qq-tbtn:hover { background: #f2f5f8; }
+  .qq-tbtn .qq-tbtn-icon { font-size: 16px; }
+  .qq-tbtn.qq-tbtn-primary { background: var(--qq-green); border-color: var(--qq-green-dark); color: #fff; }
+  .qq-tbtn.qq-tbtn-primary:hover { background: var(--qq-green-dark); }
+  .qq-tbtn.qq-tbtn-danger .qq-tbtn-icon { color: #dc2626; }
+
+  /* ===== Main content area ===== */
+  main#app { flex: 1; overflow-y: auto; padding-bottom: 8px; }
+  .qq-screen { display: none; }
+  .qq-screen.qq-screen-active { display: block; }
+
+  /* ===== Dashboard ===== */
+  .qq-dash-grid {
+    display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; padding: 14px;
+    max-width: 1280px; margin: 0 auto;
+  }
+  .qq-widget { background: #fff; border: 1px solid var(--qq-line); border-radius: 3px; margin-bottom: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+  .qq-widget-hd {
+    background: linear-gradient(#3c3c3c, #202020); color: #fff; padding: 7px 10px;
+    display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: 700;
+    border-radius: 3px 3px 0 0;
+  }
+  .qq-widget-hd-icons { display: flex; gap: 8px; font-size: 11px; color: #cfd3d8; }
+  .qq-widget-hd-icons span { cursor: pointer; }
+  .qq-widget-hd-icons span:hover { color: #fff; }
+  .qq-widget-body { padding: 14px; }
+  .qq-widget.qq-widget-closed { display: none; }
+
+  .qq-search-box { position: relative; }
+  .qq-search-input-wrap { position: relative; }
+  .qq-search-input-wrap .qq-search-icon { position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #9aa3ad; }
+  .qq-search-input {
+    width: 100%; padding: 8px 8px 8px 28px; border: 1px solid #c9d0d8; border-radius: 3px; font-size: 12.5px; color: #6b7280;
+  }
+  .qq-search-input:focus { outline: none; border-color: var(--qq-navy); color: var(--qq-text); }
+  .qq-search-results {
+    margin-top: 8px; border: 1px solid var(--qq-line); border-radius: 3px; overflow: hidden; display: none;
+  }
+  .qq-search-results.qq-open { display: block; }
+  .qq-search-result-row {
+    padding: 9px 10px; border-bottom: 1px solid #eef1f4; cursor: pointer; background: #fff;
+  }
+  .qq-search-result-row:last-child { border-bottom: none; }
+  .qq-search-result-row:hover { background: #f2f7ef; }
+  .qq-search-result-name { font-weight: 700; color: var(--qq-dark); font-size: 12.5px; }
+  .qq-search-result-cat { font-size: 10.5px; color: var(--qq-muted); }
+
+  .qq-toggle-row { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+  .qq-toggle {
+    width: 74px; height: 26px; border-radius: 13px; background: #d9dde2; position: relative; border: 1px solid #c3c9d1;
+    display: flex; align-items: center; padding: 0 8px; font-size: 10.5px; font-weight: 800; color: #6b7280;
+  }
+  .qq-toggle.qq-on { background: var(--qq-green); color: #fff; justify-content: flex-start; }
+  .qq-toggle:not(.qq-on) { justify-content: flex-end; }
+
+  .qq-twitter-row { display: flex; align-items: center; gap: 10px; padding: 6px; border: 1px solid var(--qq-line); border-radius: 3px; }
+  .qq-twitter-bird { width: 34px; height: 34px; border-radius: 4px; background: #1da1f2; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+
+  .qq-gauge-row { display: flex; justify-content: space-around; margin-top: 6px; text-align: center; }
+  .qq-gauge { width: 110px; }
+  .qq-gauge-arc {
+    width: 100px; height: 50px; border-radius: 100px 100px 0 0; margin: 0 auto; position: relative; overflow: hidden;
+    background: conic-gradient(from 270deg at 50% 100%, var(--qq-muted) var(--pct,10%), #dfe3e8 0);
+  }
+  .qq-gauge-arc::after { content:""; position:absolute; left:12px; right:12px; top:12px; bottom:0; background:#fff; border-radius:100px 100px 0 0; }
+  .qq-gauge-num { position: relative; z-index: 1; margin-top: -30px; font-size: 17px; font-weight: 800; color: var(--qq-dark); }
+  .qq-gauge-label { font-size: 10px; color: var(--qq-muted); margin-top: 2px; }
+  .qq-gauge-scale { display: flex; justify-content: space-between; font-size: 9px; color: #a7adb5; margin-top: 2px; }
+
+  .qq-filters-list { display: flex; gap: 24px; }
+  .qq-filters-col .qq-filters-hd { font-size: 11px; color: var(--qq-muted); margin-bottom: 4px; }
+  .qq-filters-col a { color: var(--qq-navy); font-size: 12px; text-decoration: none; display: block; }
+
+  .qq-pie-wrap { text-align: center; }
+  .qq-pie { width: 150px; height: 150px; border-radius: 50%; margin: 8px auto; background: conic-gradient(#3b6fb0 0 53%, #d64545 53% 60%, #6cbf4a 60% 100%); }
+
+  .qq-dash-search-flyout {
+    position: fixed; left: 24px; bottom: 68px; width: 320px; background: #fff; border: 1px solid var(--qq-line);
+    border-radius: 4px; box-shadow: 0 8px 26px rgba(0,0,0,0.22); overflow: hidden; display: none; z-index: 40;
+  }
+  .qq-dash-search-flyout.qq-open { display: block; }
+  .qq-dash-search-flyout-hd { background: var(--qq-dark); color: #fff; padding: 8px 12px; font-weight: 700; font-size: 12px; }
+  .qq-dash-search-flyout-cat { padding: 4px 12px; font-size: 10.5px; color: var(--qq-muted); background: #f7f8fa; }
+
+  /* ===== Contact page ===== */
+  .qq-contact-hd { background: #fff; border-bottom: 1px solid var(--qq-line); padding: 14px 16px; display: flex; gap: 18px; }
+  .qq-contact-status { display: flex; align-items: center; gap: 6px; font-weight: 700; color: #2e7d32; margin-bottom: 10px; }
+  .qq-contact-avatar { width: 58px; height: 58px; border-radius: 50%; background: #e5e9ee; display: flex; align-items: center; justify-content: center; font-size: 26px; color: #9aa3ad; flex-shrink: 0; }
+  .qq-contact-hd-grid { display: grid; grid-template-columns: 130px 1fr 1fr; gap: 24px; flex: 1; }
+  .qq-contact-hd-label { font-size: 10.5px; color: var(--qq-muted); text-transform: uppercase; letter-spacing: 0.3px; }
+  .qq-contact-hd-value { font-size: 13px; font-weight: 700; color: var(--qq-dark); margin-top: 2px; }
+  .qq-contact-hd-value.qq-money { color: #2e7d32; }
+
+  .qq-tabs { display: flex; flex-wrap: wrap; gap: 3px; background: #f2f4f6; padding: 8px 14px; border-bottom: 1px solid var(--qq-line); }
+  .qq-tab {
+    padding: 7px 14px; background: var(--qq-green); color: #fff; border: none; border-radius: 2px; font-size: 12px; font-weight: 700;
+    opacity: 0.55;
+  }
+  .qq-tab.qq-tab-active { opacity: 1; background: var(--qq-navy); }
+  .qq-tab:hover { opacity: 0.85; }
+
+  .qq-contact-panels { padding: 16px; max-width: 1100px; margin: 0 auto; }
+  .qq-panel { display: none; }
+  .qq-panel.qq-panel-active { display: block; }
+  .qq-card { background: #fff; border: 1px solid var(--qq-line); border-radius: 3px; padding: 14px 16px; margin-bottom: 16px; }
+  .qq-card-title { font-weight: 800; font-size: 13px; color: var(--qq-dark); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .qq-card-title a { font-size: 11.5px; color: var(--qq-green-dark); text-decoration: none; font-weight: 700; }
+  .qq-kv-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 28px; }
+  .qq-kv-label { font-size: 10.5px; color: var(--qq-muted); text-transform: uppercase; }
+  .qq-kv-value { font-size: 12.5px; color: var(--qq-dark); margin-top: 2px; }
+  .qq-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .qq-table th { text-align: left; background: #f2f4f6; color: var(--qq-muted); font-size: 10.5px; text-transform: uppercase; padding: 8px; border-bottom: 1px solid var(--qq-line); }
+  .qq-table td { padding: 8px; border-bottom: 1px solid #f0f2f4; vertical-align: top; }
+  .qq-empty-state { color: var(--qq-muted); font-size: 12.5px; padding: 10px 0; }
+
+  .qq-email-item { border: 1px solid var(--qq-line); border-radius: 3px; margin-bottom: 10px; }
+  .qq-email-hd { padding: 10px 12px; background: #f7f8fa; border-bottom: 1px solid var(--qq-line); display: flex; justify-content: space-between; }
+  .qq-email-subject { font-weight: 700; font-size: 12.5px; }
+  .qq-email-meta { font-size: 11px; color: var(--qq-muted); margin-top: 2px; }
+  .qq-email-body { padding: 12px; font-size: 12.5px; line-height: 1.55; white-space: pre-wrap; }
+
+  .qq-policy-block { border: 1px solid var(--qq-line); border-radius: 3px; padding: 10px 12px; margin-bottom: 10px; background: #fbfcfd; }
+  .qq-policy-block-hd { font-weight: 800; font-size: 12px; color: var(--qq-navy); margin-bottom: 6px; }
+  .qq-policy-block-line { font-size: 12px; color: var(--qq-dark); line-height: 1.5; }
+  .qq-note-block { border-left: 3px solid var(--qq-orange); background: #fff8f0; padding: 8px 12px; font-size: 12px; margin-bottom: 8px; }
+
+  /* ===== ACORD list screen ===== */
+  .qq-acord-list-wrap { padding: 4px 0 0; max-width: 1000px; margin: 0 auto; }
+  .qq-acord-row {
+    display: grid; grid-template-columns: 46px 1fr 120px; align-items: center; padding: 10px 16px;
+    border-bottom: 1px solid #eef1f4; background: #fff; font-size: 12.5px;
+  }
+  .qq-acord-row:nth-child(even) { background: #f8f9fb; }
+  .qq-acord-row.qq-selectable { cursor: pointer; }
+  .qq-acord-row.qq-selectable:hover { background: #eef6e8; }
+  .qq-acord-row.qq-selected { background: var(--qq-dark) !important; color: #fff; }
+  .qq-acord-row .qq-acord-num { color: var(--qq-navy); font-weight: 700; }
+  .qq-acord-row.qq-selected .qq-acord-num { color: #fff; }
+  .qq-acord-row select { padding: 4px 6px; border-radius: 3px; border: 1px solid #c9d0d8; font-size: 11.5px; }
+  .qq-acord-list-actions { display: flex; justify-content: space-between; padding: 16px; max-width: 1000px; margin: 0 auto; }
+
+  /* ===== Select policies screen ===== */
+  .qq-select-policies-wrap { max-width: 1000px; margin: 0 auto; padding: 16px; }
+  .qq-select-policies-note { background: #fff; border: 1px solid var(--qq-line); padding: 12px 14px; border-radius: 3px; font-size: 12.5px; margin-bottom: 14px; }
+  .qq-lob-table { width: 100%; border-collapse: collapse; background: #fff; }
+  .qq-lob-table th {
+    background: var(--qq-dark); color: #fff; text-align: left; padding: 10px 12px; font-size: 11px; text-transform: uppercase;
+  }
+  .qq-lob-row td { padding: 12px; border-bottom: 1px solid var(--qq-line); font-size: 12.5px; }
+  .qq-lob-name { font-weight: 700; }
+  .qq-lob-status { color: var(--qq-muted); }
+  .qq-lob-status.qq-lob-available { color: var(--qq-green-dark); font-weight: 700; }
+  .qq-lob-associate-link { color: var(--qq-green-dark); font-weight: 700; text-decoration: none; font-size: 12px; white-space: nowrap; }
+  .qq-lob-warning { color: #b45309; font-size: 11px; margin-top: 4px; }
+  .qq-lob-associated-badge { color: #2e7d32; font-weight: 700; }
+  .qq-lob-associated-detail { font-size: 11px; color: var(--qq-muted); margin-top: 2px; }
+
+  /* ===== ACORD form screen ===== */
+  .qq-form-toolbar { display: flex; align-items: center; gap: 16px; padding: 8px 16px; background: #fff; border-bottom: 1px solid var(--qq-line); flex-wrap: wrap; }
+  .qq-form-toolbar a { color: var(--qq-green-dark); font-weight: 700; font-size: 12px; text-decoration: none; }
+  .qq-page-pill { margin-left: auto; background: var(--qq-green); color: #fff; padding: 5px 12px; border-radius: 3px; font-size: 11.5px; font-weight: 700; }
+  .qq-page-wrap { width: 680px; max-width: 96vw; margin: 16px auto; }
+  .qq-page {
+    position: relative; width: 100%; aspect-ratio: 612 / 792;
+    background-image: url('acord25-template.png'); background-size: 100% 100%; background-repeat: no-repeat;
+    border-radius: 4px; box-shadow: 0 10px 34px rgba(0,0,0,0.35); overflow: hidden;
+  }
+  .qq-field {
+    position: absolute; border: none; background: rgba(180, 210, 255, 0.28); color: #101010;
+    padding: 1px 2px; font-size: 10px; line-height: 1.12; outline: none; border-radius: 2px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+  }
+  .qq-field:hover { background: rgba(180, 210, 255, 0.5); box-shadow: inset 0 0 0 1px rgba(0,0,0,0.18); }
+  .qq-field:focus { background: rgba(255,255,255,0.95); box-shadow: inset 0 0 0 1.5px rgba(79,140,247,0.9), 0 0 0 3px rgba(79,140,247,0.22); z-index: 2; }
+  .qq-field.qq-autofill { background: rgba(255, 244, 214, 0.55); }
+  .qq-field.qq-autofill:hover { background: rgba(255, 236, 179, 0.75); }
+  textarea.qq-field { resize: none; padding: 4px 5px; font-size: 10.5px; line-height: 1.2; background: rgba(255,255,255,0.4); }
+  .qq-field.qq-checkbox { appearance: none; -webkit-appearance: none; background: transparent; box-shadow: none; border-radius: 0; padding: 0; }
+  .qq-field.qq-checkbox::before { content: ""; display: block; width: 100%; height: 100%; }
+  .qq-field.qq-checkbox:checked::after { content: "\2713"; position: absolute; inset: -2px 0 0 0; color: #111827; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .qq-field.qq-amount { text-align: right; padding-right: 4px; }
+  .qq-field.qq-date, .qq-field.qq-code, .qq-field.qq-zip { text-align: center; }
+  .qq-field.qq-error { background: rgba(254, 202, 202, 0.9) !important; box-shadow: inset 0 0 0 1.5px rgba(220, 38, 38, 0.9) !important; }
+  .qq-field.qq-correct { background: rgba(187, 247, 208, 0.68) !important; box-shadow: inset 0 0 0 1.5px rgba(22, 163, 74, 0.7) !important; }
+  .qq-form-legend { display:flex; gap:16px; justify-content:center; font-size:11px; color:var(--qq-muted); margin: 2px 0 8px; }
+  .qq-form-legend span { display:flex; align-items:center; gap:5px; }
+  .qq-form-legend i { width:11px; height:11px; border-radius:2px; display:inline-block; }
+  .qq-form-bottombar { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: #fff; border-top: 1px solid var(--qq-line); position: sticky; bottom: 0; }
+  .qq-btn { padding: 8px 16px; border-radius: 3px; font-size: 12.5px; font-weight: 700; border: 1px solid #c9d0d8; background: #fff; color: #374151; }
+  .qq-btn:hover { background: #f2f5f8; }
+  .qq-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .qq-btn-green { background: var(--qq-green); border-color: var(--qq-green-dark); color: #fff; }
+  .qq-btn-green:hover { background: var(--qq-green-dark); }
+
+  /* ===== Bottom bar ===== */
+  .qq-bottombar {
+    background: linear-gradient(#2b2b2b, #161616); display: flex; align-items: center; gap: 10px;
+    padding: 8px 14px; flex-shrink: 0; position: sticky; bottom: 0; z-index: 20;
+  }
+  .qq-bottombar-search { flex: 1; max-width: 340px; position: relative; }
+  .qq-bottombar-search input { width: 100%; padding: 7px 8px 7px 26px; border-radius: 3px; border: none; font-size: 12px; }
+  .qq-bottombar-search .qq-search-icon { position: absolute; left: 7px; top: 50%; transform: translateY(-50%); color: #9aa3ad; font-size: 11px; }
+  .qq-bottombtn { display: flex; align-items: center; gap: 5px; background: var(--qq-green); color: #fff; border: none; border-radius: 3px; padding: 7px 12px; font-size: 11.5px; font-weight: 700; }
+  .qq-bottombtn:hover { background: var(--qq-green-dark); }
+  .qq-bottombar-spacer { flex: 1; }
+  .qq-bottombar-icons { display: flex; gap: 12px; color: #cfd3d8; font-size: 15px; }
+
+  /* ===== Modals ===== */
+  .qq-modal-overlay {
+    position: fixed; inset: 0; background: rgba(15,23,32,0.55); display: flex; align-items: center; justify-content: center;
+    z-index: 100; padding: 20px;
+  }
+  .qq-modal-overlay[hidden] { display: none; }
+  .qq-modal { background: #fff; border-radius: 5px; max-width: 640px; width: 100%; max-height: 88vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .qq-modal-hd { background: var(--qq-green); color: #fff; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 14px; border-radius: 5px 5px 0 0; }
+  .qq-modal-hd.qq-modal-hd-fail { background: #dc2626; }
+  .qq-modal-hd-close { background: none; border: none; color: #fff; font-size: 16px; font-weight: 800; }
+  .qq-modal-body { padding: 16px; }
+  .qq-modal-footer { display: flex; justify-content: flex-end; gap: 10px; padding: 12px 16px; border-top: 1px solid var(--qq-line); }
+  .qq-radio-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 12.5px; font-weight: 600; }
+  .qq-intro-list { font-size: 12.5px; line-height: 1.7; padding-left: 18px; }
+  .qq-formrow { margin-bottom: 10px; }
+  .qq-formrow label { display: block; font-size: 11px; color: var(--qq-muted); margin-bottom: 3px; text-transform: uppercase; }
+  .qq-formrow input { width: 100%; padding: 7px 8px; border: 1px solid #c9d0d8; border-radius: 3px; font-size: 12.5px; }
+  .qq-formrow-2 { display: grid; grid-template-columns: 1fr 90px 110px; gap: 10px; }
+  .qq-ref-card { background: #f7f8fa; border: 1px solid var(--qq-line); border-radius: 3px; padding: 10px 12px; margin-bottom: 14px; font-size: 12px; line-height: 1.55; white-space: pre-wrap; }
+  .qq-ref-card-hd { font-weight: 800; font-size: 11px; text-transform: uppercase; color: var(--qq-muted); margin-bottom: 4px; }
+
+  .qq-score-banner { text-align: center; padding: 10px 0 16px; }
+  .qq-score-num { font-size: 40px; font-weight: 900; color: var(--qq-dark); }
+  .qq-score-sub { font-size: 13px; font-weight: 700; margin-top: 2px; }
+  .qq-score-sub.qq-pass { color: #16a34a; }
+  .qq-score-sub.qq-fail { color: #dc2626; }
+  .qq-error-list { font-size: 12px; line-height: 1.7; padding-left: 18px; max-height: 220px; overflow-y: auto; }
+
+  .qq-toast {
+    position: fixed; left: 50%; bottom: 74px; transform: translateX(-50%); background: var(--qq-dark); color: #fff;
+    padding: 9px 16px; border-radius: 4px; font-size: 12.5px; z-index: 200; box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    opacity: 0; pointer-events: none; transition: opacity 0.18s ease;
+  }
+  .qq-toast.qq-show { opacity: 1; }
+
+  .qq-note-callout { background: #eef6e8; border: 1px solid #cfe8bc; padding: 10px 12px; border-radius: 3px; font-size: 12px; margin-bottom: 14px; }
+</style>
+</head>
+<body>
+<div id="app-shell">
+
+  <!-- ===== Top nav (persistent) ===== -->
+  <header class="qq-topnav">
+    <div class="qq-logo">
+      <div class="qq-logo-mark">QQ</div>
+      <div class="qq-logo-text">Catalyst<sup>&reg;</sup></div>
+    </div>
+    <nav class="qq-nav-links">
+      <a class="qq-nav-link" id="navDashboard">Dashboard</a>
+      <a class="qq-nav-link active" id="navContacts">Contacts <span class="caret">&#9662;</span></a>
+      <a class="qq-nav-link">Policies</a>
+      <a class="qq-nav-link">AI</a>
+      <a class="qq-nav-link">Salesroom</a>
+      <a class="qq-nav-link">Reports</a>
+      <a class="qq-nav-link">Mailroom</a>
+      <a class="qq-nav-link">More <span class="caret">&#9662;</span></a>
+    </nav>
+    <div class="qq-user"><span class="qq-user-avatar">&#128100;</span> Elle Canvas <span class="caret">&#9662;</span></div>
+  </header>
+
+  <main id="app">
+
+    <!-- ===== SCREEN: Dashboard ===== -->
+    <section id="screen-dashboard" class="qq-screen">
+      <div class="qq-darkbar">
+        <div class="qq-darkbar-tabs"><div class="qq-darkbar-tab">My Dashboard</div></div>
+        <div class="qq-darkbar-actions">
+          <button class="qq-darkbar-action" onclick="showToast('Filter builder is not part of this training exercise.')"><span class="qq-darkbar-icon">&#9660;</span>Filters</button>
+          <button class="qq-darkbar-action" onclick="showToast('Widget library is not part of this training exercise.')"><span class="qq-darkbar-icon">&#10133;</span>Add Widget</button>
+        </div>
+      </div>
+      <div class="qq-dash-grid">
+        <div>
+          <div class="qq-widget" id="widgetSearch">
+            <div class="qq-widget-hd">Search <div class="qq-widget-hd-icons"><span>&#8635;</span><span>?</span><span>&#8722;</span><span onclick="closeWidget('widgetSearch')">&times;</span></div></div>
+            <div class="qq-widget-body">
+              <div class="qq-search-box">
+                <div class="qq-search-input-wrap">
+                  <span class="qq-search-icon">&#128269;</span>
+                  <input class="qq-search-input" id="dashSearchInput" placeholder="Search Name, Policy #, Phone .." autocomplete="off">
+                </div>
+                <div class="qq-search-results" id="dashSearchResults"></div>
+              </div>
+            </div>
+          </div>
+          <div class="qq-widget">
+            <div class="qq-widget-hd">Guided Workflow <div class="qq-widget-hd-icons"><span>&#8635;</span><span>?</span><span>&#8722;</span><span onclick="showToast('Widget hidden. Reload to bring it back.')">&times;</span></div></div>
+            <div class="qq-widget-body">
+              <div style="font-size:12px;color:#4b5563;line-height:1.5;">Turn ON Guided Workflows to add new contacts and policies step-by-step. Turn OFF to add contacts and policies without guidance.</div>
+              <div class="qq-toggle-row">
+                <div style="font-weight:700;font-size:12px;">Guided Workflow</div>
+                <div class="qq-toggle" id="guidedToggle" onclick="toggleGuided()">OFF</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="qq-widget">
+            <div class="qq-widget-hd">Twitter <div class="qq-widget-hd-icons"><span>&#8635;</span><span>?</span><span>&#8722;</span><span onclick="closeWidget('widgetTwitter')">&times;</span></div></div>
+            <div class="qq-widget-body" id="widgetTwitter">
+              <div class="qq-twitter-row"><div class="qq-twitter-bird">&#128038;</div><div style="font-weight:700;color:#1da1f2;">Sign in to Twitter</div></div>
+            </div>
+          </div>
+          <div class="qq-widget">
+            <div class="qq-widget-hd">Data Consumption <div class="qq-widget-hd-icons"><span>&#8635;</span><span>?</span><span>&#8722;</span><span onclick="showToast('Widget hidden. Reload to bring it back.')">&times;</span></div></div>
+            <div class="qq-widget-body">
+              <div style="font-size:11.5px;color:#4b5563;">QQCatalyst&reg; Plan: Catalyst - Professional Package</div>
+              <div class="qq-gauge-row">
+                <div class="qq-gauge">
+                  <div class="qq-gauge-arc" style="--pct:20%;"></div>
+                  <div class="qq-gauge-num">16</div>
+                  <div class="qq-gauge-label">Gigabytes</div>
+                  <div class="qq-gauge-scale"><span>File Storage</span><span style="color:#dc2626;">Unlimited</span></div>
+                </div>
+                <div class="qq-gauge">
+                  <div class="qq-gauge-arc" style="--pct:3%;"></div>
+                  <div class="qq-gauge-num">2144</div>
+                  <div class="qq-gauge-label">Active Customers</div>
+                  <div class="qq-gauge-scale"><span>0</span><span>10000000</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="qq-widget">
+            <div class="qq-widget-hd">Dashboard Filters <div class="qq-widget-hd-icons"><span>&#8635;</span><span>?</span><span>&#8942;</span><span onclick="closeWidget('widgetDashFilters')">&times;</span></div></div>
+            <div class="qq-widget-body" id="widgetDashFilters">
+              <div class="qq-filters-list">
+                <div class="qq-filters-col"><div class="qq-filters-hd">Filtered by Users:</div><a>&rsaquo; Elle Canvas</a></div>
+                <div class="qq-filters-col"><div class="qq-filters-hd">Filtered by Locations:</div><a>&rsaquo; RALEIGH</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="qq-widget">
+            <div class="qq-widget-hd">Source Of Business <div class="qq-widget-hd-icons"><span>&#8635;</span><span>&#9881;</span><span>?</span><span>&#8722;</span><span onclick="closeWidget('widgetSOB')">&times;</span></div></div>
+            <div class="qq-widget-body" id="widgetSOB">
+              <div class="qq-pie-wrap">
+                <div style="font-weight:700;font-size:12px;">Top Policy Type</div>
+                <div style="font-size:11px;color:var(--qq-muted);">All Dates</div>
+                <div class="qq-pie"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="qq-dash-search-flyout" id="dashSearchFlyout">
+        <div class="qq-dash-search-flyout-hd">Customer</div>
+        <div id="dashSearchFlyoutBody"></div>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN: Contact ===== -->
+    <section id="screen-contact" class="qq-screen">
+      <div class="qq-contact-toolbar">
+        <button class="qq-tbtn qq-tbtn-danger" onclick="showToast('Not part of this training exercise.')"><span class="qq-tbtn-icon">&#128683;</span>Delete Contact</button>
+        <button class="qq-tbtn" onclick="showToast('Not part of this training exercise.')"><span class="qq-tbtn-icon">&#128101;</span>Copy Contact</button>
+        <button class="qq-tbtn" onclick="showToast('Not part of this training exercise.')"><span class="qq-tbtn-icon">&#128257;</span>Merge Contact To</button>
+        <button class="qq-tbtn" onclick="showToast('Not part of this training exercise.')"><span class="qq-tbtn-icon">&#9989;</span>Change Status</button>
+        <button class="qq-tbtn" onclick="showToast('Not part of this training exercise.')"><span class="qq-tbtn-icon">&#128176;</span>Bill / Pay</button>
+        <button class="qq-tbtn" onclick="showToast('Not part of this training exercise.')"><span class="qq-tbtn-icon">&#9993;</span>Print / Email</button>
+        <button class="qq-tbtn qq-tbtn-primary" id="addAcordFormBtn" onclick="openPoliciesFoundModal()"><span class="qq-tbtn-icon">&#128203;</span>Add ACORD Form</button>
+        <button class="qq-tbtn" onclick="showToast('Not part of this training exercise.')"><span class="qq-tbtn-icon">&#9745;</span>Add Task</button>
+        <button class="qq-tbtn" onclick="showToast('Not part of this training exercise.')"><span class="qq-tbtn-icon">&#128221;</span>Add Note</button>
+        <button class="qq-tbtn" onclick="showToast('Not part of this training exercise.')"><span class="qq-tbtn-icon">&#128196;</span>Policy Summary</button>
+        <button class="qq-tbtn" onclick="showToast('Not part of this training exercise.')"><span class="qq-tbtn-icon">&#128196;</span>Policy Proposal</button>
+        <button class="qq-tbtn" onclick="showToast('Not part of this training exercise.')"><span class="qq-tbtn-icon">&#10133;</span>New Policy</button>
+      </div>
+
+      <div class="qq-contact-hd">
+        <div class="qq-contact-avatar">&#127970;</div>
+        <div style="flex:1;">
+          <div class="qq-contact-status">&#9679; Active Customer</div>
+          <div class="qq-contact-hd-grid">
+            <div>
+              <div class="qq-contact-hd-label">Contact Preference</div>
+              <div class="qq-contact-hd-value">PHONE</div>
+            </div>
+            <div>
+              <div class="qq-contact-hd-label">Business</div>
+              <div class="qq-contact-hd-value" id="contactHdName">-</div>
+              <div class="qq-contact-hd-value" style="font-weight:400;font-size:12px;" id="contactHdAddress">-</div>
+            </div>
+            <div>
+              <div class="qq-contact-hd-label">Customer Since / Location</div>
+              <div class="qq-contact-hd-value" id="contactHdSince">-</div>
+              <div style="margin-top:6px;">
+                <span class="qq-contact-hd-value qq-money">$0.00</span>
+                <span style="font-size:11px;color:var(--qq-muted);"> balance</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="qq-tabs" id="contactTabs"></div>
+
+      <div class="qq-contact-panels">
+        <div class="qq-panel qq-panel-active" data-panel="info">
+          <div class="qq-card">
+            <div class="qq-card-title">Basic Contact Info <a onclick="showToast('Not part of this training exercise.')">Edit &#9998;</a></div>
+            <div class="qq-kv-grid">
+              <div><div class="qq-kv-label">Contact Preference</div><div class="qq-kv-value">Phone</div></div>
+              <div><div class="qq-kv-label">Named Insured</div><div class="qq-kv-value" id="infoInsuredName">-</div></div>
+              <div><div class="qq-kv-label">Mailing Address</div><div class="qq-kv-value" id="infoInsuredAddress">-</div></div>
+              <div><div class="qq-kv-label">Account Type</div><div class="qq-kv-value">Commercial Lines</div></div>
+            </div>
+          </div>
+          <div class="qq-card">
+            <div class="qq-card-title">Business Contacts (1) <a onclick="showToast('Not part of this training exercise.')">+ Add A Contact</a></div>
+            <table class="qq-table">
+              <thead><tr><th>Contact</th><th>Contact Info</th><th>Contact Info Details</th></tr></thead>
+              <tbody id="businessContactsBody"></tbody>
+            </table>
+          </div>
+          <div class="qq-card">
+            <div class="qq-card-title">Addresses (1)</div>
+            <div class="qq-kv-grid">
+              <div><div class="qq-kv-label">Mailing Address</div><div class="qq-kv-value" id="infoAddressLine">-</div></div>
+              <div><div class="qq-kv-label">Type</div><div class="qq-kv-value">Home</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="qq-panel" data-panel="policies">
+          <div class="qq-card">
+            <div class="qq-card-title">Policy File On Account</div>
+            <div id="policiesTabBody"></div>
+          </div>
+        </div>
+
+        <div class="qq-panel" data-panel="emails">
+          <div class="qq-card">
+            <div class="qq-card-title">Emails</div>
+            <div id="emailsTabBody"></div>
+          </div>
+        </div>
+
+        <div class="qq-panel" data-panel="acord">
+          <div class="qq-card">
+            <div class="qq-card-title">ACORD Forms On File</div>
+            <div id="acordTabBody"><div class="qq-empty-state">No ACORD forms on file for this contact.</div></div>
+          </div>
+        </div>
+
+        <div class="qq-panel" data-panel="notes">
+          <div class="qq-card">
+            <div class="qq-card-title">Account Notes</div>
+            <div id="notesTabBody"></div>
+          </div>
+        </div>
+
+        <div class="qq-panel" data-panel="generic">
+          <div class="qq-card"><div class="qq-empty-state" id="genericPanelText">Nothing on file.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN: Add ACORD Form (form list) ===== -->
+    <section id="screen-acord-list" class="qq-screen">
+      <div class="qq-breadcrumb-bar"><div>Add ACORD Form &nbsp;&#9656;</div><a class="qq-help-link">? Help</a></div>
+      <div class="qq-acord-list-wrap" id="acordListRows"></div>
+      <div class="qq-acord-list-actions">
+        <button class="qq-btn" onclick="goToScreen('screen-contact')">Cancel</button>
+        <button class="qq-btn qq-btn-green" id="acordListNextBtn" disabled onclick="goToSelectPolicies()">Next &#10132;</button>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN: Select Policies ===== -->
+    <section id="screen-select-policies" class="qq-screen">
+      <div class="qq-breadcrumb-bar"><div>&#128203; Select Policies...</div></div>
+      <div class="qq-select-policies-wrap">
+        <div class="qq-select-policies-note">Select the policies you would like represented on your certificate of insurance by clicking Associate Policy for each line of business.</div>
+        <table class="qq-lob-table">
+          <thead><tr><th>Line of Business</th><th>Effective</th><th>Expiration</th><th>Policy Number</th><th></th></tr></thead>
+          <tbody id="lobTableBody"></tbody>
+        </table>
+      </div>
+      <div class="qq-acord-list-actions">
+        <button class="qq-btn" onclick="goToScreen('screen-acord-list')">Cancel</button>
+        <button class="qq-btn qq-btn-green" id="selectPoliciesNextBtn" disabled onclick="goToAcordForm()">Next &#10132;</button>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN: ACORD Form ===== -->
+    <section id="screen-acord-form" class="qq-screen">
+      <div class="qq-breadcrumb-bar"><div>Page 1 &nbsp;&#9656;</div><a class="qq-help-link">? Help</a></div>
+      <div class="qq-form-toolbar">
+        <a onclick="openCertHolderModal()">+ Manage Certificate Holders</a>
+        <a onclick="showToast('Not part of this training exercise.')">+ Import/Change Signature</a>
+        <a onclick="showToast('Not part of this training exercise.')">- Remove Signature</a>
+        <div class="qq-page-pill">Page 1 of 1</div>
+      </div>
+      <div class="qq-form-legend">
+        <span><i style="background:rgba(255,244,214,0.9);border:1px solid #e5c869;"></i>Auto-filled by the AMS</span>
+        <span><i style="background:rgba(180,210,255,0.6);border:1px solid #9db8e8;"></i>Entered by you</span>
+      </div>
+      <div class="qq-page-wrap">
+        <div class="qq-page" id="acordPage"></div>
+      </div>
+      <div class="qq-form-bottombar">
+        <button class="qq-btn" onclick="cancelAcordForm()">Cancel</button>
+        <div style="display:flex;gap:8px;">
+          <button class="qq-btn" onclick="showToast('Not part of this training exercise.')">Print</button>
+          <button class="qq-btn" onclick="showToast('Not part of this training exercise.')">Email</button>
+          <button class="qq-btn" disabled title="This is page 1 of 1">&#9664; Prev</button>
+          <button class="qq-btn qq-btn-green" onclick="saveAndClose()">Save And Close &#10132;</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Bottom bar (persistent) ===== -->
+  <footer class="qq-bottombar">
+    <div class="qq-bottombar-search">
+      <span class="qq-search-icon">&#128269;</span>
+      <input id="bottomSearchInput" placeholder="Search Name, Policy #, Phone ..">
+    </div>
+    <button class="qq-bottombtn" onclick="showToast('Not part of this training exercise.')">&#10133; New Contact</button>
+    <button class="qq-bottombtn" onclick="showToast('Not part of this training exercise.')">&#10003; New Task</button>
+    <button class="qq-bottombtn" onclick="showToast('Not part of this training exercise.')">&#10133; New Email</button>
+    <div class="qq-bottombar-spacer"></div>
+    <div class="qq-bottombar-icons"><span>&#128193;</span><span>&#128276;</span><span>&#128100;</span></div>
+  </footer>
+</div>
+
+<!-- ===== Modal: Getting Started ===== -->
+<div class="qq-modal-overlay" id="modalIntro">
+  <div class="qq-modal">
+    <div class="qq-modal-hd">Getting Started - AMS COI Trainer <button class="qq-modal-hd-close" onclick="closeModal('modalIntro')">&times;</button></div>
+    <div class="qq-modal-body">
+      <p style="margin-top:0;">This simulates your agency's real QQCatalyst&reg; portal. A client emailed in asking for a Certificate of Insurance - process it exactly like you would on the job.</p>
+      <ul class="qq-intro-list">
+        <li>Search for the customer in the <b>Search</b> widget on your Dashboard.</li>
+        <li>Open their <b>Contact</b> record. The client's request is logged under the <b>Emails</b> tab; the policy details you're allowed to certify are under the <b>Policies</b> tab.</li>
+        <li>Click <b>Add ACORD Form</b>, pick <b>25 - CERTIFICATE OF LIABILITY INSURANCE</b>, then associate only the policies that actually exist for this account.</li>
+        <li>Complete the certificate. The AMS auto-fills your agency and account information for you - the coverage details are your job.</li>
+        <li>Only enter what the policy file actually supports, even if the client's email asks for more.</li>
+      </ul>
+    </div>
+    <div class="qq-modal-footer"><button class="qq-btn qq-btn-green" onclick="closeModal('modalIntro')">Start Working</button></div>
+  </div>
+</div>
+
+<!-- ===== Modal: Policies Found ===== -->
+<div class="qq-modal-overlay" id="modalPoliciesFound" hidden>
+  <div class="qq-modal">
+    <div class="qq-modal-hd">Policies Found <button class="qq-modal-hd-close" onclick="closeModal('modalPoliciesFound')">&times;</button></div>
+    <div class="qq-modal-body">
+      <p style="margin-top:0;font-size:12.5px;">Below is a list of policies on file for this contact. Select a policy to pre-associate it, or continue and associate specific lines of business on the next screen.</p>
+      <div class="qq-radio-row"><input type="radio" name="pfRadio" id="pfRadioContact" checked><label for="pfRadioContact">Associate to Contact Only</label></div>
+      <table class="qq-table" id="policiesFoundTable">
+        <thead><tr><th>Effective</th><th>Expiration</th><th>Line Of Business</th><th>Carrier</th><th>Policy Number</th><th>Status</th></tr></thead>
+        <tbody id="policiesFoundBody"></tbody>
+      </table>
+    </div>
+    <div class="qq-modal-footer">
+      <button class="qq-btn" onclick="closeModal('modalPoliciesFound')">Cancel</button>
+      <button class="qq-btn qq-btn-green" onclick="confirmPoliciesFound()">OK &#9998;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Modal: Manage Certificate Holders ===== -->
+<div class="qq-modal-overlay" id="modalCertHolder" hidden>
+  <div class="qq-modal">
+    <div class="qq-modal-hd">Manage Certificate Holders <button class="qq-modal-hd-close" onclick="closeModal('modalCertHolder')">&times;</button></div>
+    <div class="qq-modal-body">
+      <div class="qq-ref-card"><div class="qq-ref-card-hd">As stated in the client's request</div><div id="certHolderRefText"></div></div>
+      <div class="qq-formrow"><label>Certificate Holder Name</label><input id="chName"></div>
+      <div class="qq-formrow"><label>Address Line 1</label><input id="chLine1"></div>
+      <div class="qq-formrow"><label>Address Line 2</label><input id="chLine2"></div>
+      <div class="qq-formrow qq-formrow-2">
+        <div><label>City</label><input id="chCity"></div>
+        <div><label>State</label><input id="chState" maxlength="2"></div>
+        <div><label>ZIP</label><input id="chZip"></div>
+      </div>
+    </div>
+    <div class="qq-modal-footer">
+      <button class="qq-btn" onclick="closeModal('modalCertHolder')">Cancel</button>
+      <button class="qq-btn qq-btn-green" onclick="applyCertHolder()">Add to Certificate</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Modal: Result ===== -->
+<div class="qq-modal-overlay" id="modalResult" hidden>
+  <div class="qq-modal">
+    <div class="qq-modal-hd" id="resultModalHd">Certificate Saved <button class="qq-modal-hd-close" onclick="closeModal('modalResult')">&times;</button></div>
+    <div class="qq-modal-body">
+      <div class="qq-score-banner">
+        <div class="qq-score-num" id="resultScoreNum">0%</div>
+        <div class="qq-score-sub" id="resultScoreSub">-</div>
+      </div>
+      <div id="resultErrorsWrap"></div>
+    </div>
+    <div class="qq-modal-footer" id="resultModalFooter"></div>
+  </div>
+</div>
+
+<div class="qq-toast" id="toast"></div>
+
+<script>
+const EMBEDDED_AMS_DATA = {"form":{"width":612,"height":792,"background":"assets/acord25-template.png"},"fields":[{"id":"form_completion_date_a","name":"F[0].P1[0].Form_CompletionDate_A[0]","type":"text","x":511,"y":36,"w":79,"h":12,"required":false,"label":"Date"},{"id":"producer_full_name_a","name":"F[0].P1[0].Producer_FullName_A[0]","type":"text","x":22,"y":132,"w":280,"h":12,"required":false,"label":"Producer name"},{"id":"producer_mailing_address_line_one_a","name":"F[0].P1[0].Producer_MailingAddress_LineOne_A[0]","type":"text","x":22,"y":144,"w":280,"h":12,"required":false,"label":"Producer address line 1"},{"id":"producer_mailing_address_line_two_a","name":"F[0].P1[0].Producer_MailingAddress_LineTwo_A[0]","type":"text","x":22,"y":156,"w":280,"h":12,"required":false,"label":"Producer address line 2"},{"id":"producer_mailing_address_city_name_a","name":"F[0].P1[0].Producer_MailingAddress_CityName_A[0]","type":"text","x":22,"y":168,"w":216,"h":12,"required":false,"label":"Producer city"},{"id":"producer_mailing_address_state_or_province_code_a","name":"F[0].P1[0].Producer_MailingAddress_StateOrProvinceCode_A[0]","type":"text","x":238,"y":168,"w":18,"h":12,"required":false,"label":"Producer state"},{"id":"producer_mailing_address_postal_code_a","name":"F[0].P1[0].Producer_MailingAddress_PostalCode_A[0]","type":"text","x":256,"y":168,"w":46,"h":12,"required":false,"label":"Producer ZIP"},{"id":"producer_contact_person_full_name_a","name":"F[0].P1[0].Producer_ContactPerson_FullName_A[0]","type":"text","x":346,"y":120,"w":244,"h":12,"required":false,"label":"Producer contact"},{"id":"producer_contact_person_phone_number_a","name":"F[0].P1[0].Producer_ContactPerson_PhoneNumber_A[0]","type":"text","x":353,"y":132,"w":126,"h":12,"required":false,"label":"Producer phone"},{"id":"producer_fax_number_a","name":"F[0].P1[0].Producer_FaxNumber_A[0]","type":"text","x":518,"y":132,"w":72,"h":12,"required":false,"label":"Producer fax"},{"id":"producer_contact_person_email_address_a","name":"F[0].P1[0].Producer_ContactPerson_EmailAddress_A[0]","type":"text","x":346,"y":144,"w":244,"h":12,"required":false,"label":"Producer email"},{"id":"named_insured_full_name_a","name":"F[0].P1[0].NamedInsured_FullName_A[0]","type":"text","x":72,"y":192,"w":230,"h":12,"required":false,"label":"Named insured"},{"id":"named_insured_mailing_address_line_one_a","name":"F[0].P1[0].NamedInsured_MailingAddress_LineOne_A[0]","type":"text","x":72,"y":204,"w":230,"h":12,"required":false,"label":"Insured address line 1"},{"id":"named_insured_mailing_address_line_two_a","name":"F[0].P1[0].NamedInsured_MailingAddress_LineTwo_A[0]","type":"text","x":72,"y":216,"w":230,"h":12,"required":false,"label":"Insured address line 2"},{"id":"named_insured_mailing_address_city_name_a","name":"F[0].P1[0].NamedInsured_MailingAddress_CityName_A[0]","type":"text","x":72,"y":228,"w":166,"h":12,"required":false,"label":"Insured city"},{"id":"named_insured_mailing_address_state_or_province_code_a","name":"F[0].P1[0].NamedInsured_MailingAddress_StateOrProvinceCode_A[0]","type":"text","x":238,"y":228,"w":18,"h":12,"required":false,"label":"Insured state"},{"id":"named_insured_mailing_address_postal_code_a","name":"F[0].P1[0].NamedInsured_MailingAddress_PostalCode_A[0]","type":"text","x":256,"y":228,"w":46,"h":12,"required":false,"label":"Insured ZIP"},{"id":"insurer_full_name_a","name":"F[0].P1[0].Insurer_FullName_A[0]","type":"text","x":349,"y":168,"w":187,"h":12,"required":false,"label":"Insurer A name"},{"id":"insurer_naiccode_a","name":"F[0].P1[0].Insurer_NAICCode_A[0]","type":"text","x":544,"y":168,"w":46,"h":12,"required":false,"label":"Insurer A NAIC"},{"id":"insurer_full_name_b","name":"F[0].P1[0].Insurer_FullName_B[0]","type":"text","x":349,"y":180,"w":187,"h":12,"required":false,"label":"Insurer B name"},{"id":"insurer_naiccode_b","name":"F[0].P1[0].Insurer_NAICCode_B[0]","type":"text","x":544,"y":180,"w":46,"h":12,"required":false,"label":"Insurer B NAIC"},{"id":"insurer_full_name_c","name":"F[0].P1[0].Insurer_FullName_C[0]","type":"text","x":349,"y":192,"w":187,"h":12,"required":false,"label":"Insurer C name"},{"id":"insurer_naiccode_c","name":"F[0].P1[0].Insurer_NAICCode_C[0]","type":"text","x":544,"y":192,"w":46,"h":12,"required":false,"label":"Insurer C NAIC"},{"id":"insurer_full_name_d","name":"F[0].P1[0].Insurer_FullName_D[0]","type":"text","x":349,"y":204,"w":187,"h":12,"required":false,"label":"Insurer D name"},{"id":"insurer_naiccode_d","name":"F[0].P1[0].Insurer_NAICCode_D[0]","type":"text","x":544,"y":204,"w":46,"h":12,"required":false,"label":"Insurer D NAIC"},{"id":"insurer_full_name_e","name":"F[0].P1[0].Insurer_FullName_E[0]","type":"text","x":349,"y":216,"w":187,"h":12,"required":false,"label":null},{"id":"insurer_naiccode_e","name":"F[0].P1[0].Insurer_NAICCode_E[0]","type":"text","x":544,"y":216,"w":46,"h":12,"required":false,"label":null},{"id":"insurer_full_name_f","name":"F[0].P1[0].Insurer_FullName_F[0]","type":"text","x":349,"y":228,"w":187,"h":12,"required":false,"label":null},{"id":"insurer_naiccode_f","name":"F[0].P1[0].Insurer_NAICCode_F[0]","type":"text","x":544,"y":228,"w":46,"h":12,"required":false,"label":null},{"id":"certificate_of_insurance_certificate_number_identifier_a","name":"F[0].P1[0].CertificateOfInsurance_CertificateNumberIdentifier_A[0]","type":"text","x":259,"y":240,"w":90,"h":12,"required":false,"label":"Certificate number"},{"id":"certificate_of_insurance_revision_number_identifier_a","name":"F[0].P1[0].CertificateOfInsurance_RevisionNumberIdentifier_A[0]","type":"text","x":508,"y":240,"w":82,"h":12,"required":false,"label":"Revision number"},{"id":"general_liability_insurer_letter_code_a","name":"F[0].P1[0].GeneralLiability_InsurerLetterCode_A[0]","type":"text","x":18,"y":336,"w":18,"h":12,"required":false,"label":"GL insurer letter"},{"id":"general_liability_coverage_indicator_a","name":"F[0].P1[0].GeneralLiability_CoverageIndicator_A[0]","type":"checkbox","x":36,"y":300,"w":14,"h":12,"required":false,"label":"General liability coverage checked"},{"id":"general_liability_claims_made_indicator_a","name":"F[0].P1[0].GeneralLiability_ClaimsMadeIndicator_A[0]","type":"checkbox","x":50,"y":312,"w":15,"h":12,"required":false,"label":"General liability claims-made checked"},{"id":"general_liability_occurrence_indicator_a","name":"F[0].P1[0].GeneralLiability_OccurrenceIndicator_A[0]","type":"checkbox","x":115,"y":312,"w":15,"h":12,"required":false,"label":"General liability occurrence checked"},{"id":"general_liability_other_coverage_indicator_a","name":"F[0].P1[0].GeneralLiability_OtherCoverageIndicator_A[0]","type":"checkbox","x":36,"y":324,"w":14,"h":12,"required":false,"label":null},{"id":"general_liability_other_coverage_description_a","name":"F[0].P1[0].GeneralLiability_OtherCoverageDescription_A[0]","type":"text","x":54,"y":324,"w":119,"h":12,"required":false,"label":null},{"id":"general_liability_other_coverage_indicator_b","name":"F[0].P1[0].GeneralLiability_OtherCoverageIndicator_B[0]","type":"checkbox","x":36,"y":336,"w":14,"h":12,"required":false,"label":null},{"id":"general_liability_other_coverage_description_b","name":"F[0].P1[0].GeneralLiability_OtherCoverageDescription_B[0]","type":"text","x":54,"y":336,"w":119,"h":12,"required":false,"label":null},{"id":"general_liability_general_aggregate_limit_applies_per_policy_indicator_a","name":"F[0].P1[0].GeneralLiability_GeneralAggregate_LimitAppliesPerPolicyIndicator_A[0]","type":"checkbox","x":36,"y":360,"w":14,"h":12,"required":false,"label":null},{"id":"general_liability_general_aggregate_limit_applies_per_project_indicator_a","name":"F[0].P1[0].GeneralLiability_GeneralAggregate_LimitAppliesPerProjectIndicator_A[0]","type":"checkbox","x":79,"y":360,"w":15,"h":12,"required":false,"label":null},{"id":"general_liability_general_aggregate_limit_applies_per_location_indicator_a","name":"F[0].P1[0].GeneralLiability_GeneralAggregate_LimitAppliesPerLocationIndicator_A[0]","type":"checkbox","x":122,"y":360,"w":15,"h":12,"required":false,"label":null},{"id":"general_liability_general_aggregate_limit_applies_to_other_indicator_a","name":"F[0].P1[0].GeneralLiability_GeneralAggregate_LimitAppliesToOtherIndicator_A[0]","type":"checkbox","x":36,"y":372,"w":14,"h":12,"required":false,"label":null},{"id":"general_liability_general_aggregate_limit_applies_to_code_a","name":"F[0].P1[0].GeneralLiability_GeneralAggregate_LimitAppliesToCode_A[0]","type":"text","x":79,"y":372,"w":94,"h":12,"required":false,"label":null},{"id":"certificate_of_insurance_general_liability_additional_insured_code_a","name":"F[0].P1[0].CertificateOfInsurance_GeneralLiability_AdditionalInsuredCode_A[0]","type":"text","x":176,"y":336,"w":18,"h":12,"required":false,"label":"GL additional insured code"},{"id":"policy_general_liability_subrogation_waived_code_a","name":"F[0].P1[0].Policy_GeneralLiability_SubrogationWaivedCode_A[0]","type":"text","x":194,"y":336,"w":18,"h":12,"required":false,"label":"GL subrogation waived code"},{"id":"policy_general_liability_policy_number_identifier_a","name":"F[0].P1[0].Policy_GeneralLiability_PolicyNumberIdentifier_A[0]","type":"text","x":216,"y":336,"w":112,"h":12,"required":false,"label":"GL policy number"},{"id":"policy_general_liability_effective_date_a","name":"F[0].P1[0].Policy_GeneralLiability_EffectiveDate_A[0]","type":"text","x":331,"y":336,"w":47,"h":12,"required":false,"label":"GL effective date"},{"id":"policy_general_liability_expiration_date_a","name":"F[0].P1[0].Policy_GeneralLiability_ExpirationDate_A[0]","type":"text","x":378,"y":336,"w":47,"h":12,"required":false,"label":"GL expiration date"},{"id":"general_liability_each_occurrence_limit_amount_a","name":"F[0].P1[0].GeneralLiability_EachOccurrence_LimitAmount_A[0]","type":"text","x":526,"y":300,"w":64,"h":12,"required":false,"label":"GL each occurrence"},{"id":"general_liability_fire_damage_rented_premises_each_occurrence_limit_amount_a","name":"F[0].P1[0].GeneralLiability_FireDamageRentedPremises_EachOccurrenceLimitAmount_A[0]","type":"text","x":526,"y":312,"w":64,"h":12,"required":false,"label":"GL damage to rented premises"},{"id":"general_liability_medical_expense_each_person_limit_amount_a","name":"F[0].P1[0].GeneralLiability_MedicalExpense_EachPersonLimitAmount_A[0]","type":"text","x":526,"y":324,"w":64,"h":12,"required":false,"label":"GL medical expense"},{"id":"general_liability_personal_and_advertising_injury_limit_amount_a","name":"F[0].P1[0].GeneralLiability_PersonalAndAdvertisingInjury_LimitAmount_A[0]","type":"text","x":526,"y":336,"w":64,"h":12,"required":false,"label":"GL personal & adv injury"},{"id":"general_liability_general_aggregate_limit_amount_a","name":"F[0].P1[0].GeneralLiability_GeneralAggregate_LimitAmount_A[0]","type":"text","x":526,"y":348,"w":64,"h":12,"required":false,"label":"GL general aggregate"},{"id":"general_liability_products_and_completed_operations_aggregate_limit_amount_a","name":"F[0].P1[0].GeneralLiability_ProductsAndCompletedOperations_AggregateLimitAmount_A[0]","type":"text","x":526,"y":360,"w":64,"h":12,"required":false,"label":"GL products-comp/op agg"},{"id":"general_liability_other_coverage_limit_description_a","name":"F[0].P1[0].GeneralLiability_OtherCoverageLimitDescription_A[0]","type":"text","x":428,"y":372,"w":83,"h":12,"required":false,"label":null},{"id":"general_liability_other_coverage_limit_amount_a","name":"F[0].P1[0].GeneralLiability_OtherCoverageLimitAmount_A[0]","type":"text","x":526,"y":372,"w":64,"h":12,"required":false,"label":null},{"id":"vehicle_insurer_letter_code_a","name":"F[0].P1[0].Vehicle_InsurerLetterCode_A[0]","type":"text","x":18,"y":408,"w":18,"h":12,"required":false,"label":"Auto insurer letter"},{"id":"vehicle_any_auto_indicator_a","name":"F[0].P1[0].Vehicle_AnyAutoIndicator_A[0]","type":"checkbox","x":36,"y":396,"w":14,"h":12,"required":false,"label":"Any auto checked"},{"id":"vehicle_all_owned_autos_indicator_a","name":"F[0].P1[0].Vehicle_AllOwnedAutosIndicator_A[0]","type":"checkbox","x":36,"y":408,"w":14,"h":12,"required":false,"label":null},{"id":"vehicle_hired_autos_indicator_a","name":"F[0].P1[0].Vehicle_HiredAutosIndicator_A[0]","type":"checkbox","x":36,"y":420,"w":14,"h":12,"required":false,"label":"Hired autos checked"},{"id":"vehicle_other_covered_auto_indicator_a","name":"F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_A[0]","type":"checkbox","x":36,"y":432,"w":14,"h":12,"required":false,"label":null},{"id":"vehicle_other_covered_auto_description_a","name":"F[0].P1[0].Vehicle_OtherCoveredAutoDescription_A[0]","type":"text","x":54,"y":432,"w":47,"h":12,"required":false,"label":null},{"id":"vehicle_scheduled_autos_indicator_a","name":"F[0].P1[0].Vehicle_ScheduledAutosIndicator_A[0]","type":"checkbox","x":104,"y":408,"w":15,"h":12,"required":false,"label":null},{"id":"vehicle_non_owned_autos_indicator_a","name":"F[0].P1[0].Vehicle_NonOwnedAutosIndicator_A[0]","type":"checkbox","x":104,"y":420,"w":15,"h":12,"required":false,"label":"Non-owned autos checked"},{"id":"vehicle_other_covered_auto_indicator_b","name":"F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_B[0]","type":"checkbox","x":104,"y":432,"w":15,"h":12,"required":false,"label":null},{"id":"vehicle_other_covered_auto_description_b","name":"F[0].P1[0].Vehicle_OtherCoveredAutoDescription_B[0]","type":"text","x":122,"y":432,"w":51,"h":12,"required":false,"label":null},{"id":"certificate_of_insurance_automobile_liability_additional_insured_code_a","name":"F[0].P1[0].CertificateOfInsurance_AutomobileLiability_AdditionalInsuredCode_A[0]","type":"text","x":176,"y":408,"w":18,"h":12,"required":false,"label":"Auto additional insured code"},{"id":"policy_automobile_liability_subrogation_waived_code_a","name":"F[0].P1[0].Policy_AutomobileLiability_SubrogationWaivedCode_A[0]","type":"text","x":194,"y":408,"w":18,"h":12,"required":false,"label":"Auto subrogation waived code"},{"id":"policy_automobile_liability_policy_number_identifier_a","name":"F[0].P1[0].Policy_AutomobileLiability_PolicyNumberIdentifier_A[0]","type":"text","x":216,"y":408,"w":112,"h":12,"required":false,"label":"Auto policy number"},{"id":"policy_automobile_liability_effective_date_a","name":"F[0].P1[0].Policy_AutomobileLiability_EffectiveDate_A[0]","type":"text","x":331,"y":408,"w":47,"h":12,"required":false,"label":"Auto effective date"},{"id":"policy_automobile_liability_expiration_date_a","name":"F[0].P1[0].Policy_AutomobileLiability_ExpirationDate_A[0]","type":"text","x":378,"y":408,"w":47,"h":12,"required":false,"label":"Auto expiration date"},{"id":"vehicle_combined_single_limit_each_accident_amount_a","name":"F[0].P1[0].Vehicle_CombinedSingleLimit_EachAccidentAmount_A[0]","type":"text","x":526,"y":384,"w":64,"h":12,"required":false,"label":"Auto combined single limit"},{"id":"vehicle_bodily_injury_per_person_limit_amount_a","name":"F[0].P1[0].Vehicle_BodilyInjury_PerPersonLimitAmount_A[0]","type":"text","x":526,"y":396,"w":64,"h":12,"required":false,"label":null},{"id":"vehicle_bodily_injury_per_accident_limit_amount_a","name":"F[0].P1[0].Vehicle_BodilyInjury_PerAccidentLimitAmount_A[0]","type":"text","x":526,"y":408,"w":64,"h":12,"required":false,"label":null},{"id":"vehicle_property_damage_per_accident_limit_amount_a","name":"F[0].P1[0].Vehicle_PropertyDamage_PerAccidentLimitAmount_A[0]","type":"text","x":526,"y":420,"w":64,"h":12,"required":false,"label":null},{"id":"vehicle_other_coverage_coverage_description_a","name":"F[0].P1[0].Vehicle_OtherCoverage_CoverageDescription_A[0]","type":"text","x":428,"y":432,"w":83,"h":12,"required":false,"label":null},{"id":"vehicle_other_coverage_limit_amount_a","name":"F[0].P1[0].Vehicle_OtherCoverage_LimitAmount_A[0]","type":"text","x":526,"y":432,"w":64,"h":12,"required":false,"label":null},{"id":"excess_umbrella_insurer_letter_code_a","name":"F[0].P1[0].ExcessUmbrella_InsurerLetterCode_A[0]","type":"text","x":18,"y":456,"w":18,"h":12,"required":false,"label":"Umbrella insurer letter"},{"id":"policy_policy_type_umbrella_indicator_a","name":"F[0].P1[0].Policy_PolicyType_UmbrellaIndicator_A[0]","type":"checkbox","x":36,"y":444,"w":14,"h":12,"required":false,"label":"Umbrella checked"},{"id":"policy_policy_type_excess_indicator_a","name":"F[0].P1[0].Policy_PolicyType_ExcessIndicator_A[0]","type":"checkbox","x":36,"y":456,"w":14,"h":12,"required":false,"label":null},{"id":"excess_umbrella_occurrence_indicator_a","name":"F[0].P1[0].ExcessUmbrella_OccurrenceIndicator_A[0]","type":"checkbox","x":115,"y":444,"w":15,"h":12,"required":false,"label":"Umbrella occurrence checked"},{"id":"excess_umbrella_claims_made_indicator_a","name":"F[0].P1[0].ExcessUmbrella_ClaimsMadeIndicator_A[0]","type":"checkbox","x":115,"y":456,"w":15,"h":12,"required":false,"label":null},{"id":"excess_umbrella_deductible_indicator_a","name":"F[0].P1[0].ExcessUmbrella_DeductibleIndicator_A[0]","type":"checkbox","x":36,"y":468,"w":14,"h":12,"required":false,"label":null},{"id":"excess_umbrella_retention_indicator_a","name":"F[0].P1[0].ExcessUmbrella_RetentionIndicator_A[0]","type":"checkbox","x":72,"y":468,"w":14,"h":12,"required":false,"label":null},{"id":"excess_umbrella_umbrella_deductible_or_retention_amount_a","name":"F[0].P1[0].ExcessUmbrella_Umbrella_DeductibleOrRetentionAmount_A[0]","type":"text","x":133,"y":468,"w":40,"h":12,"required":false,"label":null},{"id":"certificate_of_insurance_excess_liability_additional_insured_code_a","name":"F[0].P1[0].CertificateOfInsurance_ExcessLiability_AdditionalInsuredCode_A[0]","type":"text","x":176,"y":456,"w":18,"h":12,"required":false,"label":null},{"id":"policy_excess_liability_subrogation_waived_code_a","name":"F[0].P1[0].Policy_ExcessLiability_SubrogationWaivedCode_A[0]","type":"text","x":194,"y":456,"w":18,"h":12,"required":false,"label":"Umbrella subrogation waived code"},{"id":"policy_excess_liability_policy_number_identifier_a","name":"F[0].P1[0].Policy_ExcessLiability_PolicyNumberIdentifier_A[0]","type":"text","x":216,"y":456,"w":112,"h":12,"required":false,"label":"Umbrella policy number"},{"id":"policy_excess_liability_effective_date_a","name":"F[0].P1[0].Policy_ExcessLiability_EffectiveDate_A[0]","type":"text","x":331,"y":456,"w":47,"h":12,"required":false,"label":"Umbrella effective date"},{"id":"policy_excess_liability_expiration_date_a","name":"F[0].P1[0].Policy_ExcessLiability_ExpirationDate_A[0]","type":"text","x":378,"y":456,"w":47,"h":12,"required":false,"label":"Umbrella expiration date"},{"id":"excess_umbrella_umbrella_each_occurrence_amount_a","name":"F[0].P1[0].ExcessUmbrella_Umbrella_EachOccurrenceAmount_A[0]","type":"text","x":526,"y":444,"w":64,"h":12,"required":false,"label":"Umbrella each occurrence"},{"id":"excess_umbrella_umbrella_aggregate_amount_a","name":"F[0].P1[0].ExcessUmbrella_Umbrella_AggregateAmount_A[0]","type":"text","x":526,"y":456,"w":64,"h":12,"required":false,"label":"Umbrella aggregate"},{"id":"excess_umbrella_other_coverage_description_a","name":"F[0].P1[0].ExcessUmbrella_OtherCoverageDescription_A[0]","type":"text","x":428,"y":468,"w":83,"h":12,"required":false,"label":null},{"id":"excess_umbrella_other_coverage_limit_amount_a","name":"F[0].P1[0].ExcessUmbrella_OtherCoverageLimitAmount_A[0]","type":"text","x":526,"y":468,"w":64,"h":12,"required":false,"label":null},{"id":"workers_compensation_employers_liability_insurer_letter_code_a","name":"F[0].P1[0].WorkersCompensationEmployersLiability_InsurerLetterCode_A[0]","type":"text","x":18,"y":498,"w":18,"h":12,"required":false,"label":"WC insurer letter"},{"id":"workers_compensation_employers_liability_any_persons_excluded_indicator_a","name":"F[0].P1[0].WorkersCompensationEmployersLiability_AnyPersonsExcludedIndicator_A[0]","type":"text","x":158,"y":498,"w":15,"h":12,"required":false,"label":"Any proprietor/partner/officer excluded"},{"id":"policy_workers_compensation_subrogation_waived_code_a","name":"F[0].P1[0].Policy_WorkersCompensation_SubrogationWaivedCode_A[0]","type":"text","x":194,"y":498,"w":18,"h":12,"required":false,"label":"WC subrogation waived code"},{"id":"policy_workers_compensation_and_employers_liability_policy_number_identifier_a","name":"F[0].P1[0].Policy_WorkersCompensationAndEmployersLiability_PolicyNumberIdentifier_A[0]","type":"text","x":216,"y":498,"w":112,"h":12,"required":false,"label":"WC policy number"},{"id":"policy_workers_compensation_and_employers_liability_effective_date_a","name":"F[0].P1[0].Policy_WorkersCompensationAndEmployersLiability_EffectiveDate_A[0]","type":"text","x":331,"y":498,"w":47,"h":12,"required":false,"label":"WC effective date"},{"id":"policy_workers_compensation_and_employers_liability_expiration_date_a","name":"F[0].P1[0].Policy_WorkersCompensationAndEmployersLiability_ExpirationDate_A[0]","type":"text","x":378,"y":498,"w":47,"h":12,"required":false,"label":"WC expiration date"},{"id":"workers_compensation_employers_liability_workers_compensation_statutory_limit_indicator_a","name":"F[0].P1[0].WorkersCompensationEmployersLiability_WorkersCompensationStatutoryLimitIndicator_A[0]","type":"checkbox","x":425,"y":480,"w":14,"h":12,"required":false,"label":"WC statutory checked"},{"id":"workers_compensation_employers_liability_other_coverage_indicator_a","name":"F[0].P1[0].WorkersCompensationEmployersLiability_OtherCoverageIndicator_A[0]","type":"checkbox","x":475,"y":480,"w":15,"h":12,"required":false,"label":null},{"id":"workers_compensation_employers_liability_other_coverage_description_a","name":"F[0].P1[0].WorkersCompensationEmployersLiability_OtherCoverageDescription_A[0]","type":"text","x":518,"y":480,"w":72,"h":12,"required":false,"label":null},{"id":"workers_compensation_employers_liability_employers_liability_each_accident_limit_amount_a","name":"F[0].P1[0].WorkersCompensationEmployersLiability_EmployersLiability_EachAccidentLimitAmount_A[0]","type":"text","x":526,"y":492,"w":64,"h":12,"required":false,"label":"WC EL each accident"},{"id":"workers_compensation_employers_liability_employers_liability_disease_each_employee_limit_amount_a","name":"F[0].P1[0].WorkersCompensationEmployersLiability_EmployersLiability_DiseaseEachEmployeeLimitAmount_A[0]","type":"text","x":526,"y":504,"w":64,"h":12,"required":false,"label":"WC EL disease ea employee"},{"id":"workers_compensation_employers_liability_employers_liability_disease_policy_limit_amount_a","name":"F[0].P1[0].WorkersCompensationEmployersLiability_EmployersLiability_DiseasePolicyLimitAmount_A[0]","type":"text","x":526,"y":516,"w":64,"h":12,"required":false,"label":"WC EL disease policy limit"},{"id":"other_policy_insurer_letter_code_a","name":"F[0].P1[0].OtherPolicy_InsurerLetterCode_A[0]","type":"text","x":18,"y":540,"w":18,"h":12,"required":false,"label":null},{"id":"other_policy_other_policy_description_a","name":"F[0].P1[0].OtherPolicy_OtherPolicyDescription_A[0]","type":"text","x":40,"y":534,"w":133,"h":24,"required":false,"label":null},{"id":"certificate_of_insurance_other_policy_additional_insured_code_a","name":"F[0].P1[0].CertificateOfInsurance_OtherPolicy_AdditionalInsuredCode_A[0]","type":"text","x":176,"y":540,"w":18,"h":12,"required":false,"label":null},{"id":"other_policy_subrogation_waived_code_a","name":"F[0].P1[0].OtherPolicy_SubrogationWaivedCode_A[0]","type":"text","x":194,"y":540,"w":18,"h":12,"required":false,"label":null},{"id":"other_policy_policy_number_identifier_a","name":"F[0].P1[0].OtherPolicy_PolicyNumberIdentifier_A[0]","type":"text","x":216,"y":540,"w":112,"h":12,"required":false,"label":null},{"id":"other_policy_policy_effective_date_a","name":"F[0].P1[0].OtherPolicy_PolicyEffectiveDate_A[0]","type":"text","x":331,"y":540,"w":47,"h":12,"required":false,"label":null},{"id":"other_policy_policy_expiration_date_a","name":"F[0].P1[0].OtherPolicy_PolicyExpirationDate_A[0]","type":"text","x":378,"y":540,"w":47,"h":12,"required":false,"label":null},{"id":"other_policy_coverage_code_a","name":"F[0].P1[0].OtherPolicy_CoverageCode_A[0]","type":"text","x":432,"y":528,"w":79,"h":12,"required":false,"label":null},{"id":"other_policy_coverage_limit_amount_a","name":"F[0].P1[0].OtherPolicy_CoverageLimitAmount_A[0]","type":"text","x":526,"y":528,"w":64,"h":12,"required":false,"label":null},{"id":"other_policy_coverage_code_b","name":"F[0].P1[0].OtherPolicy_CoverageCode_B[0]","type":"text","x":432,"y":540,"w":79,"h":12,"required":false,"label":null},{"id":"other_policy_coverage_limit_amount_b","name":"F[0].P1[0].OtherPolicy_CoverageLimitAmount_B[0]","type":"text","x":526,"y":540,"w":64,"h":12,"required":false,"label":null},{"id":"other_policy_coverage_code_c","name":"F[0].P1[0].OtherPolicy_CoverageCode_C[0]","type":"text","x":432,"y":552,"w":79,"h":12,"required":false,"label":null},{"id":"other_policy_coverage_limit_amount_c","name":"F[0].P1[0].OtherPolicy_CoverageLimitAmount_C[0]","type":"text","x":526,"y":552,"w":64,"h":12,"required":false,"label":null},{"id":"certificate_of_liability_insurance_acordform_remark_text_a","name":"F[0].P1[0].CertificateOfLiabilityInsurance_ACORDForm_RemarkText_A[0]","type":"text","x":22,"y":576,"w":568,"h":66,"required":false,"label":"Description of operations"},{"id":"certificate_holder_full_name_a","name":"F[0].P1[0].CertificateHolder_FullName_A[0]","type":"text","x":72,"y":690,"w":230,"h":12,"required":false,"label":"Certificate holder name"},{"id":"certificate_holder_mailing_address_line_one_a","name":"F[0].P1[0].CertificateHolder_MailingAddress_LineOne_A[0]","type":"text","x":72,"y":702,"w":230,"h":12,"required":false,"label":"Certificate holder address line 1"},{"id":"certificate_holder_mailing_address_line_two_a","name":"F[0].P1[0].CertificateHolder_MailingAddress_LineTwo_A[0]","type":"text","x":72,"y":714,"w":230,"h":12,"required":false,"label":"Certificate holder address line 2"},{"id":"certificate_holder_mailing_address_city_name_a","name":"F[0].P1[0].CertificateHolder_MailingAddress_CityName_A[0]","type":"text","x":72,"y":726,"w":166,"h":12,"required":false,"label":"Certificate holder city"},{"id":"certificate_holder_mailing_address_state_or_province_code_a","name":"F[0].P1[0].CertificateHolder_MailingAddress_StateOrProvinceCode_A[0]","type":"text","x":238,"y":726,"w":18,"h":12,"required":false,"label":"Certificate holder state"},{"id":"certificate_holder_mailing_address_postal_code_a","name":"F[0].P1[0].CertificateHolder_MailingAddress_PostalCode_A[0]","type":"text","x":256,"y":726,"w":46,"h":12,"required":false,"label":"Certificate holder ZIP"},{"id":"producer_authorized_representative_signature_a","name":"F[0].P1[0].Producer_AuthorizedRepresentative_Signature_A[0]","type":"text","x":310,"y":720,"w":280,"h":24,"required":false,"label":null}],"scenarios":[{"id":"scenario-01","title":"Scenario 1 - General Liability for Landlord","formType":"acord-25","summary":"Suncrest Painting LLC emails asking for a certificate for their landlord. Not every request in the email is something their policy actually supports — check the agency file before you complete the form.","instructions":["Read the email from Suncrest Painting and weigh every request against the agency file below — only enter coverage and endorsements that actually exist on file.","Complete the producer, named insured, insurer, certificate number, and General Liability section using the policy file exactly as written.","Use the exact remark wording the property manager requires in the description of operations box.","If a requested coverage isn't listed in the agency file, leave that section of the form blank — never assume coverage that isn't documented.","A perfect score is required to unlock the next scenario."],"request":[{"label":"Date","lines":["04/29/2026"]},{"label":"Client Email","lines":["From: Marcus Webb, Owner, Suncrest Painting LLC <mwebb@suncrestpainting.com>","To: certificates@lavatraining.com","Subject: COI needed for Bayfront Commercial Properties","Hi Ana,","We just signed on to repaint the exterior of a strip mall for Bayfront Commercial Properties, LLC. Their property manager needs a certificate before we can get on site Monday.","They need to be listed as additional insured and they want a waiver of subrogation too. Here's the exact wording their property manager, Denise, wants in the description box:","\"Certificate holder is included as additional insured and waiver of subrogation applies with respect to the painting work at 88 Bayfront Plaza, Tampa, FL.\"","Denise also mentioned our crew will be up on ladders and scaffolding, and asked if we could show workers comp coverage on the certificate too, just to be safe. Can you take care of this today?","Thanks,","Marcus"]},{"label":"Certificate Holder / Requestor","lines":["Bayfront Commercial Properties, LLC","Attn: Property Management","88 Bayfront Plaza","Tampa, FL 33607"]},{"label":"Certificate","lines":["Certificate No: CERT-1001","Revision No: leave blank"]}],"policyEvidence":[{"label":"Producer (Your Agency)","lines":["LAVA Training Insurance Services","1200 Harbor Blvd, Suite 300, Tampa, FL 33602","Contact: Ana Morales | Phone: 813-555-0199 | Fax: 813-555-0100","Email: certificates@lavatraining.com"]},{"label":"Named Insured (Account File)","lines":["Suncrest Painting LLC","455 Oak Industrial Way","Jacksonville, FL 32256"]},{"label":"Policy File — General Liability","lines":["Insurer A: Liberty Surplus Insurance Corporation | NAIC 10725","Policy No: GLS1234567 | Term: 01/01/2026 to 01/01/2027","Form: Occurrence","Endorsements on file: Blanket Additional Insured – Ongoing Operations; Blanket Waiver of Subrogation","Each Occurrence: 1,000,000 | Damage to Rented Premises: 100,000 | Med Exp: 5,000","Personal & Adv Injury: 1,000,000 | General Aggregate: 2,000,000 | Products-Comp/Op Agg: 2,000,000"]}],"endorsements":[{"label":"Endorsements — General Liability","lines":["Endorsements on file: Blanket Additional Insured – Ongoing Operations; Blanket Waiver of Subrogation"]}],"agencyNotes":[{"label":"Agency Notes","lines":["Suncrest Painting LLC has an approved corporate-officer exemption on file with the State of Florida — no Workers Compensation policy is in force.","No Automobile or Umbrella/Excess policies are on file for this insured."]}],"expectedResults":{"checks":[{"field":"F[0].P1[0].Form_CompletionDate_A[0]","value":"04/29/2026","compare":"date"},{"field":"F[0].P1[0].Producer_FullName_A[0]","value":"LAVA Training Insurance Services","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_LineOne_A[0]","value":"1200 Harbor Blvd","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_LineTwo_A[0]","value":"Suite 300","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_CityName_A[0]","value":"Tampa","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_StateOrProvinceCode_A[0]","value":"FL","compare":"code"},{"field":"F[0].P1[0].Producer_MailingAddress_PostalCode_A[0]","value":"33602","compare":"zip"},{"field":"F[0].P1[0].Producer_ContactPerson_FullName_A[0]","value":"Ana Morales","compare":"text"},{"field":"F[0].P1[0].Producer_ContactPerson_PhoneNumber_A[0]","value":"813-555-0199","compare":"phone"},{"field":"F[0].P1[0].Producer_FaxNumber_A[0]","value":"813-555-0100","compare":"phone"},{"field":"F[0].P1[0].Producer_ContactPerson_EmailAddress_A[0]","value":"certificates@lavatraining.com","compare":"email"},{"field":"F[0].P1[0].NamedInsured_FullName_A[0]","value":"Suncrest Painting LLC","compare":"text"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_LineOne_A[0]","value":"455 Oak Industrial Way","compare":"text"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_CityName_A[0]","value":"Jacksonville","compare":"text"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_StateOrProvinceCode_A[0]","value":"FL","compare":"code"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_PostalCode_A[0]","value":"32256","compare":"zip"},{"field":"F[0].P1[0].Insurer_FullName_A[0]","value":"Liberty Surplus Insurance Corporation","compare":"text"},{"field":"F[0].P1[0].Insurer_NAICCode_A[0]","value":"10725","compare":"code"},{"field":"F[0].P1[0].CertificateOfInsurance_CertificateNumberIdentifier_A[0]","value":"CERT-1001","compare":"code"},{"field":"F[0].P1[0].GeneralLiability_CoverageIndicator_A[0]","value":true,"compare":"checkbox"},{"field":"F[0].P1[0].GeneralLiability_OccurrenceIndicator_A[0]","value":true,"compare":"checkbox"},{"field":"F[0].P1[0].GeneralLiability_InsurerLetterCode_A[0]","value":"A","compare":"code"},{"field":"F[0].P1[0].CertificateOfInsurance_GeneralLiability_AdditionalInsuredCode_A[0]","value":"Y","compare":"code"},{"field":"F[0].P1[0].Policy_GeneralLiability_SubrogationWaivedCode_A[0]","value":"Y","compare":"code"},{"field":"F[0].P1[0].Policy_GeneralLiability_PolicyNumberIdentifier_A[0]","value":"GLS1234567","compare":"code"},{"field":"F[0].P1[0].Policy_GeneralLiability_EffectiveDate_A[0]","value":"01/01/2026","compare":"date"},{"field":"F[0].P1[0].Policy_GeneralLiability_ExpirationDate_A[0]","value":"01/01/2027","compare":"date"},{"field":"F[0].P1[0].GeneralLiability_EachOccurrence_LimitAmount_A[0]","value":"1000000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_FireDamageRentedPremises_EachOccurrenceLimitAmount_A[0]","value":"100000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_MedicalExpense_EachPersonLimitAmount_A[0]","value":"5000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_PersonalAndAdvertisingInjury_LimitAmount_A[0]","value":"1000000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_GeneralAggregate_LimitAmount_A[0]","value":"2000000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_ProductsAndCompletedOperations_AggregateLimitAmount_A[0]","value":"2000000","compare":"money"},{"field":"F[0].P1[0].CertificateOfLiabilityInsurance_ACORDForm_RemarkText_A[0]","value":"Certificate holder is included as additional insured and waiver of subrogation applies with respect to the painting work at 88 Bayfront Plaza, Tampa, FL.","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_FullName_A[0]","value":"Bayfront Commercial Properties, LLC","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_LineOne_A[0]","value":"Attn: Property Management","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_LineTwo_A[0]","value":"88 Bayfront Plaza","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_CityName_A[0]","value":"Tampa","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_StateOrProvinceCode_A[0]","value":"FL","compare":"code"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_PostalCode_A[0]","value":"33607","compare":"zip"}],"blankChecks":[{"field":"F[0].P1[0].Vehicle_AnyAutoIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Policy_PolicyType_UmbrellaIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].WorkersCompensationEmployersLiability_WorkersCompensationStatutoryLimitIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_InsurerLetterCode_A[0]","compare":"blank"},{"field":"F[0].P1[0].Policy_ExcessLiability_PolicyNumberIdentifier_A[0]","compare":"blank"},{"field":"F[0].P1[0].Policy_WorkersCompensationAndEmployersLiability_PolicyNumberIdentifier_A[0]","compare":"blank"},{"field":"F[0].P1[0].CertificateOfInsurance_RevisionNumberIdentifier_A[0]","compare":"blank"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_LineTwo_A[0]","compare":"blank"},{"field":"F[0].P1[0].GeneralLiability_ClaimsMadeIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_AllOwnedAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_ScheduledAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_HiredAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_NonOwnedAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_B[0]","compare":"unchecked"}]},"qaRules":[{"topic":"Additional Insured (General Liability)","requested":true,"request":"Marcus's email: the property manager needs Suncrest listed as additional insured.","evidence":"GL policy GLS1234567 carries a Blanket Additional Insured – Ongoing Operations endorsement.","supported":"supported","action":"May be reflected on the COI (General Liability ADDL INSD: Y).","acordField":"F[0].P1[0].CertificateOfInsurance_GeneralLiability_AdditionalInsuredCode_A[0]"},{"topic":"Waiver of Subrogation (General Liability)","requested":true,"request":"Marcus's email: the property manager also wants a waiver of subrogation.","evidence":"GL policy GLS1234567 carries a Blanket Waiver of Subrogation endorsement.","supported":"supported","action":"May be reflected on the COI (General Liability SUBR WVD: Y).","acordField":"F[0].P1[0].Policy_GeneralLiability_SubrogationWaivedCode_A[0]"},{"topic":"Workers Compensation Coverage","requested":true,"request":"Marcus's email: the property manager asked to show workers comp coverage too.","evidence":"No Workers Compensation policy is in force — Suncrest has an approved FL corporate-officer exemption on file.","supported":"not_supported","action":"Do not add unsupported coverage — leave the Workers Compensation section blank.","acordField":"F[0].P1[0].WorkersCompensationEmployersLiability_WorkersCompensationStatutoryLimitIndicator_A[0]"}],"mistakes":["wrong-insurer","ai-without-evidence","waiver-without-evidence","wrong-policy-number","account-number-as-policy-number","expired-policy-dates","requested-limit-not-actual","unsupported-remarks-wording","cert-holder-vs-ai-confusion","phantom-umbrella","unsupported-coverage-added"]},{"id":"scenario-02","title":"Scenario 2 - Auto Liability for Delivery Access","formType":"acord-25","summary":"Harbor Fresh Produce Delivery emails about a City of Orlando permit. The city's ask goes beyond what the auto policy actually provides — verify against the file before you check any boxes.","instructions":["Read the email from Harbor Fresh and check every request against the automobile policy file below — a request doesn't make it true.","Complete the producer, insured, insurer, certificate number, Automobile Liability section, description, and certificate holder.","Only mark an endorsement (additional insured, waiver of subrogation) as granted if the policy file says it's actually in force.","Leave General Liability, Umbrella/Excess, and Workers Compensation blank — there is no file for those coverages on this account.","A perfect score is required to unlock the next scenario."],"request":[{"label":"Date","lines":["04/29/2026"]},{"label":"Client Email","lines":["From: Priya Chandra, Operations Manager, Harbor Fresh Produce Delivery Inc. <priya@harborfreshdelivery.com>","To: certificates@lavatraining.com","Subject: COI for City of Orlando delivery permit","Hi Ana,","The City of Orlando's procurement office is requiring proof of auto liability before they'll renew our delivery access permit for the food services contract.","One of their reviewers told our driver they also need us to add the City as additional insured and waive subrogation on the auto policy, same as they've seen on our GL certificates before.","Re: Delivery access permit for City of Orlando food services contract.","Can you get this over to them today?","Thanks,","Priya"]},{"label":"Certificate Holder / Requestor","lines":["City of Orlando Procurement Division","400 South Orange Ave","Orlando, FL 32801"]},{"label":"Certificate","lines":["Certificate No: CERT-1002","Revision No: leave blank"]}],"policyEvidence":[{"label":"Producer (Your Agency)","lines":["LAVA Training Insurance Services","1200 Harbor Blvd, Suite 300, Tampa, FL 33602","Contact: Ana Morales | Phone: 813-555-0199 | Fax: 813-555-0100","Email: certificates@lavatraining.com"]},{"label":"Named Insured (Account File)","lines":["Harbor Fresh Produce Delivery Inc.","901 Market Loop","Orlando, FL 32809"]},{"label":"Policy File — Automobile Liability","lines":["Insurer B: Progressive Express Insurance Company | NAIC 10193","Policy No: AUTO774411 | Term: 03/15/2026 to 03/15/2027","Coverage: Any Auto — Combined Single Limit: 1,000,000","Endorsements on file: none. This business auto policy does not include a blanket additional insured or waiver of subrogation endorsement."]}],"endorsements":[{"label":"Endorsements — Automobile Liability","lines":["Endorsements on file: none. This business auto policy does not include a blanket additional insured or waiver of subrogation endorsement."]}],"agencyNotes":[{"label":"Agency Notes","lines":["No General Liability, Workers Compensation, or Umbrella/Excess policies are on file for this insured."]}],"expectedResults":{"checks":[{"field":"F[0].P1[0].Form_CompletionDate_A[0]","value":"04/29/2026","compare":"date"},{"field":"F[0].P1[0].Producer_FullName_A[0]","value":"LAVA Training Insurance Services","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_LineOne_A[0]","value":"1200 Harbor Blvd","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_LineTwo_A[0]","value":"Suite 300","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_CityName_A[0]","value":"Tampa","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_StateOrProvinceCode_A[0]","value":"FL","compare":"code"},{"field":"F[0].P1[0].Producer_MailingAddress_PostalCode_A[0]","value":"33602","compare":"zip"},{"field":"F[0].P1[0].Producer_ContactPerson_FullName_A[0]","value":"Ana Morales","compare":"text"},{"field":"F[0].P1[0].Producer_ContactPerson_PhoneNumber_A[0]","value":"813-555-0199","compare":"phone"},{"field":"F[0].P1[0].Producer_FaxNumber_A[0]","value":"813-555-0100","compare":"phone"},{"field":"F[0].P1[0].Producer_ContactPerson_EmailAddress_A[0]","value":"certificates@lavatraining.com","compare":"email"},{"field":"F[0].P1[0].NamedInsured_FullName_A[0]","value":"Harbor Fresh Produce Delivery Inc.","compare":"text"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_LineOne_A[0]","value":"901 Market Loop","compare":"text"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_CityName_A[0]","value":"Orlando","compare":"text"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_StateOrProvinceCode_A[0]","value":"FL","compare":"code"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_PostalCode_A[0]","value":"32809","compare":"zip"},{"field":"F[0].P1[0].Insurer_FullName_B[0]","value":"Progressive Express Insurance Company","compare":"text"},{"field":"F[0].P1[0].Insurer_NAICCode_B[0]","value":"10193","compare":"code"},{"field":"F[0].P1[0].CertificateOfInsurance_CertificateNumberIdentifier_A[0]","value":"CERT-1002","compare":"code"},{"field":"F[0].P1[0].Vehicle_AnyAutoIndicator_A[0]","value":true,"compare":"checkbox"},{"field":"F[0].P1[0].Vehicle_InsurerLetterCode_A[0]","value":"B","compare":"code"},{"field":"F[0].P1[0].CertificateOfInsurance_AutomobileLiability_AdditionalInsuredCode_A[0]","value":"N","compare":"code"},{"field":"F[0].P1[0].Policy_AutomobileLiability_PolicyNumberIdentifier_A[0]","value":"AUTO774411","compare":"code"},{"field":"F[0].P1[0].Policy_AutomobileLiability_EffectiveDate_A[0]","value":"03/15/2026","compare":"date"},{"field":"F[0].P1[0].Policy_AutomobileLiability_ExpirationDate_A[0]","value":"03/15/2027","compare":"date"},{"field":"F[0].P1[0].Vehicle_CombinedSingleLimit_EachAccidentAmount_A[0]","value":"1000000","compare":"money"},{"field":"F[0].P1[0].CertificateOfLiabilityInsurance_ACORDForm_RemarkText_A[0]","value":"Re: Delivery access permit for City of Orlando food services contract.","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_FullName_A[0]","value":"City of Orlando Procurement Division","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_LineTwo_A[0]","value":"400 South Orange Ave","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_CityName_A[0]","value":"Orlando","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_StateOrProvinceCode_A[0]","value":"FL","compare":"code"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_PostalCode_A[0]","value":"32801","compare":"zip"}],"blankChecks":[{"field":"F[0].P1[0].GeneralLiability_CoverageIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Policy_PolicyType_UmbrellaIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].WorkersCompensationEmployersLiability_WorkersCompensationStatutoryLimitIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].GeneralLiability_InsurerLetterCode_A[0]","compare":"blank"},{"field":"F[0].P1[0].Policy_GeneralLiability_PolicyNumberIdentifier_A[0]","compare":"blank"},{"field":"F[0].P1[0].Policy_ExcessLiability_PolicyNumberIdentifier_A[0]","compare":"blank"},{"field":"F[0].P1[0].CertificateOfInsurance_RevisionNumberIdentifier_A[0]","compare":"blank"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_LineOne_A[0]","compare":"blank"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_LineTwo_A[0]","compare":"blank"},{"field":"F[0].P1[0].Policy_AutomobileLiability_SubrogationWaivedCode_A[0]","compare":"blank"},{"field":"F[0].P1[0].Vehicle_AllOwnedAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_ScheduledAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_HiredAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_NonOwnedAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_B[0]","compare":"unchecked"}]},"qaRules":[{"topic":"Additional Insured (Automobile Liability)","requested":true,"request":"Priya's email: a city reviewer said the City needs to be added as additional insured on the auto policy.","evidence":"Auto policy AUTO774411 has no blanket additional insured endorsement on file.","supported":"not_supported","action":"Enter N — do not grant an endorsement the policy doesn't have.","acordField":"F[0].P1[0].CertificateOfInsurance_AutomobileLiability_AdditionalInsuredCode_A[0]"},{"topic":"Waiver of Subrogation (Automobile Liability)","requested":true,"request":"Priya's email: same reviewer asked for a waiver of subrogation on the auto policy.","evidence":"Auto policy AUTO774411 has no waiver of subrogation endorsement on file.","supported":"not_supported","action":"Leave blank — the endorsement doesn't exist on this policy.","acordField":"F[0].P1[0].Policy_AutomobileLiability_SubrogationWaivedCode_A[0]"},{"topic":"General Liability Coverage","requested":false,"request":"Not mentioned in the email — this request is auto-only.","evidence":"No General Liability policy is on file for this insured.","supported":"not_requested","action":"Leave the General Liability section blank.","acordField":"F[0].P1[0].GeneralLiability_CoverageIndicator_A[0]"}],"mistakes":["wrong-insurer","ai-without-evidence","unsupported-coverage-added","wrong-policy-number","account-number-as-policy-number","expired-policy-dates","requested-limit-not-actual","unsupported-remarks-wording","cert-holder-vs-ai-confusion","phantom-umbrella","waiver-without-evidence"]},{"id":"scenario-03","title":"Scenario 3 - GL and Workers Comp for Subcontractor","formType":"acord-25","summary":"Apex Roofing emails about a reroofing job for a general contractor. Their office manager isn't sure about one detail on the workers comp policy — the agency file has the answer.","instructions":["Read the email from Apex Roofing. When the sender is unsure about a policy detail, trust the agency file below, not their guess.","Complete General Liability and Workers Compensation using the policy file exactly as written.","Use the exact remark wording required for the general contractor in the description of operations box.","Leave Automobile Liability and Umbrella/Excess blank — there is no file for those coverages on this account.","A perfect score is required to unlock the next scenario."],"request":[{"label":"Date","lines":["04/29/2026"]},{"label":"Client Email","lines":["From: Dana Osei, Office Manager, Apex Roofing & Sheet Metal, LLC <dana@apexroofingfl.com>","To: certificates@lavatraining.com","Subject: COI needed for ABC General Contractors — Naples reroofing job","Hi Ana,","We start the reroofing job for ABC General Contractors at 550 Harbor Point Rd in Naples next week and their risk management office needs a certificate before our crew can badge in.","The contract requires them as additional insured on our GL with a waiver of subrogation, and they also want to see our workers comp info since we'll have several crew on the roof.","ABC General Contractors, Inc. is additional insured for ongoing operations. Waiver of subrogation applies where required by written contract for reroofing project at 550 Harbor Point Rd, Naples, FL.","One more thing — our owner, Ray, thought he's still listed as excluded from the work comp policy from back when it was just him and one helper, but I think that changed when we added the new roofing crew this year. Can you double check that against the policy on file before you send this out?","Thanks,","Dana"]},{"label":"Certificate Holder / Requestor","lines":["ABC General Contractors, Inc.","Attn: Risk Management","550 Harbor Point Rd","Naples, FL 34102"]},{"label":"Certificate","lines":["Certificate No: CERT-1003","Revision No: leave blank"]}],"policyEvidence":[{"label":"Producer (Your Agency)","lines":["LAVA Training Insurance Services","1200 Harbor Blvd, Suite 300, Tampa, FL 33602","Contact: Ana Morales | Phone: 813-555-0199 | Fax: 813-555-0100","Email: certificates@lavatraining.com"]},{"label":"Named Insured (Account File)","lines":["Apex Roofing & Sheet Metal, LLC","2100 Commerce Park Dr","Fort Myers, FL 33908"]},{"label":"Policy File — General Liability","lines":["Insurer A: Travelers Property Casualty Company of America | NAIC 25674","Policy No: TRV-GL-883190 | Term: 02/01/2026 to 02/01/2027","Form: Occurrence","Endorsements on file: Blanket Additional Insured – Ongoing Operations; Blanket Waiver of Subrogation","Each Occurrence: 1,000,000 | Damage to Rented Premises: 100,000 | Med Exp: 5,000","Personal & Adv Injury: 1,000,000 | General Aggregate: 2,000,000 | Products-Comp/Op Agg: 2,000,000"]},{"label":"Policy File — Workers Compensation","lines":["Insurer C: Travelers Indemnity Company | NAIC 25658","Policy No: TRV-WC-883191 | Term: 02/01/2026 to 02/01/2027","Coverage: Statutory limits | EL Each Accident: 1,000,000 | EL Disease Ea Employee: 1,000,000 | EL Disease Policy Limit: 1,000,000","Endorsement: Waiver of Subrogation (blanket, per written contract)","Officer/Owner exclusion: NONE on file — owner Ray Delgado elected coverage effective 02/01/2026 when the crew was added; no exclusion endorsement is currently in force."]}],"endorsements":[{"label":"Endorsements — General Liability","lines":["Endorsements on file: Blanket Additional Insured – Ongoing Operations; Blanket Waiver of Subrogation"]},{"label":"Endorsements — Workers Compensation","lines":["Endorsement: Waiver of Subrogation (blanket, per written contract)","Officer/Owner exclusion: NONE on file — owner Ray Delgado elected coverage effective 02/01/2026 when the crew was added; no exclusion endorsement is currently in force."]}],"agencyNotes":[{"label":"Agency Notes","lines":["No Automobile or Umbrella/Excess policies are on file for this insured."]}],"expectedResults":{"checks":[{"field":"F[0].P1[0].Form_CompletionDate_A[0]","value":"04/29/2026","compare":"date"},{"field":"F[0].P1[0].Producer_FullName_A[0]","value":"LAVA Training Insurance Services","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_LineOne_A[0]","value":"1200 Harbor Blvd","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_LineTwo_A[0]","value":"Suite 300","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_CityName_A[0]","value":"Tampa","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_StateOrProvinceCode_A[0]","value":"FL","compare":"code"},{"field":"F[0].P1[0].Producer_MailingAddress_PostalCode_A[0]","value":"33602","compare":"zip"},{"field":"F[0].P1[0].Producer_ContactPerson_FullName_A[0]","value":"Ana Morales","compare":"text"},{"field":"F[0].P1[0].Producer_ContactPerson_PhoneNumber_A[0]","value":"813-555-0199","compare":"phone"},{"field":"F[0].P1[0].Producer_FaxNumber_A[0]","value":"813-555-0100","compare":"phone"},{"field":"F[0].P1[0].Producer_ContactPerson_EmailAddress_A[0]","value":"certificates@lavatraining.com","compare":"email"},{"field":"F[0].P1[0].NamedInsured_FullName_A[0]","value":"Apex Roofing & Sheet Metal, LLC","compare":"text"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_LineOne_A[0]","value":"2100 Commerce Park Dr","compare":"text"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_CityName_A[0]","value":"Fort Myers","compare":"text"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_StateOrProvinceCode_A[0]","value":"FL","compare":"code"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_PostalCode_A[0]","value":"33908","compare":"zip"},{"field":"F[0].P1[0].Insurer_FullName_A[0]","value":"Travelers Property Casualty Company of America","compare":"text"},{"field":"F[0].P1[0].Insurer_NAICCode_A[0]","value":"25674","compare":"code"},{"field":"F[0].P1[0].Insurer_FullName_C[0]","value":"Travelers Indemnity Company","compare":"text"},{"field":"F[0].P1[0].Insurer_NAICCode_C[0]","value":"25658","compare":"code"},{"field":"F[0].P1[0].CertificateOfInsurance_CertificateNumberIdentifier_A[0]","value":"CERT-1003","compare":"code"},{"field":"F[0].P1[0].GeneralLiability_CoverageIndicator_A[0]","value":true,"compare":"checkbox"},{"field":"F[0].P1[0].GeneralLiability_OccurrenceIndicator_A[0]","value":true,"compare":"checkbox"},{"field":"F[0].P1[0].GeneralLiability_InsurerLetterCode_A[0]","value":"A","compare":"code"},{"field":"F[0].P1[0].CertificateOfInsurance_GeneralLiability_AdditionalInsuredCode_A[0]","value":"Y","compare":"code"},{"field":"F[0].P1[0].Policy_GeneralLiability_SubrogationWaivedCode_A[0]","value":"Y","compare":"code"},{"field":"F[0].P1[0].Policy_GeneralLiability_PolicyNumberIdentifier_A[0]","value":"TRV-GL-883190","compare":"code"},{"field":"F[0].P1[0].Policy_GeneralLiability_EffectiveDate_A[0]","value":"02/01/2026","compare":"date"},{"field":"F[0].P1[0].Policy_GeneralLiability_ExpirationDate_A[0]","value":"02/01/2027","compare":"date"},{"field":"F[0].P1[0].GeneralLiability_EachOccurrence_LimitAmount_A[0]","value":"1000000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_FireDamageRentedPremises_EachOccurrenceLimitAmount_A[0]","value":"100000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_MedicalExpense_EachPersonLimitAmount_A[0]","value":"5000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_PersonalAndAdvertisingInjury_LimitAmount_A[0]","value":"1000000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_GeneralAggregate_LimitAmount_A[0]","value":"2000000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_ProductsAndCompletedOperations_AggregateLimitAmount_A[0]","value":"2000000","compare":"money"},{"field":"F[0].P1[0].WorkersCompensationEmployersLiability_InsurerLetterCode_A[0]","value":"C","compare":"code"},{"field":"F[0].P1[0].WorkersCompensationEmployersLiability_AnyPersonsExcludedIndicator_A[0]","value":"N","compare":"code"},{"field":"F[0].P1[0].Policy_WorkersCompensation_SubrogationWaivedCode_A[0]","value":"Y","compare":"code"},{"field":"F[0].P1[0].Policy_WorkersCompensationAndEmployersLiability_PolicyNumberIdentifier_A[0]","value":"TRV-WC-883191","compare":"code"},{"field":"F[0].P1[0].Policy_WorkersCompensationAndEmployersLiability_EffectiveDate_A[0]","value":"02/01/2026","compare":"date"},{"field":"F[0].P1[0].Policy_WorkersCompensationAndEmployersLiability_ExpirationDate_A[0]","value":"02/01/2027","compare":"date"},{"field":"F[0].P1[0].WorkersCompensationEmployersLiability_WorkersCompensationStatutoryLimitIndicator_A[0]","value":true,"compare":"checkbox"},{"field":"F[0].P1[0].WorkersCompensationEmployersLiability_EmployersLiability_EachAccidentLimitAmount_A[0]","value":"1000000","compare":"money"},{"field":"F[0].P1[0].WorkersCompensationEmployersLiability_EmployersLiability_DiseaseEachEmployeeLimitAmount_A[0]","value":"1000000","compare":"money"},{"field":"F[0].P1[0].WorkersCompensationEmployersLiability_EmployersLiability_DiseasePolicyLimitAmount_A[0]","value":"1000000","compare":"money"},{"field":"F[0].P1[0].CertificateOfLiabilityInsurance_ACORDForm_RemarkText_A[0]","value":"ABC General Contractors, Inc. is additional insured for ongoing operations. Waiver of subrogation applies where required by written contract for reroofing project at 550 Harbor Point Rd, Naples, FL.","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_FullName_A[0]","value":"ABC General Contractors, Inc.","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_LineOne_A[0]","value":"Attn: Risk Management","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_LineTwo_A[0]","value":"550 Harbor Point Rd","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_CityName_A[0]","value":"Naples","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_StateOrProvinceCode_A[0]","value":"FL","compare":"code"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_PostalCode_A[0]","value":"34102","compare":"zip"}],"blankChecks":[{"field":"F[0].P1[0].Vehicle_AnyAutoIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Policy_PolicyType_UmbrellaIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_InsurerLetterCode_A[0]","compare":"blank"},{"field":"F[0].P1[0].Policy_AutomobileLiability_PolicyNumberIdentifier_A[0]","compare":"blank"},{"field":"F[0].P1[0].Policy_ExcessLiability_PolicyNumberIdentifier_A[0]","compare":"blank"},{"field":"F[0].P1[0].CertificateOfInsurance_RevisionNumberIdentifier_A[0]","compare":"blank"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_LineTwo_A[0]","compare":"blank"},{"field":"F[0].P1[0].GeneralLiability_ClaimsMadeIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_AllOwnedAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_ScheduledAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_HiredAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_NonOwnedAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_B[0]","compare":"unchecked"}]},"qaRules":[{"topic":"Additional Insured (General Liability)","requested":true,"request":"Dana's email: the general contractor's written contract requires additional insured status.","evidence":"GL policy TRV-GL-883190 carries a Blanket Additional Insured – Ongoing Operations endorsement.","supported":"supported","action":"May be reflected on the COI (General Liability ADDL INSD: Y).","acordField":"F[0].P1[0].CertificateOfInsurance_GeneralLiability_AdditionalInsuredCode_A[0]"},{"topic":"Waiver of Subrogation (General Liability)","requested":true,"request":"Dana's email: the contract also requires a waiver of subrogation.","evidence":"GL policy TRV-GL-883190 carries a Blanket Waiver of Subrogation endorsement.","supported":"supported","action":"May be reflected on the COI (General Liability SUBR WVD: Y).","acordField":"F[0].P1[0].Policy_GeneralLiability_SubrogationWaivedCode_A[0]"},{"topic":"Owner Excluded from Workers Compensation?","requested":true,"request":"Dana's email: she isn't sure whether owner Ray is still excluded from the WC policy and asked you to check.","evidence":"WC file shows NO exclusion endorsement in force — Ray elected coverage when the crew was added.","supported":"needs_review","action":"Don't take the client's uncertain memory as the answer — the file resolves it: answer N (not excluded).","acordField":"F[0].P1[0].WorkersCompensationEmployersLiability_AnyPersonsExcludedIndicator_A[0]"}],"mistakes":["wrong-insurer","ai-without-evidence","waiver-without-evidence","wrong-policy-number","account-number-as-policy-number","expired-policy-dates","requested-limit-not-actual","unsupported-remarks-wording","cert-holder-vs-ai-confusion","phantom-umbrella"]},{"id":"scenario-04","title":"Scenario 4 - GL, Auto, and Umbrella for Event Operations","formType":"acord-25","summary":"Coastal Event Group emails about a revised certificate for a festival venue. The venue's waiver-of-subrogation ask isn't something every policy on file actually has — read the endorsements carefully.","instructions":["Read the email from Coastal Event Group and check the waiver-of-subrogation request against each policy file below — don't assume it applies just because it was asked for.","Complete the General Liability, Automobile Liability, and Umbrella sections using the policy files exactly as written.","Use the exact remark wording required for the venue in the description of operations box.","Leave Workers Compensation blank — there is no file for that coverage on this account.","Set the revision number as the email describes."],"request":[{"label":"Date","lines":["04/29/2026"]},{"label":"Client Email","lines":["From: Felix Tran, Managing Partner, Coastal Event Group, LLC <felix@coastaleventgroup.com>","To: certificates@lavatraining.com","Subject: Revised COI for Bayside Convention Center — Summer Festival","Hi Ana,","The Bayside Convention Center reviewed the certificate we sent for the 2026 Summer Food & Music Festival (June 14-16) and said it needs a revision number since we added the umbrella policy this year — please mark this as revision 1.","The certificate holder is included as additional insured with respect to the named insured's event operations for the 2026 Summer Food & Music Festival held June 14-16, 2026.","Their events coordinator also asked for a waiver of subrogation across all our policies — GL, auto, and umbrella — since that's apparently standard for their venue contracts. Let me know if that's something we already have.","Also, just a reminder: we don't own any vehicles, our staff just drives rental vans and their own cars to haul equipment, so make sure the auto section reflects that.","Thanks,","Felix"]},{"label":"Certificate Holder / Requestor","lines":["Bayside Convention Center","1901 Convention Center Dr","Miami Beach, FL 33139"]},{"label":"Certificate","lines":["Certificate No: CERT-1004","Revision No: 1 (per the email)"]}],"policyEvidence":[{"label":"Producer (Your Agency)","lines":["LAVA Training Insurance Services","1200 Harbor Blvd, Suite 300, Tampa, FL 33602","Contact: Ana Morales | Phone: 813-555-0199 | Fax: 813-555-0100","Email: certificates@lavatraining.com"]},{"label":"Named Insured (Account File)","lines":["Coastal Event Group, LLC","77 Palm Ave","Miami Beach, FL 33139"]},{"label":"Policy File — General Liability","lines":["Insurer A: Philadelphia Indemnity Insurance Company | NAIC 18058","Policy No: PHLY-CGL-22091 | Term: 05/01/2026 to 05/01/2027","Form: Occurrence","Endorsements on file: Blanket Additional Insured – Ongoing Operations. Waiver of Subrogation endorsement: not purchased this term.","Each Occurrence: 1,000,000 | Damage to Rented Premises: 100,000 | Med Exp: 5,000","Personal & Adv Injury: 1,000,000 | General Aggregate: 2,000,000 | Products-Comp/Op Agg: 2,000,000"]},{"label":"Policy File — Automobile Liability","lines":["Insurer B: National Union Fire Insurance Company of Pittsburgh, Pa. | NAIC 19445","Policy No: AUL-90210 | Term: 05/01/2026 to 05/01/2027","Coverage: Hired Autos and Non-Owned Autos only — no owned vehicles on file — Combined Single Limit: 1,000,000","Endorsements on file: Blanket Additional Insured (hired/non-owned). Waiver of Subrogation endorsement: not purchased this term."]},{"label":"Policy File — Umbrella/Excess Liability","lines":["Insurer D: Great American Assurance Company | NAIC 26344","Policy No: UMB-44018 | Term: 05/01/2026 to 05/01/2027","Form: Occurrence, follows form over the General Liability and Automobile Liability policies","Each Occurrence: 2,000,000 | Aggregate: 2,000,000","Waiver of Subrogation endorsement: not purchased this term."]}],"endorsements":[{"label":"Endorsements — General Liability","lines":["Endorsements on file: Blanket Additional Insured – Ongoing Operations. Waiver of Subrogation endorsement: not purchased this term."]},{"label":"Endorsements — Automobile Liability","lines":["Endorsements on file: Blanket Additional Insured (hired/non-owned). Waiver of Subrogation endorsement: not purchased this term."]},{"label":"Endorsements — Umbrella/Excess Liability","lines":["Waiver of Subrogation endorsement: not purchased this term."]}],"agencyNotes":[{"label":"Agency Notes","lines":["No Workers Compensation policy is on file for this insured."]}],"expectedResults":{"checks":[{"field":"F[0].P1[0].Form_CompletionDate_A[0]","value":"04/29/2026","compare":"date"},{"field":"F[0].P1[0].Producer_FullName_A[0]","value":"LAVA Training Insurance Services","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_LineOne_A[0]","value":"1200 Harbor Blvd","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_LineTwo_A[0]","value":"Suite 300","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_CityName_A[0]","value":"Tampa","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_StateOrProvinceCode_A[0]","value":"FL","compare":"code"},{"field":"F[0].P1[0].Producer_MailingAddress_PostalCode_A[0]","value":"33602","compare":"zip"},{"field":"F[0].P1[0].Producer_ContactPerson_FullName_A[0]","value":"Ana Morales","compare":"text"},{"field":"F[0].P1[0].Producer_ContactPerson_PhoneNumber_A[0]","value":"813-555-0199","compare":"phone"},{"field":"F[0].P1[0].Producer_FaxNumber_A[0]","value":"813-555-0100","compare":"phone"},{"field":"F[0].P1[0].Producer_ContactPerson_EmailAddress_A[0]","value":"certificates@lavatraining.com","compare":"email"},{"field":"F[0].P1[0].NamedInsured_FullName_A[0]","value":"Coastal Event Group, LLC","compare":"text"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_LineOne_A[0]","value":"77 Palm Ave","compare":"text"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_CityName_A[0]","value":"Miami Beach","compare":"text"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_StateOrProvinceCode_A[0]","value":"FL","compare":"code"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_PostalCode_A[0]","value":"33139","compare":"zip"},{"field":"F[0].P1[0].Insurer_FullName_A[0]","value":"Philadelphia Indemnity Insurance Company","compare":"text"},{"field":"F[0].P1[0].Insurer_NAICCode_A[0]","value":"18058","compare":"code"},{"field":"F[0].P1[0].Insurer_FullName_B[0]","value":"National Union Fire Insurance Company of Pittsburgh, Pa.","compare":"text"},{"field":"F[0].P1[0].Insurer_NAICCode_B[0]","value":"19445","compare":"code"},{"field":"F[0].P1[0].Insurer_FullName_D[0]","value":"Great American Assurance Company","compare":"text"},{"field":"F[0].P1[0].Insurer_NAICCode_D[0]","value":"26344","compare":"code"},{"field":"F[0].P1[0].CertificateOfInsurance_CertificateNumberIdentifier_A[0]","value":"CERT-1004","compare":"code"},{"field":"F[0].P1[0].CertificateOfInsurance_RevisionNumberIdentifier_A[0]","value":"1","compare":"code"},{"field":"F[0].P1[0].GeneralLiability_CoverageIndicator_A[0]","value":true,"compare":"checkbox"},{"field":"F[0].P1[0].GeneralLiability_OccurrenceIndicator_A[0]","value":true,"compare":"checkbox"},{"field":"F[0].P1[0].GeneralLiability_InsurerLetterCode_A[0]","value":"A","compare":"code"},{"field":"F[0].P1[0].CertificateOfInsurance_GeneralLiability_AdditionalInsuredCode_A[0]","value":"Y","compare":"code"},{"field":"F[0].P1[0].Policy_GeneralLiability_PolicyNumberIdentifier_A[0]","value":"PHLY-CGL-22091","compare":"code"},{"field":"F[0].P1[0].Policy_GeneralLiability_EffectiveDate_A[0]","value":"05/01/2026","compare":"date"},{"field":"F[0].P1[0].Policy_GeneralLiability_ExpirationDate_A[0]","value":"05/01/2027","compare":"date"},{"field":"F[0].P1[0].GeneralLiability_EachOccurrence_LimitAmount_A[0]","value":"1000000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_FireDamageRentedPremises_EachOccurrenceLimitAmount_A[0]","value":"100000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_MedicalExpense_EachPersonLimitAmount_A[0]","value":"5000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_PersonalAndAdvertisingInjury_LimitAmount_A[0]","value":"1000000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_GeneralAggregate_LimitAmount_A[0]","value":"2000000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_ProductsAndCompletedOperations_AggregateLimitAmount_A[0]","value":"2000000","compare":"money"},{"field":"F[0].P1[0].Vehicle_HiredAutosIndicator_A[0]","value":true,"compare":"checkbox"},{"field":"F[0].P1[0].Vehicle_NonOwnedAutosIndicator_A[0]","value":true,"compare":"checkbox"},{"field":"F[0].P1[0].Vehicle_InsurerLetterCode_A[0]","value":"B","compare":"code"},{"field":"F[0].P1[0].CertificateOfInsurance_AutomobileLiability_AdditionalInsuredCode_A[0]","value":"Y","compare":"code"},{"field":"F[0].P1[0].Policy_AutomobileLiability_PolicyNumberIdentifier_A[0]","value":"AUL-90210","compare":"code"},{"field":"F[0].P1[0].Policy_AutomobileLiability_EffectiveDate_A[0]","value":"05/01/2026","compare":"date"},{"field":"F[0].P1[0].Policy_AutomobileLiability_ExpirationDate_A[0]","value":"05/01/2027","compare":"date"},{"field":"F[0].P1[0].Vehicle_CombinedSingleLimit_EachAccidentAmount_A[0]","value":"1000000","compare":"money"},{"field":"F[0].P1[0].Policy_PolicyType_UmbrellaIndicator_A[0]","value":true,"compare":"checkbox"},{"field":"F[0].P1[0].ExcessUmbrella_OccurrenceIndicator_A[0]","value":true,"compare":"checkbox"},{"field":"F[0].P1[0].ExcessUmbrella_InsurerLetterCode_A[0]","value":"D","compare":"code"},{"field":"F[0].P1[0].Policy_ExcessLiability_PolicyNumberIdentifier_A[0]","value":"UMB-44018","compare":"code"},{"field":"F[0].P1[0].Policy_ExcessLiability_EffectiveDate_A[0]","value":"05/01/2026","compare":"date"},{"field":"F[0].P1[0].Policy_ExcessLiability_ExpirationDate_A[0]","value":"05/01/2027","compare":"date"},{"field":"F[0].P1[0].ExcessUmbrella_Umbrella_EachOccurrenceAmount_A[0]","value":"2000000","compare":"money"},{"field":"F[0].P1[0].ExcessUmbrella_Umbrella_AggregateAmount_A[0]","value":"2000000","compare":"money"},{"field":"F[0].P1[0].CertificateOfLiabilityInsurance_ACORDForm_RemarkText_A[0]","value":"The certificate holder is included as additional insured with respect to the named insured's event operations for the 2026 Summer Food & Music Festival held June 14-16, 2026.","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_FullName_A[0]","value":"Bayside Convention Center","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_LineTwo_A[0]","value":"1901 Convention Center Dr","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_CityName_A[0]","value":"Miami Beach","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_StateOrProvinceCode_A[0]","value":"FL","compare":"code"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_PostalCode_A[0]","value":"33139","compare":"zip"}],"blankChecks":[{"field":"F[0].P1[0].WorkersCompensationEmployersLiability_WorkersCompensationStatutoryLimitIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Policy_WorkersCompensationAndEmployersLiability_PolicyNumberIdentifier_A[0]","compare":"blank"},{"field":"F[0].P1[0].WorkersCompensationEmployersLiability_InsurerLetterCode_A[0]","compare":"blank"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_LineOne_A[0]","compare":"blank"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_LineTwo_A[0]","compare":"blank"},{"field":"F[0].P1[0].Policy_GeneralLiability_SubrogationWaivedCode_A[0]","compare":"blank"},{"field":"F[0].P1[0].Policy_AutomobileLiability_SubrogationWaivedCode_A[0]","compare":"blank"},{"field":"F[0].P1[0].Policy_ExcessLiability_SubrogationWaivedCode_A[0]","compare":"blank"},{"field":"F[0].P1[0].GeneralLiability_ClaimsMadeIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_AnyAutoIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_AllOwnedAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_ScheduledAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_B[0]","compare":"unchecked"}]},"qaRules":[{"topic":"Additional Insured (General Liability)","requested":true,"request":"Felix's email: the venue is included as additional insured for event operations.","evidence":"GL policy PHLY-CGL-22091 carries a Blanket Additional Insured – Ongoing Operations endorsement.","supported":"supported","action":"May be reflected on the COI (General Liability ADDL INSD: Y).","acordField":"F[0].P1[0].CertificateOfInsurance_GeneralLiability_AdditionalInsuredCode_A[0]"},{"topic":"Additional Insured (Automobile Liability)","requested":true,"request":"Felix's email: same additional insured requirement applies to the auto policy.","evidence":"Auto policy AUL-90210 carries a Blanket Additional Insured endorsement (hired/non-owned).","supported":"supported","action":"May be reflected on the COI (Automobile ADDL INSD: Y).","acordField":"F[0].P1[0].CertificateOfInsurance_AutomobileLiability_AdditionalInsuredCode_A[0]"},{"topic":"Waiver of Subrogation (GL, Auto, and Umbrella)","requested":true,"request":"Felix's email: the venue's events coordinator asked for a waiver of subrogation across all three policies.","evidence":"None of the three policies (GL, Auto, Umbrella) show a waiver of subrogation endorsement purchased this term.","supported":"not_supported","action":"Leave all three SUBR WVD boxes blank — asked for, but not in force on any of the policies.","acordField":"F[0].P1[0].Policy_GeneralLiability_SubrogationWaivedCode_A[0]"}],"mistakes":["wrong-insurer","ai-without-evidence","wrong-policy-number","account-number-as-policy-number","expired-policy-dates","requested-limit-not-actual","phantom-umbrella","unsupported-remarks-wording","cert-holder-vs-ai-confusion","waiver-without-evidence","unsupported-coverage-added"]},{"id":"scenario-05","title":"Scenario 5 - Final Accuracy Check","formType":"acord-25","summary":"A lender's loan servicing checklist asks for more than Northwind Mechanical actually carries. This one also uses a different producer file — read carefully instead of relying on habit from earlier scenarios.","instructions":["Read the email from Northwind Mechanical. This account is serviced by a different producer than the earlier scenarios — use the producer information in this account file, not the one you've been typing from memory.","Complete General Liability and Automobile Liability using the policy files exactly as written.","Use the exact remark wording the lender requires in the description of operations box.","Leave Umbrella/Excess and Workers Compensation blank if there is no policy file for them, no matter what a lender's checklist requests.","You need 100% to finish the simulator."],"request":[{"label":"Date","lines":["04/29/2026"]},{"label":"Client Email","lines":["From: Renee Ortiz, Controller, Northwind Mechanical Services, Inc. <renee@northwindmech.com>","To: coi@gcrisk.com","Subject: COI for First State Bank — Loan No. 447981","Hi Jordan,","Our lender, First State Bank, needs an updated certificate of insurance for the HVAC replacement project at Warehouse 12 (Loan No. 447981). Their loan operations team sent over a checklist — they want to be added as additional insured with a waiver of subrogation on our general liability and auto policies.","Re: HVAC replacement at Warehouse 12, Loan No. 447981. Certificate holder is additional insured and waiver of subrogation applies when required by written contract.","One more thing from their checklist: it says our combined GL and umbrella limits need to total at least $3,000,000. I don't think we carry an umbrella policy, but can you check and add it to the certificate if we do?","Thanks,","Renee"]},{"label":"Certificate Holder / Requestor","lines":["First State Bank","Attn: Loan Operations","800 Finance Plaza","Atlanta, GA 30303","Reference: Loan No. 447981 — HVAC replacement, Warehouse 12"]},{"label":"Certificate","lines":["Certificate No: FINAL-2026-05","Revision No: leave blank"]}],"policyEvidence":[{"label":"Producer (Your Agency — This Account)","lines":["Gulf Coast Risk Advisors","4800 Causeway Center Dr, Suite 120, Tampa, FL 33619","Contact: Jordan Lee | Phone: 813-555-0247 | Fax: 813-555-0248","Email: coi@gcrisk.com"]},{"label":"Named Insured (Account File)","lines":["Northwind Mechanical Services, Inc.","1440 Industrial Park Blvd","Savannah, GA 31408"]},{"label":"Policy File — General Liability","lines":["Insurer A: Zurich American Insurance Company | NAIC 16535","Policy No: GLO-5578129 | Term: 06/01/2026 to 06/01/2027","Form: Occurrence","Endorsements on file: Blanket Additional Insured – Ongoing Operations; Blanket Waiver of Subrogation","Each Occurrence: 1,000,000 | Damage to Rented Premises: 300,000 | Med Exp: 10,000","Personal & Adv Injury: 1,000,000 | General Aggregate: 2,000,000 | Products-Comp/Op Agg: 2,000,000"]},{"label":"Policy File — Automobile Liability","lines":["Insurer B: American Zurich Insurance Company | NAIC 40142","Policy No: CA-5578130 | Term: 06/01/2026 to 06/01/2027","Coverage: Any Auto — Combined Single Limit: 1,000,000","Endorsements on file: Blanket Additional Insured; Blanket Waiver of Subrogation"]}],"endorsements":[{"label":"Endorsements — General Liability","lines":["Endorsements on file: Blanket Additional Insured – Ongoing Operations; Blanket Waiver of Subrogation"]},{"label":"Endorsements — Automobile Liability","lines":["Endorsements on file: Blanket Additional Insured; Blanket Waiver of Subrogation"]}],"agencyNotes":[{"label":"Agency Notes","lines":["No Umbrella/Excess or Workers Compensation policy is on file for Northwind Mechanical Services, Inc. Do not add coverage that hasn't been purchased, even if a lender's checklist asks for higher combined limits."]}],"expectedResults":{"checks":[{"field":"F[0].P1[0].Form_CompletionDate_A[0]","value":"04/29/2026","compare":"date"},{"field":"F[0].P1[0].Producer_FullName_A[0]","value":"Gulf Coast Risk Advisors","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_LineOne_A[0]","value":"4800 Causeway Center Dr","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_LineTwo_A[0]","value":"Suite 120","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_CityName_A[0]","value":"Tampa","compare":"text"},{"field":"F[0].P1[0].Producer_MailingAddress_StateOrProvinceCode_A[0]","value":"FL","compare":"code"},{"field":"F[0].P1[0].Producer_MailingAddress_PostalCode_A[0]","value":"33619","compare":"zip"},{"field":"F[0].P1[0].Producer_ContactPerson_FullName_A[0]","value":"Jordan Lee","compare":"text"},{"field":"F[0].P1[0].Producer_ContactPerson_PhoneNumber_A[0]","value":"813-555-0247","compare":"phone"},{"field":"F[0].P1[0].Producer_FaxNumber_A[0]","value":"813-555-0248","compare":"phone"},{"field":"F[0].P1[0].Producer_ContactPerson_EmailAddress_A[0]","value":"coi@gcrisk.com","compare":"email"},{"field":"F[0].P1[0].NamedInsured_FullName_A[0]","value":"Northwind Mechanical Services, Inc.","compare":"text"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_LineOne_A[0]","value":"1440 Industrial Park Blvd","compare":"text"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_CityName_A[0]","value":"Savannah","compare":"text"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_StateOrProvinceCode_A[0]","value":"GA","compare":"code"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_PostalCode_A[0]","value":"31408","compare":"zip"},{"field":"F[0].P1[0].Insurer_FullName_A[0]","value":"Zurich American Insurance Company","compare":"text"},{"field":"F[0].P1[0].Insurer_NAICCode_A[0]","value":"16535","compare":"code"},{"field":"F[0].P1[0].Insurer_FullName_B[0]","value":"American Zurich Insurance Company","compare":"text"},{"field":"F[0].P1[0].Insurer_NAICCode_B[0]","value":"40142","compare":"code"},{"field":"F[0].P1[0].CertificateOfInsurance_CertificateNumberIdentifier_A[0]","value":"FINAL-2026-05","compare":"code"},{"field":"F[0].P1[0].GeneralLiability_CoverageIndicator_A[0]","value":true,"compare":"checkbox"},{"field":"F[0].P1[0].GeneralLiability_OccurrenceIndicator_A[0]","value":true,"compare":"checkbox"},{"field":"F[0].P1[0].GeneralLiability_InsurerLetterCode_A[0]","value":"A","compare":"code"},{"field":"F[0].P1[0].CertificateOfInsurance_GeneralLiability_AdditionalInsuredCode_A[0]","value":"Y","compare":"code"},{"field":"F[0].P1[0].Policy_GeneralLiability_SubrogationWaivedCode_A[0]","value":"Y","compare":"code"},{"field":"F[0].P1[0].Policy_GeneralLiability_PolicyNumberIdentifier_A[0]","value":"GLO-5578129","compare":"code"},{"field":"F[0].P1[0].Policy_GeneralLiability_EffectiveDate_A[0]","value":"06/01/2026","compare":"date"},{"field":"F[0].P1[0].Policy_GeneralLiability_ExpirationDate_A[0]","value":"06/01/2027","compare":"date"},{"field":"F[0].P1[0].GeneralLiability_EachOccurrence_LimitAmount_A[0]","value":"1000000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_FireDamageRentedPremises_EachOccurrenceLimitAmount_A[0]","value":"300000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_MedicalExpense_EachPersonLimitAmount_A[0]","value":"10000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_PersonalAndAdvertisingInjury_LimitAmount_A[0]","value":"1000000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_GeneralAggregate_LimitAmount_A[0]","value":"2000000","compare":"money"},{"field":"F[0].P1[0].GeneralLiability_ProductsAndCompletedOperations_AggregateLimitAmount_A[0]","value":"2000000","compare":"money"},{"field":"F[0].P1[0].Vehicle_AnyAutoIndicator_A[0]","value":true,"compare":"checkbox"},{"field":"F[0].P1[0].Vehicle_InsurerLetterCode_A[0]","value":"B","compare":"code"},{"field":"F[0].P1[0].CertificateOfInsurance_AutomobileLiability_AdditionalInsuredCode_A[0]","value":"Y","compare":"code"},{"field":"F[0].P1[0].Policy_AutomobileLiability_SubrogationWaivedCode_A[0]","value":"Y","compare":"code"},{"field":"F[0].P1[0].Policy_AutomobileLiability_PolicyNumberIdentifier_A[0]","value":"CA-5578130","compare":"code"},{"field":"F[0].P1[0].Policy_AutomobileLiability_EffectiveDate_A[0]","value":"06/01/2026","compare":"date"},{"field":"F[0].P1[0].Policy_AutomobileLiability_ExpirationDate_A[0]","value":"06/01/2027","compare":"date"},{"field":"F[0].P1[0].Vehicle_CombinedSingleLimit_EachAccidentAmount_A[0]","value":"1000000","compare":"money"},{"field":"F[0].P1[0].CertificateOfLiabilityInsurance_ACORDForm_RemarkText_A[0]","value":"Re: HVAC replacement at Warehouse 12, Loan No. 447981. Certificate holder is additional insured and waiver of subrogation applies when required by written contract.","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_FullName_A[0]","value":"First State Bank","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_LineOne_A[0]","value":"Attn: Loan Operations","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_LineTwo_A[0]","value":"800 Finance Plaza","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_CityName_A[0]","value":"Atlanta","compare":"text"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_StateOrProvinceCode_A[0]","value":"GA","compare":"code"},{"field":"F[0].P1[0].CertificateHolder_MailingAddress_PostalCode_A[0]","value":"30303","compare":"zip"}],"blankChecks":[{"field":"F[0].P1[0].Policy_PolicyType_UmbrellaIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].WorkersCompensationEmployersLiability_WorkersCompensationStatutoryLimitIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Policy_ExcessLiability_PolicyNumberIdentifier_A[0]","compare":"blank"},{"field":"F[0].P1[0].Policy_WorkersCompensationAndEmployersLiability_PolicyNumberIdentifier_A[0]","compare":"blank"},{"field":"F[0].P1[0].WorkersCompensationEmployersLiability_InsurerLetterCode_A[0]","compare":"blank"},{"field":"F[0].P1[0].CertificateOfInsurance_RevisionNumberIdentifier_A[0]","compare":"blank"},{"field":"F[0].P1[0].NamedInsured_MailingAddress_LineTwo_A[0]","compare":"blank"},{"field":"F[0].P1[0].GeneralLiability_ClaimsMadeIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_AllOwnedAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_ScheduledAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_HiredAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_NonOwnedAutosIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_A[0]","compare":"unchecked"},{"field":"F[0].P1[0].Vehicle_OtherCoveredAutoIndicator_B[0]","compare":"unchecked"}]},"qaRules":[{"topic":"Additional Insured (GL and Automobile Liability)","requested":true,"request":"Renee's email: First State Bank's checklist wants additional insured status on GL and auto.","evidence":"Both GL policy GLO-5578129 and auto policy CA-5578130 carry Blanket Additional Insured endorsements.","supported":"supported","action":"May be reflected on the COI (ADDL INSD: Y on both lines).","acordField":"F[0].P1[0].CertificateOfInsurance_GeneralLiability_AdditionalInsuredCode_A[0]"},{"topic":"Waiver of Subrogation (GL and Automobile Liability)","requested":true,"request":"Renee's email: the same checklist wants a waiver of subrogation on GL and auto.","evidence":"Both GL and auto policies carry Blanket Waiver of Subrogation endorsements.","supported":"supported","action":"May be reflected on the COI (SUBR WVD: Y on both lines).","acordField":"F[0].P1[0].Policy_GeneralLiability_SubrogationWaivedCode_A[0]"},{"topic":"Umbrella/Excess Coverage (to meet $3,000,000 combined limit)","requested":true,"request":"Renee's email: the lender's checklist wants combined GL + umbrella limits of at least $3,000,000.","evidence":"No Umbrella/Excess policy is on file for Northwind Mechanical Services, Inc.","supported":"not_supported","action":"Do not add coverage that hasn't been purchased, even to satisfy a lender's limit requirement — leave Umbrella/Excess blank.","acordField":"F[0].P1[0].Policy_PolicyType_UmbrellaIndicator_A[0]"}],"mistakes":["wrong-insurer","ai-without-evidence","waiver-without-evidence","wrong-policy-number","account-number-as-policy-number","expired-policy-dates","requested-limit-not-actual","unsupported-remarks-wording","cert-holder-vs-ai-confusion","phantom-umbrella","unsupported-coverage-added"]}]};
+
+async function fetchJson(path) {
+  try { const r = await fetch(path); if (!r.ok) return null; return await r.json(); }
+  catch (err) { return null; }
+}
+
+let FORM_W = 612, FORM_H = 792, FIELDS = [], LABELS = {}, SCENARIOS = [];
+
+const LOB_DEFS = [
+  { key: 'gl', label: 'General Liability', evidenceMatch: /General Liability/i, policyPrefix: 'Policy_GeneralLiability_', letterField: 'GeneralLiability_InsurerLetterCode_A[0]' },
+  { key: 'auto', label: 'Commercial Auto', evidenceMatch: /Automobile Liability/i, policyPrefix: 'Policy_AutomobileLiability_', letterField: 'Vehicle_InsurerLetterCode_A[0]' },
+  { key: 'umb', label: 'Umbrella/Excess', evidenceMatch: /Umbrella|Excess/i, policyPrefix: 'Policy_ExcessLiability_', letterField: 'ExcessUmbrella_InsurerLetterCode_A[0]' },
+  { key: 'wc', label: 'Workers Comp', evidenceMatch: /Workers Compensation/i, policyPrefix: 'Policy_WorkersCompensationAndEmployersLiability_', letterField: 'WorkersCompensationEmployersLiability_InsurerLetterCode_A[0]' },
+  { key: 'other', label: 'Other', evidenceMatch: null, policyPrefix: null, letterField: null }
+];
+
+// ACORD form list rows: only rows whose label text was fully legible in the
+// source screenshot are included. Rows 26/35 had part of the form name
+// itself redacted in the screenshot and are intentionally omitted rather
+// than guessed.
+const ACORD_LIST_ROWS = [
+  { num: 13, label: 'WITNESS CARD', ver: '1995/02' },
+  { num: 20, label: 'CERTIFICATE OF AVIATION LIABILITY INSURANCE', ver: '2016/03' },
+  { num: 21, label: 'CERTIFICATE OF AIRCRAFT INSURANCE', ver: '2016/03' },
+  { num: 22, label: 'INTERMODAL INTERCHANGE CERTIFICATE OF INSURANCE', ver: '2016/03' },
+  { num: 23, label: 'VEHICLE OR EQUIPMENT CERTIFICATE OF INSURANCE', ver: '2016/03' },
+  { num: 24, label: 'CERTIFICATE OF PROPERTY INSURANCE', ver: '2016/03' },
+  { num: 25, label: 'CERTIFICATE OF LIABILITY INSURANCE', ver: '2016/03', id: 'acord-25' },
+  { num: 27, label: 'EVIDENCE OF PROPERTY INSURANCE', ver: '2016/03' },
+  { num: 28, label: 'EVIDENCE OF COMMERCIAL PROPERTY INSURANCE', ver: '2016/03' },
+  { num: 29, label: 'EVIDENCE OF FLOOD INSURANCE', ver: '2016/03' },
+  { num: 30, label: 'CERTIFICATE OF GARAGE INSURANCE', ver: '2016/03' },
+  { num: 31, label: 'CERTIFICATE OF MARINE / ENERGY INSURANCE', ver: '2016/03' },
+  { num: 36, label: 'AGENT/BROKER OF RECORD CHANGE', ver: '2007/01' },
+  { num: 37, label: 'STATEMENT OF NO LOSS', ver: '—' }
+];
+
+// ==== Grading engine (copied verbatim from the ACORD 25 trainer's proven,
+// regression-tested implementation - not modified) ====
+function normalizeText(v) { return String(v || "").replace(/\s+/g, " ").trim().toUpperCase(); }
+function normalizeMoney(v) { return String(v || "").replace(/[$,\s]/g, "").trim(); }
+function normalizePhone(v) { return String(v || "").replace(/\D/g, ""); }
+function normalizeDate(v) { return String(v || "").replace(/\D/g, ""); }
+function normalizeCode(v) { return String(v || "").replace(/\s+/g, "").trim().toUpperCase(); }
+function normalizeEmail(v) { return String(v || "").trim().toLowerCase(); }
+function compareValue(actual, expected, compare) {
+  if (compare === "checkbox") return !!actual === !!expected;
+  if (compare === "money") return normalizeMoney(actual) === normalizeMoney(expected);
+  if (compare === "phone") return normalizePhone(actual) === normalizePhone(expected);
+  if (compare === "date") return normalizeDate(actual) === normalizeDate(expected);
+  if (compare === "code" || compare === "zip") return normalizeCode(actual) === normalizeCode(expected);
+  if (compare === "email") return normalizeEmail(actual) === normalizeEmail(expected);
+  return normalizeText(actual) === normalizeText(expected);
+}
+function isBlankValue(actual, compare) {
+  if (compare === "unchecked") return !actual;
+  return normalizeText(actual) === "";
+}
+
+// ==== State ====
+const STORAGE_KEY = 'coi-ams-qqcatalyst-v1';
+function defaultState() { return { forms: {}, passed: {}, attempts: {}, associated: {}, certHolderSet: {} }; }
+function loadState() {
+  try { const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : defaultState(); }
+  catch (e) { return defaultState(); }
+}
+function saveState() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {} }
+let state = defaultState();
+
+let currentScenario = null; // the scenario object currently open on the Contact screen
+let fieldMap = {};
+let selectedAcordRow = null;
+
+// ==== Data helpers (single source of truth: expectedResults.checks - the
+// same vetted answer key the main ACORD 25 trainer already grades against.
+// Never parsed from the free-text packet, so there is no risk of the AMS
+// chrome's "auto-filled" data drifting from what actually gets graded.) ====
+function checkVal(scenario, fieldName) {
+  const c = scenario.expectedResults.checks.find(c => c.field === fieldName);
+  return c ? c.value : "";
+}
+function reqBlock(scenario, label) {
+  const b = scenario.request.find(r => r.label === label);
+  return b ? b.lines : [];
+}
+function insuredName(scenario) { return checkVal(scenario, 'F[0].P1[0].NamedInsured_FullName_A[0]'); }
+function insuredAddressLine1(scenario) { return checkVal(scenario, 'F[0].P1[0].NamedInsured_MailingAddress_LineOne_A[0]'); }
+function insuredCity(scenario) { return checkVal(scenario, 'F[0].P1[0].NamedInsured_MailingAddress_CityName_A[0]'); }
+function insuredState(scenario) { return checkVal(scenario, 'F[0].P1[0].NamedInsured_MailingAddress_StateOrProvinceCode_A[0]'); }
+function insuredZip(scenario) { return checkVal(scenario, 'F[0].P1[0].NamedInsured_MailingAddress_PostalCode_A[0]'); }
+
+function parseRequester(scenario) {
+  const lines = reqBlock(scenario, 'Client Email');
+  const fromLine = lines.find(l => l.startsWith('From:')) || '';
+  const m = fromLine.match(/From:\s*([^,]+),\s*([^<]+?)\s*<([^>]+)>/);
+  if (!m) return { name: '', role: '', email: '' };
+  return { name: m[1].trim(), role: m[2].trim(), email: m[3].trim() };
+}
+function parseEmailSubject(scenario) {
+  const lines = reqBlock(scenario, 'Client Email');
+  const l = lines.find(x => x.startsWith('Subject:'));
+  return l ? l.replace(/^Subject:\s*/, '') : '';
+}
+function parseEmailBody(scenario) {
+  const lines = reqBlock(scenario, 'Client Email');
+  return lines.filter(l => !/^(From:|To:|Subject:)/.test(l)).join('\n');
+}
+
+function lobHasEvidence(scenario, lobDef) {
+  if (!lobDef.evidenceMatch) return false;
+  return scenario.policyEvidence.some(p => lobDef.evidenceMatch.test(p.label));
+}
+function lobPolicyNumber(scenario, lobDef) { return checkVal(scenario, 'F[0].P1[0].' + lobDef.policyPrefix + 'PolicyNumberIdentifier_A[0]'); }
+function lobEffDate(scenario, lobDef) { return checkVal(scenario, 'F[0].P1[0].' + lobDef.policyPrefix + 'EffectiveDate_A[0]'); }
+function lobExpDate(scenario, lobDef) { return checkVal(scenario, 'F[0].P1[0].' + lobDef.policyPrefix + 'ExpirationDate_A[0]'); }
+function lobInsurerLetter(scenario, lobDef) { return lobDef.letterField ? checkVal(scenario, 'F[0].P1[0].' + lobDef.letterField) : ''; }
+function lobInsurerName(scenario, lobDef) { const l = lobInsurerLetter(scenario, lobDef); return l ? checkVal(scenario, 'F[0].P1[0].Insurer_FullName_' + l + '[0]') : ''; }
+function lobInsurerNaic(scenario, lobDef) { const l = lobInsurerLetter(scenario, lobDef); return l ? checkVal(scenario, 'F[0].P1[0].Insurer_NAICCode_' + l + '[0]') : ''; }
+
+// Boilerplate account/agency fields a real AMS pulls from the account &
+// policy record automatically - never the coverage judgment calls, which
+// stay 100% manual just like the main ACORD 25 trainer.
+function isAutoFillField(name) {
+  if (name === 'F[0].P1[0].Form_CompletionDate_A[0]') return true;
+  if (/^F\[0\]\.P1\[0\]\.Producer_/.test(name)) return true;
+  if (/^F\[0\]\.P1\[0\]\.NamedInsured_/.test(name)) return true;
+  if (/^F\[0\]\.P1\[0\]\.Insurer_(FullName|NAICCode)_[A-F]\[0\]$/.test(name)) return true;
+  if (name === 'F[0].P1[0].CertificateOfInsurance_CertificateNumberIdentifier_A[0]') return true;
+  return false;
+}
+
+function makeFieldClass(field) {
+  const name = field.name;
+  let cls = field.type === "checkbox" ? "qq-field qq-checkbox" : "qq-field";
+  if (/Amount|Aggregate|Limit|Expense|Damage|Injury/.test(name)) cls += " qq-amount";
+  if (/Date/.test(name)) cls += " qq-date";
+  if (/Code|Indicator/.test(name) && field.type === "text") cls += " qq-code";
+  if (/PostalCode/.test(name)) cls += " qq-zip";
+  return cls;
+}
+
+function fieldLabel(name) { return LABELS[name] || name; }
+
+// ==== Bootstrap ====
+async function bootstrap() {
+  const formJson = await fetchJson('forms/acord-25/form.json');
+  const fieldsJson = await fetchJson('forms/acord-25/fields.json');
+  FORM_W = formJson ? formJson.width : EMBEDDED_AMS_DATA.form.width;
+  FORM_H = formJson ? formJson.height : EMBEDDED_AMS_DATA.form.height;
+  FIELDS = fieldsJson || EMBEDDED_AMS_DATA.fields;
+  FIELDS.forEach(f => { if (f.label) LABELS[f.name] = f.label; });
+
+  const list = [];
+  for (let i = 1; i <= 5; i++) {
+    const n = String(i).padStart(2, '0');
+    const s = await fetchJson('scenarios/scenario-' + n + '.json');
+    list.push(s || EMBEDDED_AMS_DATA.scenarios[i - 1]);
+  }
+  SCENARIOS = list;
+
+  state = loadState();
+  wireEvents();
+  renderDashboard();
+  showScreen('screen-dashboard');
+}
+
+// ==== Screen routing ====
+function showScreen(id) {
+  document.querySelectorAll('.qq-screen').forEach(s => s.classList.remove('qq-screen-active'));
+  document.getElementById(id).classList.add('qq-screen-active');
+}
+function goToScreen(id) { showScreen(id); }
+
+// ==== Toast ====
+let toastTimer = null;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('qq-show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('qq-show'), 2400);
+}
+
+function closeModal(id) { document.getElementById(id).hidden = true; }
+
+function closeWidget(id) { document.getElementById(id).classList.add('qq-widget-closed'); }
+function toggleGuided() {
+  const el = document.getElementById('guidedToggle');
+  const on = el.classList.toggle('qq-on');
+  el.textContent = on ? 'ON' : 'OFF';
+}
+
+// ==== Dashboard search ====
+function customerRows() {
+  return SCENARIOS.map((s, i) => ({ index: i, name: insuredName(s), city: insuredCity(s), state: insuredState(s) }));
+}
+function renderSearchDropdown(containerEl, query) {
+  const q = (query || '').trim().toLowerCase();
+  const rows = customerRows().filter(r => !q || r.name.toLowerCase().includes(q));
+  if (!rows.length) { containerEl.innerHTML = '<div class="qq-search-result-row" style="cursor:default;color:var(--qq-muted);">No matching customers.</div>'; return; }
+  containerEl.innerHTML = rows.map(r =>
+    '<div class="qq-search-result-row" onclick="openContact(' + r.index + ')"><div class="qq-search-result-name">' +
+    escapeHtml(r.name) + '</div><div class="qq-search-result-cat">Matched Category: Customer &middot; ' + escapeHtml(r.city) + ', ' + escapeHtml(r.state) + '</div></div>'
+  ).join('');
+}
+function escapeHtml(s) { return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function renderDashboard() {
+  const input = document.getElementById('dashSearchInput');
+  const results = document.getElementById('dashSearchResults');
+  input.addEventListener('focus', () => { renderSearchDropdown(results, input.value); results.classList.add('qq-open'); });
+  input.addEventListener('input', () => { renderSearchDropdown(results, input.value); results.classList.add('qq-open'); });
+
+  const bottomInput = document.getElementById('bottomSearchInput');
+  const flyout = document.getElementById('dashSearchFlyout');
+  const flyoutBody = document.getElementById('dashSearchFlyoutBody');
+  bottomInput.addEventListener('focus', () => { renderSearchDropdown(flyoutBody, bottomInput.value); flyout.classList.add('qq-open'); });
+  bottomInput.addEventListener('input', () => { renderSearchDropdown(flyoutBody, bottomInput.value); flyout.classList.add('qq-open'); });
+}
+
+// ==== Contact screen ====
+const TAB_DEFS = [
+  { key: 'info', label: 'Customer Info' },
+  { key: 'policies-tab-policies', label: 'Policies' },
+  { key: 'claims', label: 'Claims' },
+  { key: 'billing', label: 'Billing' },
+  { key: 'files', label: 'Files' },
+  { key: 'emails-tab', label: 'Emails' },
+  { key: 'acord-tab', label: 'ACORD' },
+  { key: 'notes-tab', label: 'Tasks/Notes' },
+  { key: 'texts', label: 'Text Messages' },
+  { key: 'smartflows', label: 'Smartflows' },
+  { key: 'log', label: 'Log' }
+];
+const TAB_PANEL_MAP = { 'info': 'info', 'policies-tab-policies': 'policies', 'emails-tab': 'emails', 'acord-tab': 'acord', 'notes-tab': 'notes' };
+const GENERIC_EMPTY = {
+  claims: 'No claims on file for this contact.',
+  billing: 'No open invoices for this contact.',
+  files: 'No files uploaded for this contact.',
+  texts: 'No text message history for this contact.',
+  smartflows: 'No Smartflows have run for this contact.',
+  log: 'No activity log entries yet.'
+};
+
+function openContact(scenarioIndex) {
+  currentScenario = SCENARIOS[scenarioIndex];
+  associatedForCurrent = state.associated[currentScenario.id] || [];
+  document.getElementById('dashSearchResults').classList.remove('qq-open');
+  document.getElementById('dashSearchFlyout').classList.remove('qq-open');
+  renderContactScreen(currentScenario);
+  showScreen('screen-contact');
+}
+
+function renderContactScreen(s) {
+  document.getElementById('contactHdName').textContent = insuredName(s);
+  document.getElementById('contactHdAddress').textContent = insuredAddressLine1(s) + ', ' + insuredCity(s) + ', ' + insuredState(s) + ' ' + insuredZip(s);
+  document.getElementById('contactHdSince').textContent = insuredCity(s) + ', ' + insuredState(s);
+  document.getElementById('infoInsuredName').textContent = insuredName(s);
+  document.getElementById('infoInsuredAddress').textContent = insuredAddressLine1(s) + ', ' + insuredCity(s) + ', ' + insuredState(s) + ' ' + insuredZip(s);
+  document.getElementById('infoAddressLine').textContent = insuredAddressLine1(s) + ', ' + insuredCity(s) + ', ' + insuredState(s) + ' ' + insuredZip(s);
+
+  const req = parseRequester(s);
+  document.getElementById('businessContactsBody').innerHTML = req.name ?
+    ('<tr><td><b>' + escapeHtml(req.name) + '</b><div style="font-size:11px;color:var(--qq-muted);">Primary Contact</div></td><td>' +
+     escapeHtml(req.email) + '</td><td>' + escapeHtml(req.role) + '</td></tr>') :
+    '<tr><td colspan="3" class="qq-empty-state">No business contacts on file.</td></tr>';
+
+  // Policies tab
+  document.getElementById('policiesTabBody').innerHTML = s.policyEvidence.map(p =>
+    '<div class="qq-policy-block"><div class="qq-policy-block-hd">' + escapeHtml(p.label) + '</div>' +
+    p.lines.map(l => '<div class="qq-policy-block-line">' + escapeHtml(l) + '</div>').join('') + '</div>'
+  ).join('') + (s.agencyNotes || []).map(n =>
+    '<div class="qq-note-block"><b>' + escapeHtml(n.label) + ':</b> ' + n.lines.map(escapeHtml).join(' ') + '</div>'
+  ).join('');
+
+  // Emails tab
+  document.getElementById('emailsTabBody').innerHTML =
+    '<div class="qq-email-item"><div class="qq-email-hd"><div><div class="qq-email-subject">' + escapeHtml(parseEmailSubject(s)) +
+    '</div><div class="qq-email-meta">From: ' + escapeHtml(req.name) + ' &lt;' + escapeHtml(req.email) + '&gt;</div></div></div>' +
+    '<div class="qq-email-body">' + escapeHtml(parseEmailBody(s)) + '</div></div>';
+
+  // Notes tab
+  document.getElementById('notesTabBody').innerHTML = (s.agencyNotes && s.agencyNotes.length) ?
+    s.agencyNotes.map(n => '<div class="qq-note-block">' + n.lines.map(escapeHtml).join('<br>') + '</div>').join('') :
+    '<div class="qq-empty-state">No account notes on file.</div>';
+
+  // ACORD tab
+  const done = state.passed[s.id];
+  document.getElementById('acordTabBody').innerHTML = done ?
+    '<table class="qq-table"><thead><tr><th>Form</th><th>Certificate #</th><th>Status</th></tr></thead><tbody>' +
+    '<tr><td>CERTIFICATE OF LIABILITY INSURANCE (2016/03)</td><td>' + escapeHtml(checkVal(s, 'F[0].P1[0].CertificateOfInsurance_CertificateNumberIdentifier_A[0]')) +
+    '</td><td style="color:#2e7d32;font-weight:700;">Completed</td></tr></tbody></table>' :
+    '<div class="qq-empty-state">No ACORD forms on file for this contact.</div>';
+
+  renderContactTabs('info');
+}
+
+function renderContactTabs(activeKey) {
+  const wrap = document.getElementById('contactTabs');
+  wrap.innerHTML = TAB_DEFS.map(t =>
+    '<button class="qq-tab' + (t.key === activeKey ? ' qq-tab-active' : '') + '" onclick="selectContactTab(\'' + t.key + '\')">' + t.label + '</button>'
+  ).join('');
+  document.querySelectorAll('.qq-panel').forEach(p => p.classList.remove('qq-panel-active'));
+  const panelKey = TAB_PANEL_MAP[activeKey] || 'generic';
+  if (panelKey === 'generic') document.getElementById('genericPanelText').textContent = GENERIC_EMPTY[activeKey] || 'Nothing on file.';
+  document.querySelector('.qq-panel[data-panel="' + panelKey + '"]').classList.add('qq-panel-active');
+}
+function selectContactTab(key) { renderContactTabs(key); }
+
+// ==== Add ACORD Form flow: Policies Found ====
+function openPoliciesFoundModal() {
+  const s = currentScenario;
+  const rows = LOB_DEFS.filter(l => lobHasEvidence(s, l)).map(l =>
+    '<tr><td>' + escapeHtml(lobEffDate(s, l)) + '</td><td>' + escapeHtml(lobExpDate(s, l)) + '</td><td>' + escapeHtml(l.label) +
+    '</td><td>' + escapeHtml(lobInsurerName(s, l)) + '</td><td>' + escapeHtml(lobPolicyNumber(s, l)) + '</td><td>Active</td></tr>'
+  ).join('');
+  document.getElementById('policiesFoundBody').innerHTML = rows || '<tr><td colspan="6" class="qq-empty-state">No active policies on file for this contact.</td></tr>';
+  document.getElementById('modalPoliciesFound').hidden = false;
+}
+function confirmPoliciesFound() {
+  closeModal('modalPoliciesFound');
+  renderAcordList();
+  showScreen('screen-acord-list');
+}
+
+// ==== ACORD list ====
+function renderAcordList() {
+  selectedAcordRow = null;
+  document.getElementById('acordListNextBtn').disabled = true;
+  document.getElementById('acordListRows').innerHTML = ACORD_LIST_ROWS.map(r =>
+    '<div class="qq-acord-row' + (r.id ? ' qq-selectable' : '') + '" data-num="' + r.num + '" ' +
+    (r.id ? ('onclick="selectAcordRow(' + r.num + ')"') : ('onclick="showToast(\'Only ACORD 25 is available in this training module.\')"')) + '>' +
+    '<div class="qq-acord-num">' + r.num + '</div><div>' + escapeHtml(r.label) + '</div>' +
+    '<div><select disabled><option>' + escapeHtml(r.ver) + '</option></select></div></div>'
+  ).join('');
+}
+function selectAcordRow(num) {
+  selectedAcordRow = num;
+  document.querySelectorAll('.qq-acord-row').forEach(row => row.classList.toggle('qq-selected', Number(row.dataset.num) === num));
+  document.getElementById('acordListNextBtn').disabled = false;
+}
+
+// ==== Select Policies ====
+let associatedForCurrent = [];
+function renderSelectPolicies() {
+  associatedForCurrent = state.associated[currentScenario.id] || [];
+  document.getElementById('selectPoliciesNextBtn').disabled = associatedForCurrent.length === 0;
+  renderLobTable();
+}
+function renderLobTable() {
+  const s = currentScenario;
+  document.getElementById('lobTableBody').innerHTML = LOB_DEFS.map(l => {
+    const has = lobHasEvidence(s, l);
+    const assoc = associatedForCurrent.includes(l.key);
+    if (assoc) {
+      return '<tr class="qq-lob-row"><td class="qq-lob-name">' + l.label + '</td><td>' + escapeHtml(lobEffDate(s, l)) +
+        '</td><td>' + escapeHtml(lobExpDate(s, l)) + '</td><td>' + escapeHtml(lobPolicyNumber(s, l)) +
+        '</td><td><span class="qq-lob-associated-badge">&#10003; Associated</span></td></tr>';
+    }
+    return '<tr class="qq-lob-row"><td class="qq-lob-name">' + l.label + '</td><td colspan="3" class="qq-lob-status' + (has ? ' qq-lob-available' : '') + '">' +
+      (has ? 'POLICIES AVAILABLE FOR THIS LINE' : 'NO POLICIES TO DISPLAY FOR THIS LINE') +
+      '</td><td><a class="qq-lob-associate-link" onclick="associateLob(\'' + l.key + '\')">+ Associate Policy</a></td></tr>';
+  }).join('');
+}
+function associateLob(key) {
+  const lobDef = LOB_DEFS.find(l => l.key === key);
+  if (!lobHasEvidence(currentScenario, lobDef)) {
+    showToast('No policies are available to associate for this line of business.');
+    return;
+  }
+  if (!associatedForCurrent.includes(key)) associatedForCurrent.push(key);
+  state.associated[currentScenario.id] = associatedForCurrent;
+  saveState();
+  renderLobTable();
+  document.getElementById('selectPoliciesNextBtn').disabled = associatedForCurrent.length === 0;
+}
+function goToSelectPolicies() {
+  if (selectedAcordRow !== 25) { showToast('Select ACORD 25 - Certificate of Liability Insurance first.'); return; }
+  renderSelectPolicies();
+  showScreen('screen-select-policies');
+}
+function goToAcordForm() {
+  renderAcordForm();
+  showScreen('screen-acord-form');
+}
+
+// ==== ACORD form ====
+function buildAcordFields() {
+  const page = document.getElementById('acordPage');
+  page.innerHTML = '';
+  fieldMap = {};
+  FIELDS.forEach(field => {
+    const el = field.name.includes('RemarkText') ? document.createElement('textarea') : document.createElement('input');
+    if (field.type === 'checkbox') el.type = 'checkbox';
+    else if (el.tagName === 'INPUT') el.type = 'text';
+    el.className = makeFieldClass(field);
+    el.dataset.field = field.name;
+    el.title = fieldLabel(field.name);
+    el.style.left = (field.x / FORM_W * 100).toFixed(4) + '%';
+    el.style.top = (field.y / FORM_H * 100).toFixed(4) + '%';
+    el.style.width = (field.w / FORM_W * 100).toFixed(4) + '%';
+    el.style.height = (field.h / FORM_H * 100).toFixed(4) + '%';
+    el.addEventListener('input', () => { el.classList.remove('qq-error', 'qq-correct'); persistForm(); });
+    el.addEventListener('change', () => { el.classList.remove('qq-error', 'qq-correct'); persistForm(); });
+    page.appendChild(el);
+    fieldMap[field.name] = el;
+  });
+}
+function persistForm() {
+  const form = {};
+  Object.entries(fieldMap).forEach(([name, el]) => { form[name] = el.type === 'checkbox' ? !!el.checked : el.value; });
+  state.forms[currentScenario.id] = form;
+  saveState();
+}
+function loadPersistedForm() {
+  const form = state.forms[currentScenario.id] || {};
+  Object.entries(fieldMap).forEach(([name, el]) => {
+    if (el.type === 'checkbox') el.checked = !!form[name];
+    else el.value = form[name] || '';
+  });
+}
+function applyAutoFill() {
+  const s = currentScenario;
+  s.expectedResults.checks.forEach(check => {
+    if (!isAutoFillField(check.field)) return;
+    const el = fieldMap[check.field];
+    if (!el || el.value) return;
+    el.value = check.value;
+    el.classList.add('qq-autofill');
+  });
+  (state.associated[s.id] || []).forEach(key => {
+    const lobDef = LOB_DEFS.find(l => l.key === key);
+    if (!lobDef.policyPrefix) return;
+    ['PolicyNumberIdentifier', 'EffectiveDate', 'ExpirationDate'].forEach(suffix => {
+      const fieldName = 'F[0].P1[0].' + lobDef.policyPrefix + suffix + '_A[0]';
+      const el = fieldMap[fieldName];
+      if (el && !el.value) { el.value = checkVal(s, fieldName); el.classList.add('qq-autofill'); }
+    });
+  });
+  persistForm();
+}
+function renderAcordForm() {
+  buildAcordFields();
+  loadPersistedForm();
+  applyAutoFill();
+}
+function cancelAcordForm() {
+  if (!confirm('Discard this certificate and return to the contact record?')) return;
+  showScreen('screen-contact');
+}
+
+// ==== Manage Certificate Holders ====
+function openCertHolderModal() {
+  const lines = reqBlock(currentScenario, 'Certificate Holder / Requestor');
+  document.getElementById('certHolderRefText').textContent = lines.join('\n');
+  document.getElementById('chName').value = '';
+  document.getElementById('chLine1').value = '';
+  document.getElementById('chLine2').value = '';
+  document.getElementById('chCity').value = '';
+  document.getElementById('chState').value = '';
+  document.getElementById('chZip').value = '';
+  document.getElementById('modalCertHolder').hidden = false;
+}
+function applyCertHolder() {
+  const map = {
+    'F[0].P1[0].CertificateHolder_FullName_A[0]': document.getElementById('chName').value,
+    'F[0].P1[0].CertificateHolder_MailingAddress_LineOne_A[0]': document.getElementById('chLine1').value,
+    'F[0].P1[0].CertificateHolder_MailingAddress_LineTwo_A[0]': document.getElementById('chLine2').value,
+    'F[0].P1[0].CertificateHolder_MailingAddress_CityName_A[0]': document.getElementById('chCity').value,
+    'F[0].P1[0].CertificateHolder_MailingAddress_StateOrProvinceCode_A[0]': document.getElementById('chState').value,
+    'F[0].P1[0].CertificateHolder_MailingAddress_PostalCode_A[0]': document.getElementById('chZip').value
+  };
+  Object.entries(map).forEach(([name, val]) => { if (fieldMap[name]) { fieldMap[name].value = val; fieldMap[name].classList.remove('qq-autofill'); } });
+  persistForm();
+  closeModal('modalCertHolder');
+}
+
+// ==== Save & grade ====
+function saveAndClose() {
+  persistForm();
+  Object.values(fieldMap).forEach(el => el.classList.remove('qq-error', 'qq-correct'));
+  const s = currentScenario;
+  const form = state.forms[s.id] || {};
+  const errors = [];
+  let correct = 0;
+  const total = s.expectedResults.checks.length + s.expectedResults.blankChecks.length;
+
+  s.expectedResults.checks.forEach(check => {
+    const actual = form[check.field];
+    const ok = compareValue(actual, check.value, check.compare);
+    if (fieldMap[check.field]) fieldMap[check.field].classList.add(ok ? 'qq-correct' : 'qq-error');
+    if (ok) correct += 1; else errors.push(fieldLabel(check.field) + ' should match the policy file.');
+  });
+  s.expectedResults.blankChecks.forEach(check => {
+    const actual = form[check.field];
+    const ok = isBlankValue(actual, check.compare);
+    if (fieldMap[check.field]) fieldMap[check.field].classList.add(ok ? 'qq-correct' : 'qq-error');
+    if (ok) correct += 1; else errors.push(fieldLabel(check.field) + ' should be left blank or unchecked in this scenario.');
+  });
+
+  state.attempts[s.id] = (state.attempts[s.id] || 0) + 1;
+  const passed = errors.length === 0;
+  if (passed) state.passed[s.id] = true;
+  saveState();
+
+  const score = Math.round((correct / total) * 100);
+  document.getElementById('resultModalHd').textContent = passed ? 'Certificate Saved' : 'Review Required';
+  document.getElementById('resultModalHd').className = 'qq-modal-hd' + (passed ? '' : ' qq-modal-hd-fail');
+  document.getElementById('resultScoreNum').textContent = score + '%';
+  const sub = document.getElementById('resultScoreSub');
+  sub.textContent = passed ? 'Matches the policy file - certificate issued.' : (errors.length + ' item' + (errors.length === 1 ? '' : 's') + ' need attention.');
+  sub.className = 'qq-score-sub ' + (passed ? 'qq-pass' : 'qq-fail');
+  document.getElementById('resultErrorsWrap').innerHTML = errors.length ?
+    '<ul class="qq-error-list">' + errors.map(e => '<li>' + escapeHtml(e) + '</li>').join('') + '</ul>' : '';
+  document.getElementById('resultModalFooter').innerHTML = passed ?
+    '<button class="qq-btn qq-btn-green" onclick="finishAndReturn()">Return to Contact</button>' :
+    '<button class="qq-btn qq-btn-green" onclick="closeModal(\'modalResult\')">Continue Editing</button>';
+  document.getElementById('modalResult').hidden = false;
+}
+function finishAndReturn() {
+  closeModal('modalResult');
+  renderContactScreen(currentScenario);
+  showScreen('screen-contact');
+}
+
+function wireEvents() {}
+
+bootstrap();
+</script>
+</body>
+</html>
