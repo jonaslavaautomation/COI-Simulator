@@ -8,7 +8,10 @@ import type { AcordField, Scenario } from '@/types';
 
 export const FORM_WIDTH = 612;
 export const FORM_HEIGHT = 792;
-export const ACORD_BACKGROUND = '/acord25-template.png';
+// Relative (no leading slash) so it resolves next to wherever index.html
+// itself is opened from - this app is opened directly via file://, same as
+// every other trainer page in this repo, not served from a fixed root.
+export const ACORD_BACKGROUND = 'acord25-template.png';
 
 export const FIELDS = rawFields as AcordField[];
 
