@@ -6,71 +6,80 @@
       "category": "Certificate",
       "status": "active",
       "version": "",
-      "configPath": "forms/acord-25/"
+      "configPath": "forms/acord-25/",
+      "title": "Certificate of Liability Insurance"
     },
     {
       "id": "acord-24",
       "name": "ACORD 24",
       "category": "Certificate",
-      "status": "coming-soon",
+      "status": "not-configured",
       "version": "",
-      "configPath": "forms/acord-24/"
+      "configPath": "forms/acord-24/",
+      "title": ""
     },
     {
       "id": "acord-27",
       "name": "ACORD 27",
       "category": "Certificate",
-      "status": "coming-soon",
+      "status": "not-configured",
       "version": "",
-      "configPath": "forms/acord-27/"
+      "configPath": "forms/acord-27/",
+      "title": ""
     },
     {
       "id": "acord-28",
       "name": "ACORD 28",
       "category": "Certificate",
-      "status": "coming-soon",
+      "status": "not-configured",
       "version": "",
-      "configPath": "forms/acord-28/"
+      "configPath": "forms/acord-28/",
+      "title": ""
     },
     {
       "id": "acord-125",
       "name": "ACORD 125",
       "category": "Application",
-      "status": "coming-soon",
+      "status": "not-configured",
       "version": "",
-      "configPath": "forms/acord-125/"
+      "configPath": "forms/acord-125/",
+      "title": ""
     },
     {
       "id": "acord-126",
       "name": "ACORD 126",
       "category": "Application",
-      "status": "coming-soon",
+      "status": "not-configured",
       "version": "",
-      "configPath": "forms/acord-126/"
+      "configPath": "forms/acord-126/",
+      "title": ""
     },
     {
       "id": "acord-127",
       "name": "ACORD 127",
       "category": "Application",
-      "status": "coming-soon",
+      "status": "not-configured",
       "version": "",
-      "configPath": "forms/acord-127/"
+      "configPath": "forms/acord-127/",
+      "title": ""
     },
     {
       "id": "acord-130",
       "name": "ACORD 130",
       "category": "Application",
-      "status": "coming-soon",
+      "status": "not-configured",
       "version": "",
-      "configPath": "forms/acord-130/"
+      "configPath": "forms/acord-130/",
+      "title": ""
     },
     {
       "id": "acord-140",
       "name": "ACORD 140",
       "category": "Application",
-      "status": "coming-soon",
+      "status": "not-configured",
       "version": "",
-      "configPath": "forms/acord-140/"
+      "configPath": "forms/acord-140/",
+      "title": ""
     }
   ]
 }
